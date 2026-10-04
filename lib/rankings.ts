@@ -1,3 +1,4 @@
+import { readLocalData } from "./local-data";
 export type Game = {
   id: string; week: number; date: string;
   homeId: string; awayId: string; homeName: string; awayName: string;
@@ -24,16 +25,15 @@ export type ScheduledGame = {
 type TeamSeed = { id: string; name: string; abbreviation: string; color: string; alternateColor: string };
 type TeamGame = { id: string; week: number; opponentId: string; opponent: string; pointsFor: number; pointsAgainst: number; margin: number; result: number };
 
-const endpoint = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
+
 const bounded = (value: number) => Math.max(0, Math.min(100, value));
 const curve = (difference: number, scale: number) => 50 + 50 * Math.tanh(difference / scale);
 const safeColor = (value: string | undefined) => value && /^[0-9a-f]{6}$/i.test(value) ? value : "34413e";
 
 export async function fetchWeekSchedule(season: number, week: number, signal?: AbortSignal): Promise<ScheduledGame[]> {
   if (week < 1 || week > 18) return [];
-  const response = await fetch(`${endpoint}?season=${season}&seasontype=2&week=${week}&limit=100`, { cache: "no-store", signal });
-  if (!response.ok) throw new Error(`ESPN schedule returned ${response.status}.`);
-  const data = await response.json() as { events?: Array<Record<string, unknown>> };
+  const response = await readLocalData(`${season}/week-${week}.json`, signal);
+  const data = response as { events?: Array<Record<string, unknown>> };
   return (data.events ?? []).flatMap((event) => {
     const competition = (event.competitions as Array<Record<string, unknown>> | undefined)?.[0];
     const competitors = competition?.competitors as Array<Record<string, unknown>> | undefined;
@@ -58,9 +58,8 @@ export async function fetchWeekSchedule(season: number, week: number, signal?: A
 
 export async function fetchSeasonGames(season: number): Promise<Game[]> {
   const responses = await Promise.all(Array.from({ length: 18 }, (_, index) => index + 1).map(async (week) => {
-    const response = await fetch(`${endpoint}?season=${season}&seasontype=2&week=${week}&limit=100`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`ESPN returned ${response.status}.`);
-    return { week, data: await response.json() as { events?: Array<Record<string, unknown>> } };
+    const response = await readLocalData(`${season}/week-${week}.json`);
+    return { week, data: response as { events?: Array<Record<string, unknown>> } };
   }));
 
   return responses.flatMap(({ week, data }) => (data.events ?? []).flatMap((event) => {

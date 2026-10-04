@@ -43,7 +43,7 @@ Current ties use the applicable data available at the selected week: head-to-hea
 
 ## Data source
 
-The app reads publicly available, unofficial ESPN NFL JSON endpoints in the visitor’s browser. Completed scores power the rankings; game summaries power the dashboard’s scoring-play statistics.
+GitHub Actions fetches ESPN scoreboards and scoring-play summaries hourly at minute 17 UTC, validates them, and stores JSON under `public/data/nfl/`. The browser reads only same-origin JSON. A failed sync stops deployment, preserving the last successful site.
 
 ESPN does not publish or support this project. Team names, league names, and statistics belong to their respective owners. The interface intentionally avoids team logos.
 
@@ -90,7 +90,9 @@ lib/
 
 ## Planned data workflow
 
-The next production step is a scheduled GitHub Action that saves ESPN snapshots as versioned JSON. That will make pregame forecasts auditable and allow clean “prediction vs. actual” reporting after each game.
+Enable GitHub Pages with Source set to GitHub Actions. The workflow runs on main pushes, manual dispatch, and hourly schedules. GitHub may delay scheduled jobs. JSON is included in the deployed Pages artifact and reused through Actions cache; it is not committed. Archived seasons from 2022 are reused; current-season scores and summaries refresh each run.
+
+Run `pnpm data:refresh` before local development, `pnpm test:data` for validation checks, and `pnpm build:github` for a static export. This workflow publishes GitHub Pages. The existing Sites URL needs a separate deployment. Pregame prediction history is not yet stored.
 
 ## Disclaimer
 

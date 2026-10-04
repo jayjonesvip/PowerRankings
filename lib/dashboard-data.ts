@@ -1,3 +1,4 @@
+import { readLocalData } from "./local-data";
 import type { DashboardData, DistanceRecord, ScopeDashboard, TeamMetric } from "@/lib/dashboard-types";
 
 type TeamInfo = { id: string; name: string; abbreviation: string };
@@ -16,10 +17,6 @@ type ScoringPlay = {
   text: string;
   type: string;
 };
-
-const SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
-const SUMMARY = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary";
-const CACHE_VERSION = "v1";
 
 function yardsFrom(text: string) {
   const match = text.match(/(\d+)\s+Yd\b/i);
@@ -50,9 +47,8 @@ async function inBatches<T, R>(items: T[], size: number, work: (item: T) => Prom
 
 async function fetchGames(season: number, throughWeek: number, signal?: AbortSignal): Promise<Game[]> {
   const weeks = await Promise.all(Array.from({ length: throughWeek }, (_, index) => index + 1).map(async (week) => {
-    const response = await fetch(`${SCOREBOARD}?season=${season}&seasontype=2&week=${week}&limit=100`, { signal, cache: "no-store" });
-    if (!response.ok) throw new Error(`ESPN scoreboard returned ${response.status}`);
-    return { week, payload: await response.json() as { events?: Array<Record<string, unknown>> } };
+    const response = await readLocalData(`${season}/week-${week}.json`, signal);
+    return { week, payload: response as { events?: Array<Record<string, unknown>> } };
   }));
 
   return weeks.flatMap(({ week, payload }) => (payload.events ?? []).flatMap((event) => {
@@ -76,34 +72,10 @@ async function fetchGames(season: number, throughWeek: number, signal?: AbortSig
   }));
 }
 
-function cacheKey(season: number, gameId: string) {
-  return `jays-nfl-summary-${CACHE_VERSION}-${season}-${gameId}`;
-}
-
-function readCachedPlays(season: number, gameId: string): ScoringPlay[] | null {
-  try {
-    const cached = window.localStorage.getItem(cacheKey(season, gameId));
-    return cached ? JSON.parse(cached) as ScoringPlay[] : null;
-  } catch {
-    return null;
-  }
-}
-
-function cachePlays(season: number, gameId: string, plays: ScoringPlay[]) {
-  try {
-    window.localStorage.setItem(cacheKey(season, gameId), JSON.stringify(plays));
-  } catch {
-    // Private browsing or storage limits should not prevent dashboard rendering.
-  }
-}
-
 async function fetchScoringPlays(games: Game[], season: number, signal?: AbortSignal): Promise<ScoringPlay[]> {
   const summaries = await inBatches(games, 12, async (game) => {
-    const cached = readCachedPlays(season, game.id);
-    if (cached) return cached;
-    const response = await fetch(`${SUMMARY}?event=${game.id}`, { signal });
-    if (!response.ok) return [];
-    const payload = await response.json() as { scoringPlays?: Array<Record<string, unknown>> };
+    const response = await readLocalData(`${season}/summaries/${game.id}.json`, signal);
+    const payload = response as { scoringPlays?: Array<Record<string, unknown>> };
     const plays = (payload.scoringPlays ?? []).map((play) => ({
       gameId: game.id,
       week: game.week,
@@ -111,7 +83,6 @@ async function fetchScoringPlays(games: Game[], season: number, signal?: AbortSi
       text: String(play.text ?? ""),
       type: String((play.type as Record<string, string> | undefined)?.text ?? ""),
     }));
-    cachePlays(season, game.id, plays);
     return plays;
   });
   return summaries.flat();

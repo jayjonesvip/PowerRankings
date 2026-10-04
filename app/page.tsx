@@ -1,5 +1,7 @@
 "use client";
 
+import { snapshotUpdatedAt } from "@/lib/local-data";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowRight, RefreshCw, Shield, TrendingUp, Trophy } from "lucide-react";
 import { buildSnapshots, fetchSeasonGames, type SeasonSnapshot } from "@/lib/rankings";
@@ -18,9 +20,9 @@ export default function SportsHub() {
     try {
       const snapshots = buildSnapshots(await fetchSeasonGames(CURRENT_SEASON));
       setSnapshot(snapshots.at(-1) ?? null);
-      setUpdatedAt(new Date());
+      setUpdatedAt(await snapshotUpdatedAt(CURRENT_SEASON));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "ESPN data could not be loaded.");
+      setError(reason instanceof Error ? reason.message : "Stored NFL data could not be loaded.");
     } finally {
       setLoading(false);
     }
@@ -45,8 +47,8 @@ export default function SportsHub() {
   return (
     <main className="hub-page">
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Jay's Power Rankings home"><img className="brand-mark" src="/jays-logo.png" alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>THE SPORTS BOARD</small></span></a>
-        <div className="header-status"><span className="live-dot" /> ESPN data<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>THE SPORTS BOARD</small></span></a>
+        <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
       </header>
 
       <section className="hub-hero">
@@ -57,7 +59,7 @@ export default function SportsHub() {
       {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the rankings to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
 
       <section className="sports-board" aria-label="Sports rankings">
-        <a className="sport-card nfl-card" href="/nfl">
+        <a className="sport-card nfl-card" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>
           <div className="sport-card-top"><span className="sport-status"><i />Live rankings</span><b>NFL</b></div>
           <div className="sport-card-main">
             <p>Week {snapshot?.week ?? "—"} · {CURRENT_SEASON}</p>
@@ -75,7 +77,7 @@ export default function SportsHub() {
       </section>
 
       <section className="league-pulse">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>Current league pulse</h2></div><a href="/nfl">Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>Current league pulse</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full dashboard <ArrowRight /></a></div>
         <div className="pulse-grid">
           <article><span><TrendingUp />Biggest mover</span><strong>{pulse.mover ? `${pulse.mover.movement > 0 ? "+" : ""}${pulse.mover.movement}` : "—"}</strong><b>{pulse.mover?.name ?? "Updating"}</b><small>spots since last week</small></article>
           <article><span><Activity />Best offense</span><strong>{pulse.offense?.components.offense.toFixed(1) ?? "—"}</strong><b>{pulse.offense?.name ?? "Updating"}</b><small>offensive grade</small></article>

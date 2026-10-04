@@ -1,5 +1,7 @@
 "use client";
 
+import { snapshotUpdatedAt } from "@/lib/local-data";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -81,9 +83,9 @@ export default function Home() {
       setSnapshots(nextSnapshots);
       const latest = nextSnapshots.at(-1)?.week ?? 1;
       setWeek((current) => quiet && nextSnapshots.some((item) => item.week === current) ? current : latest);
-      setUpdatedAt(new Date());
+      setUpdatedAt(await snapshotUpdatedAt(selectedSeason));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "ESPN data could not be loaded.");
+      setError(reason instanceof Error ? reason.message : "Stored NFL data could not be loaded.");
     } finally { setLoading(false); }
   }, []);
 
@@ -156,8 +158,8 @@ export default function Home() {
     <main>
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
       <header className="site-header">
-        <a className="brand" href="/" aria-label="Jay's Power Rankings home"><img className="brand-mark" src="/jays-logo.png" alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>NFL POWER INDEX</small></span></a>
-        <div className="header-status"><span className="live-dot" /> ESPN data<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>NFL POWER INDEX</small></span></a>
+        <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
       </header>
 
       <section className="scoreboard-hero">
@@ -218,7 +220,7 @@ export default function Home() {
         </aside>
       </section></> : <section className="dashboard-view" id="dashboard"><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
-      <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Auto-refreshes every 5 minutes while open.</span></footer>
+      <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
   );
 }
