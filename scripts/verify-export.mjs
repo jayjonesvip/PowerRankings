@@ -48,3 +48,10 @@ if (hockey.rankingsReady && !nhlHtml.includes("All 32 NHL power rankings")) thro
 const hubHtml = await htmlText("out/index.html");
 if (!hubHtml.includes("NFL") || !hubHtml.includes("NHL") || hubHtml.includes("Loading league snapshot")) throw new Error("Home snapshot missing");
 console.log("Rendered league standings, rankings, stats and MVP explanations verified without JavaScript");
+
+for (const html of [nflHtml, nhlHtml]) {
+  if (!html.includes('id="opponent-performance"') || !html.includes("Offense above expectation") || !html.includes("Defensive suppression")) {
+    throw new Error("Opponent-adjusted metrics must appear in exported league HTML");
+  }
+}
+console.log("Opponent-adjusted performance sections verified in league HTML");

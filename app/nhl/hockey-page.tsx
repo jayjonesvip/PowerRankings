@@ -1,12 +1,15 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { BarChart3, ListOrdered, RefreshCw } from "lucide-react";
+import { AdjustedLeagueLeaders, AdjustedTeamMetrics } from "@/components/opponent-adjusted";
+import { opponentAdjustedPerformance, hockeyScoredGames } from "@/lib/opponent-adjusted";
 import { LeagueSectionLinks } from "@/components/league-section-links";
 import { NhlDivisionStandings } from "@/components/division-standings";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const NHL_SECTIONS = [
   { id: "division-standings", label: "division standings", view: "dashboard" as const },
+  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-leaders", label: "league leaders", view: "dashboard" as const },
   { id: "recent-finals", label: "recent finals", view: "dashboard" as const },
   { id: "upcoming-games", label: "upcoming games", view: "dashboard" as const },
@@ -29,6 +32,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
     finally { setLoading(false); }
   }, []);
   useEffect(() => { void load(); const timer = window.setInterval(load, 5 * 60 * 1000); return () => window.clearInterval(timer); }, [load]);
+  const adjustedMetrics = useMemo(() => opponentAdjustedPerformance(hockeyScoredGames(data?.games ?? [])), [data]);
   const season = data ? `${String(data.season).slice(0, 4)}–${String(data.season).slice(6)}` : "Current season";
   const played = data?.teams.filter(t => t.gamesPlayed > 0) ?? [];
   const offense = [...played].sort((a, b) => b.goalsFor / b.gamesPlayed - a.goalsFor / a.gamesPlayed)[0];
@@ -47,6 +51,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
     {!data && !error && <p className="forecast-loading">Loading league snapshot…</p>}
     {data && <section hidden={view !== "dashboard"} className="nhl-dashboard">
       <NhlDivisionStandings teams={data.teams} />
+      <AdjustedLeagueLeaders teams={data.teams} metrics={adjustedMetrics} sport="nhl" />
       <div className="league-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around the NHL</p><h2>League dashboard</h2></div><span>{data.completedGames} finals</span></div><div className="pulse-grid">
         <article><span>Points leader</span><strong>{standings[0]?.points ?? 0}</strong><b>{standings[0]?.name ?? "No games yet"}</b><small>standings points</small></article>
         <article><span>Best scoring average</span><strong>{offense ? (offense.goalsFor / offense.gamesPlayed).toFixed(2) : "—"}</strong><b>{offense?.name ?? "No games yet"}</b><small>goals per game</small></article>
@@ -56,7 +61,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
       <div className="nhl-games"><section className="rankings-card" id="recent-finals"><div className="section-heading"><h2>Recent finals</h2></div><div className="nhl-game-list">{finals.length ? finals.map(g => <div key={g.id}><span>{g.away} at {g.home}</span><b>{g.awayScore}–{g.homeScore} {g.decision !== "REG" ? g.decision : ""}</b><small>{new Date(g.date).toLocaleDateString("en-US", { timeZone: "America/New_York" })}</small></div>) : <p>No regular-season finals yet.</p>}</div></section><section className="rankings-card" id="upcoming-games"><div className="section-heading"><h2>Upcoming games</h2></div><div className="nhl-game-list">{upcoming.length ? upcoming.map(g => <div key={g.id}><b>{g.away} at {g.home}</b><small>{new Date(g.date).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</small><span>{["LIVE", "CRIT"].includes(g.state) ? "In progress" : "Scheduled"}</span></div>) : <p>No upcoming regular-season games in this snapshot.</p>}</div></section></div>
     </section>}
     {data && <section hidden={view !== "rankings"} className="nhl-dashboard" id="rankings">
-      {!data.rankingsReady ? <section className="league-pulse"><p className="eyebrow">Building the sample</p><h2>Rankings unlock after five games per team</h2><p>{data.teamsReady} of {data.teams.length} teams have reached five regular-season finals. Rankings activate automatically after every team qualifies.</p><div className="nhl-progress">{data.teams.map(t => <span key={t.id}>{t.abbreviation} <b>{Math.min(t.gamesPlayed, data.minimumGames)}/{data.minimumGames}</b></span>)}</div></section> : <section className="rankings-card"><div className="section-heading"><h2>All 32 NHL power rankings</h2><span>{season}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th>Rank</th><th>Team</th><th>W–L–OTL</th><th>Index</th><th>GF/G</th><th>GA/G</th><th>Last 5</th></tr></thead><tbody>{data.rankings.map(t => <tr key={t.id}><td><span className={`rank-number rank-${t.rank}`}>{t.rank}</span></td><td><b>{t.name}</b><small>Record {t.components.record.toFixed(1)} · Quality {t.components.quality.toFixed(1)}</small></td><td>{t.wins}–{t.losses}–{t.overtimeLosses}</td><td><b>{t.score.toFixed(1)}</b></td><td>{t.goalsForAverage.toFixed(2)}</td><td>{t.goalsAgainstAverage.toFixed(2)}</td><td>{t.recent.join(" · ")}</td></tr>)}</tbody></table></div></section>}
+      {!data.rankingsReady ? <section className="league-pulse"><p className="eyebrow">Building the sample</p><h2>Rankings unlock after five games per team</h2><p>{data.teamsReady} of {data.teams.length} teams have reached five regular-season finals. Rankings activate automatically after every team qualifies.</p><div className="nhl-progress">{data.teams.map(t => <span key={t.id}>{t.abbreviation} <b>{Math.min(t.gamesPlayed, data.minimumGames)}/{data.minimumGames}</b></span>)}</div></section> : <section className="rankings-card"><div className="section-heading"><h2>All 32 NHL power rankings</h2><span>{season}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th>Rank</th><th>Team</th><th>W–L–OTL</th><th>Index</th><th>GF/G</th><th>GA/G</th><th>Last 5</th><th>Opponent performance</th></tr></thead><tbody>{data.rankings.map(t => <tr key={t.id}><td><span className={`rank-number rank-${t.rank}`}>{t.rank}</span></td><td><b>{t.name}</b><small>Record {t.components.record.toFixed(1)} · Quality {t.components.quality.toFixed(1)}</small></td><td>{t.wins}–{t.losses}–{t.overtimeLosses}</td><td><b>{t.score.toFixed(1)}</b></td><td>{t.goalsForAverage.toFixed(2)}</td><td>{t.goalsAgainstAverage.toFixed(2)}</td><td>{t.recent.join(" · ")}</td><td><AdjustedTeamMetrics data={adjustedMetrics.get(t.id)} sport="nhl" /></td></tr>)}</tbody></table></div></section>}
       <aside className="method-card nhl-method"><h2>How the index works</h2><p>Standings points percentage 25% · Win quality 30% · Offense 20% · Defense 20% · Last five games 5%.</p><p>Wins earn two standings points; overtime and shootout losses earn one. Win quality combines opponent points percentage (80%) and goal margin (20%). Goals per game are compared with the league average. The index is Jay&apos;s model, separate from official standings.</p></aside>
     </section>}
     <footer><span>Unofficial analysis using NHL data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>

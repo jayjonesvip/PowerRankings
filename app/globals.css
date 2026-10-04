@@ -81,3 +81,8 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 
 /* Keep tab panels in exported HTML while showing only the selected panel. */
 [hidden] { display: none !important; }
+
+.adjusted-team-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px;border-top:1px solid #ddd;background:#f8fafc}
+.adjusted-team-metrics>div{display:flex;flex-direction:column;gap:4px}.adjusted-team-metrics span{font-size:12px;color:#526273}.adjusted-team-metrics strong{font-size:24px;color:#005a9c}.adjusted-team-metrics small{font-size:11px;color:#526273}.adjusted-team-metrics p{grid-column:1/-1;margin:0;font-size:14px;line-height:1.5;color:#526273}.adjusted-sample{grid-column:1/-1}
+.adjusted-leaders{margin:24px 0}.adjusted-leader-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.adjusted-leader-grid ol{list-style:none;padding:0;margin:0}.adjusted-leader-grid li{display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid #ddd}.adjusted-leader-grid li small{display:block;font-size:12px;font-weight:400;color:#526273;margin-top:4px}.adjusted-leader-grid li strong{color:#005a9c;font-size:24px;white-space:nowrap;text-align:right}.adjusted-method{font-size:13px;line-height:1.6;color:#526273;margin:12px 0}.adjusted-empty{padding:16px 20px;color:#526273}.nhl-table .adjusted-team-metrics{min-width:280px;padding:12px;border:0;white-space:normal}.nhl-table .adjusted-team-metrics strong{font-size:20px}
+@media(max-width:650px){.adjusted-leader-grid{grid-template-columns:1fr}.adjusted-leaders .dashboard-heading{align-items:flex-start;gap:8px;flex-direction:column}.adjusted-team-metrics{padding:16px}}

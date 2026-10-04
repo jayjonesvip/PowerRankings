@@ -112,3 +112,7 @@ Run `pnpm data:refresh:nhl` before a local static build. NHL scores use authorit
 ## NFL league MVPs
 
 The current dashboard shows separate offensive and defensive statistical MVPs, with a plain-language reason. Actions retains completed-game player box scores and runs `pnpm data:refresh:mvp` after the NFL sync. It publishes `public/data/nfl/mvp-current.json`; browsers read only this same-origin JSON. Picks use 75% position-standardized production per team game and 25% efficiency/disruption. Qualifying players need two appearances and a minimum workload. Blocking, coverage quality, and special teams are outside the model. Run both NFL refresh commands before a local build.
+
+### Opponent-adjusted performance
+
+NFL and NHL dashboards show leaders in offense above expectation and defensive suppression, with team comparisons in the rankings. For each completed game, offense is scoring minus the opponent's average allowed in its other games; defense is the opponent's average scoring in its other games minus scoring allowed. The evaluated game is excluded from both baselines. Opponents need two other completed games. Each qualifying game has equal weight, and both metrics reward positive values. Leaderboards require three qualifying games; samples below five are labeled limited. NHL shootout deciding goals are removed, while overtime goals count. NFL scoring includes offense, defense and special teams. These descriptive comparisons use stored same-origin JSON, are prerendered in page HTML, and do not alter the power-ranking formula.

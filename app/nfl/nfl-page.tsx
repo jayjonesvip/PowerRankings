@@ -1,5 +1,7 @@
 "use client";
 
+import { AdjustedLeagueLeaders, AdjustedTeamMetrics } from "@/components/opponent-adjusted";
+import { opponentAdjustedPerformance } from "@/lib/opponent-adjusted";
 import { snapshotUpdatedAt } from "@/lib/local-data";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -16,6 +18,7 @@ import { buildSnapshots, fetchSeasonGames, type Game, type RankedTeam, type Seas
 const NFL_SECTIONS = [
   { id: "division-standings", label: "division standings", view: "dashboard" as const },
   { id: "league-mvps", label: "offensive and defensive MVPs", view: "dashboard" as const },
+  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-stats", label: "league stats", view: "dashboard" as const },
   { id: "touchdown-types", label: "touchdown types", view: "dashboard" as const },
   { id: "distance-records", label: "distance records", view: "dashboard" as const },
@@ -89,6 +92,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
     return () => window.clearInterval(timer);
   }, [season, load]);
 
+  const adjustedMetrics = useMemo(() => opponentAdjustedPerformance(games), [games]);
   const snapshot = snapshots.at(-1);
   const week = snapshot?.week ?? 1;
   const nextOpponents = useNextOpponents(season, week, snapshot?.teams ?? [], updatedAt?.toISOString() ?? "");
@@ -188,6 +192,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
                       <Movement value={team.movement} />
                     </div>
                     <TeamDetail team={team} />
+                    <AdjustedTeamMetrics data={adjustedMetrics.get(team.id)} sport="nfl" />
                     <NextOpponent team={team} note={nextOpponents.get(team.id)} />
                   </article>
                 ))}
@@ -208,7 +213,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
       </section>}
-      {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
+      {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
       <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
