@@ -1,0 +1,54 @@
+name: Sync NFL data and deploy PowerRankings
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:data
+      - uses: actions/cache@v4
+        with:
+          path: public/data/nfl
+          key: nfl-json-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: nfl-json-
+      - run: pnpm data:refresh
+      - uses: actions/configure-pages@v5
+        id: pages
+      - run: pnpm build:github
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - run: node scripts/verify-export.mjs
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: out
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
