@@ -60,20 +60,20 @@ export default function SportsHub({ initial, initialHockey }: { initial: Awaited
   return (
     <main className="hub-page">
       <header className="site-header">
-        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>THE SPORTS BOARD</small></span></a>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's League Pulse cartoon logo" width="52" height="52" /><span><b>Jay's League Pulse</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
         <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
       </header>
 
       <section className="hub-hero">
-        <div><p className="eyebrow">Jay's sports command center</p><h1>Every league.<br /><em>One honest board.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL board</a>, <a href="#nhl-board">NHL board</a>, and <a href="#nba-board">NBA preview</a>. Jump to the <a href="#league-pulse">NFL league pulse</a> for the biggest mover, top offense and defense, and games counted—all from the latest snapshot.</p></div>
-        <div className="hub-live-mark"><span>LIVE BOARD</span><b>{snapshot?.teams.length ?? "—"}</b><small>NFL TEAMS RANKED</small></div>
+        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>Jay’s League Pulse.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, and <a href="#nba-board">NBA preview</a>. Jump to the <a href="#league-pulse">NFL league pulse</a> for the biggest mover, top offense and defense, and games counted—all from the latest snapshot.</p></div>
+        <div className="hub-live-mark"><span>CURRENT SNAPSHOT</span><b>{snapshot?.teams.length ?? "—"}</b><small>NFL TEAMS TRACKED</small></div>
       </section>
 
-      {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the rankings to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
+      {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the NFL dashboard to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
 
-      <section className="sports-board" aria-label="Sports rankings">
+      <section className="sports-board" aria-label="League snapshots">
         <a id="nfl-board" className="sport-card nfl-card" data-sport="nfl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>
-          <div className="sport-card-top"><span className="sport-status"><i />Live rankings</span><b>NFL</b></div>
+          <div className="sport-card-top"><span className="sport-status"><i />Current snapshot</span><b>NFL</b></div>
           <div className="sport-card-main">
             <p>Week {snapshot?.week ?? "—"} · {CURRENT_SEASON}</p>
             <h2>{loading && !snapshot ? "Updating the board…" : pulse.leader ? <>#1 {pulse.leader.name}</> : "Season board"}</h2>
@@ -84,13 +84,13 @@ export default function SportsHub({ initial, initialHockey }: { initial: Awaited
 
         <a id="nhl-board" className="sport-card nhl-card" data-sport="nhl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
           <div className="sport-card-top"><span className="sport-status"><i />League dashboard live</span><b>NHL</b></div>
-          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL Power Rankings"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
+          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL League Pulse"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
           <div className="sport-card-action">{hockey?.rankingsReady ? "Open rankings and dashboard" : "Open dashboard · Rankings after five games per team"} <ArrowRight /></div>
         </a>
 
         <article id="nba-board" className="sport-card nba-card" data-sport="nba">
           <div className="sport-card-top"><span className="sport-status pending">Next league</span><b>NBA</b></div>
-          <div className="sport-card-main"><p>Coming this season</p><h2>NBA Power Rankings</h2><span>The board activates after teams have played enough games for opponent quality and scoring efficiency to mean something.</span></div>
+          <div className="sport-card-main"><p>Coming this season</p><h2>NBA League Pulse</h2><span>The board activates after teams have played enough games for opponent quality and scoring efficiency to mean something.</span></div>
           <div className="sport-card-action muted">Launching after five games per team</div>
         </article>
       </section>

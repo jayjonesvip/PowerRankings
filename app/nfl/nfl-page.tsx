@@ -103,7 +103,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
   const structuredData = snapshot ? {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `Jay's NFL Power Rankings Week ${week}, ${season}`,
+    name: `Jay's League Pulse: NFL Power Rankings Week ${week}, ${season}`,
     description: `Data-driven rankings of all 32 NFL teams through Week ${week} of the ${season} season.`,
     numberOfItems: snapshot.teams.length,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
@@ -152,12 +152,12 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
     <main data-sport="nfl">
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
       <header className="site-header">
-        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>NFL POWER INDEX</small></span></a>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's League Pulse cartoon logo" width="52" height="52" /><span><b>Jay's League Pulse</b><small>NFL LEAGUE SNAPSHOT</small></span></a>
         <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
       </header>
 
       <section className="scoreboard-hero">
-        <div><p className="eyebrow">Updated NFL team rankings</p><h1>Jay's Power Rankings<br /><em>Week {week}, {season}</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>
+        <div><p className="eyebrow">NFL standings, standouts, and team performance</p><h1>NFL League Pulse<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>
         <div className="hero-score"><span>WEEK</span><strong>{String(week).padStart(2, "0")}</strong><small>{snapshot?.completedGames ?? 0} FINAL GAMES</small></div>
       </section>
 
@@ -188,7 +188,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
                       </div>
                       <div className="team-record"><small>Record</small><b>{team.wins}–{team.losses}{team.ties ? `–${team.ties}` : ""}</b></div>
                       <div className="team-points"><small>PF / PA</small><b><span className="pf">{team.pointsFor.toFixed(0)}</span> / <span className="pa">{team.pointsAgainst.toFixed(0)}</span></b></div>
-                      <div className="team-index"><small>Index</small><strong>{team.score.toFixed(1)}</strong></div>
+                      <div className="team-index"><small>Jay’s Index</small><strong>{team.score.toFixed(1)}</strong></div>
                       <Movement value={team.movement} />
                     </div>
                     <TeamDetail team={team} />
@@ -215,7 +215,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
       </section>}
       {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
-      <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
+      <footer><span>Unofficial league analysis using publicly available ESPN data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
   );
 }
