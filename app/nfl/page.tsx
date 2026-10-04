@@ -157,7 +157,7 @@ export default function Home() {
   }, [rankings, season, week, topFirst, view]);
 
   return (
-    <main>
+    <main data-sport="nfl">
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>NFL POWER INDEX</small></span></a>

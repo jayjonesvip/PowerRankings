@@ -72,7 +72,7 @@ export default function SportsHub() {
       {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the rankings to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
 
       <section className="sports-board" aria-label="Sports rankings">
-        <a className="sport-card nfl-card" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>
+        <a className="sport-card nfl-card" data-sport="nfl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>
           <div className="sport-card-top"><span className="sport-status"><i />Live rankings</span><b>NFL</b></div>
           <div className="sport-card-main">
             <p>Week {snapshot?.week ?? "—"} · {CURRENT_SEASON}</p>
@@ -82,13 +82,13 @@ export default function SportsHub() {
           <div className="sport-card-action">Open all 32 rankings <ArrowRight /></div>
         </a>
 
-        <a className="sport-card nhl-card" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
+        <a className="sport-card nhl-card" data-sport="nhl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
           <div className="sport-card-top"><span className="sport-status"><i />League dashboard live</span><b>NHL</b></div>
           <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL Power Rankings"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
           <div className="sport-card-action">{hockey?.rankingsReady ? "Open rankings and dashboard" : "Open dashboard · Rankings after five games per team"} <ArrowRight /></div>
         </a>
 
-        <article className="sport-card nba-card">
+        <article className="sport-card nba-card" data-sport="nba">
           <div className="sport-card-top"><span className="sport-status pending">Next league</span><b>NBA</b></div>
           <div className="sport-card-main"><p>Coming this season</p><h2>NBA Power Rankings</h2><span>The board activates after teams have played enough games for opponent quality and scoring efficiency to mean something.</span></div>
           <div className="sport-card-action muted">Launching after five games per team</div>
