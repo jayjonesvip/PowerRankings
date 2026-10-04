@@ -26,3 +26,25 @@ for (const name of await readdir("out/_next/static/chunks")) {
   }
 }
 console.log("Static pages, all JSON dependencies, and browser bundles verified");
+
+// Check rendered HTML, excluding scripts/RSC props: data must be real page markup.
+const htmlText = async (path) => (await readFile(path, "utf8"))
+  .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+const nflHtml = await htmlText("out/nfl/index.html");
+if ((nflHtml.match(/class="team-card"/g) ?? []).length !== 32 ||
+    !nflHtml.includes('id="division-standings"') || !nflHtml.includes('id="league-stats"') ||
+    !nflHtml.includes('id="rankings" hidden=""') || !nflHtml.replace(/<[^>]*>/g, "").includes("AFC East")) {
+  throw new Error("NFL standings, stats and all 32 rankings must be prerendered");
+}
+for (const player of [mvp.offense, mvp.defense].filter(Boolean)) {
+  if (!nflHtml.includes(player.name) || !nflHtml.includes(player.reason.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#x27;"))) {
+    throw new Error("MVP names and explanations must be prerendered");
+  }
+}
+const nhlHtml = await htmlText("out/nhl/index.html");
+if (!nhlHtml.includes('id="division-standings"') || !nhlHtml.includes('id="rankings"') ||
+    hockey.teams.some(team => !nhlHtml.includes(team.name))) throw new Error("NHL standings must be prerendered");
+if (hockey.rankingsReady && !nhlHtml.includes("All 32 NHL power rankings")) throw new Error("NHL rankings missing from HTML");
+const hubHtml = await htmlText("out/index.html");
+if (!hubHtml.includes("NFL") || !hubHtml.includes("NHL") || hubHtml.includes("Loading league snapshot")) throw new Error("Home snapshot missing");
+console.log("Rendered league standings, rankings, stats and MVP explanations verified without JavaScript");

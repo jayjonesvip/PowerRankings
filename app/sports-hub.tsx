@@ -1,0 +1,111 @@
+"use client";
+
+import { currentNflSeason, snapshotUpdatedAt } from "@/lib/local-data";
+import type { HockeySnapshot } from "@/lib/nhl-model";
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Activity, ArrowRight, RefreshCw, Shield, TrendingUp, Trophy } from "lucide-react";
+import { buildSnapshots, fetchSeasonGames, type SeasonSnapshot } from "@/lib/rankings";
+
+const CURRENT_SEASON = currentNflSeason();
+
+export default function SportsHub({ initial, initialHockey }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot }) {
+  const [snapshot, setSnapshot] = useState<SeasonSnapshot | null>(initial.snapshots.at(-1) ?? null);
+  const [updatedAt, setUpdatedAt] = useState<Date | null>(() => new Date(initial.updatedAt));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [hockey, setHockey] = useState<HockeySnapshot | null>(initialHockey);
+  useEffect(() => {
+    const loadHockey = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/data/nhl/current.json`, { cache: "no-store" });
+        if (response.ok) setHockey(await response.json() as HockeySnapshot);
+      } catch { /* The NHL page exposes retry controls if stored data cannot be loaded. */ }
+    };
+    void loadHockey();
+    const timer = window.setInterval(loadHockey, 5 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const load = useCallback(async (quiet = false) => {
+    if (!quiet) setLoading(true);
+    setError(null);
+    try {
+      const snapshots = buildSnapshots(await fetchSeasonGames(CURRENT_SEASON));
+      setSnapshot(snapshots.at(-1) ?? null);
+      setUpdatedAt(await snapshotUpdatedAt(CURRENT_SEASON));
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Stored NFL data could not be loaded.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    load();
+    const timer = window.setInterval(() => load(true), 5 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, [load]);
+
+  const pulse = useMemo(() => {
+    const teams = snapshot?.teams ?? [];
+    return {
+      leader: teams[0],
+      mover: [...teams].sort((a, b) => b.movement - a.movement)[0],
+      offense: [...teams].sort((a, b) => b.components.offense - a.components.offense)[0],
+      defense: [...teams].sort((a, b) => b.components.defense - a.components.defense)[0],
+    };
+  }, [snapshot]);
+
+  return (
+    <main className="hub-page">
+      <header className="site-header">
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>THE SPORTS BOARD</small></span></a>
+        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
+      </header>
+
+      <section className="hub-hero">
+        <div><p className="eyebrow">Jay's sports command center</p><h1>Every league.<br /><em>One honest board.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL board</a>, <a href="#nhl-board">NHL board</a>, and <a href="#nba-board">NBA preview</a>. Jump to the <a href="#league-pulse">NFL league pulse</a> for the biggest mover, top offense and defense, and games counted—all from the latest snapshot.</p></div>
+        <div className="hub-live-mark"><span>LIVE BOARD</span><b>{snapshot?.teams.length ?? "—"}</b><small>NFL TEAMS RANKED</small></div>
+      </section>
+
+      {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the rankings to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
+
+      <section className="sports-board" aria-label="Sports rankings">
+        <a id="nfl-board" className="sport-card nfl-card" data-sport="nfl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>
+          <div className="sport-card-top"><span className="sport-status"><i />Live rankings</span><b>NFL</b></div>
+          <div className="sport-card-main">
+            <p>Week {snapshot?.week ?? "—"} · {CURRENT_SEASON}</p>
+            <h2>{loading && !snapshot ? "Updating the board…" : pulse.leader ? <>#1 {pulse.leader.name}</> : "Season board"}</h2>
+            {pulse.leader ? <span>{pulse.leader.wins}–{pulse.leader.losses}{pulse.leader.ties ? `–${pulse.leader.ties}` : ""} record · {pulse.leader.score.toFixed(1)} index</span> : <span>Rankings update after every final.</span>}
+          </div>
+          <div className="sport-card-action">Open all 32 rankings <ArrowRight /></div>
+        </a>
+
+        <a id="nhl-board" className="sport-card nhl-card" data-sport="nhl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
+          <div className="sport-card-top"><span className="sport-status"><i />League dashboard live</span><b>NHL</b></div>
+          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL Power Rankings"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
+          <div className="sport-card-action">{hockey?.rankingsReady ? "Open rankings and dashboard" : "Open dashboard · Rankings after five games per team"} <ArrowRight /></div>
+        </a>
+
+        <article id="nba-board" className="sport-card nba-card" data-sport="nba">
+          <div className="sport-card-top"><span className="sport-status pending">Next league</span><b>NBA</b></div>
+          <div className="sport-card-main"><p>Coming this season</p><h2>NBA Power Rankings</h2><span>The board activates after teams have played enough games for opponent quality and scoring efficiency to mean something.</span></div>
+          <div className="sport-card-action muted">Launching after five games per team</div>
+        </article>
+      </section>
+
+      <section className="league-pulse" id="league-pulse">
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>Current league pulse</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-grid">
+          <article><span><TrendingUp />Biggest mover</span><strong>{pulse.mover ? `${pulse.mover.movement > 0 ? "+" : ""}${pulse.mover.movement}` : "—"}</strong><b>{pulse.mover?.name ?? "Updating"}</b><small>spots since last week</small></article>
+          <article><span><Activity />Best offense</span><strong>{pulse.offense?.components.offense.toFixed(1) ?? "—"}</strong><b>{pulse.offense?.name ?? "Updating"}</b><small>offensive grade</small></article>
+          <article><span><Shield />Best defense</span><strong>{pulse.defense?.components.defense.toFixed(1) ?? "—"}</strong><b>{pulse.defense?.name ?? "Updating"}</b><small>defensive grade</small></article>
+          <article><span><Trophy />Games counted</span><strong>{snapshot?.completedGames ?? "—"}</strong><b>Through Week {snapshot?.week ?? "—"}</b><small>completed NFL games</small></article>
+        </div>
+      </section>
+
+      <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>New sports join the board as their seasons begin.</span></footer>
+    </main>
+  );
+}

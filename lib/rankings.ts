@@ -56,9 +56,9 @@ export async function fetchWeekSchedule(season: number, week: number, signal?: A
   }).sort((a, b) => a.date.localeCompare(b.date));
 }
 
-export async function fetchSeasonGames(season: number): Promise<Game[]> {
+export async function fetchSeasonGames(season: number, readData: typeof readLocalData = readLocalData): Promise<Game[]> {
   const responses = await Promise.all(Array.from({ length: 18 }, (_, index) => index + 1).map(async (week) => {
-    const response = await readLocalData(`${season}/week-${week}.json`);
+    const response = await readData(`${season}/week-${week}.json`);
     return { week, data: response as { events?: Array<Record<string, unknown>> } };
   }));
 

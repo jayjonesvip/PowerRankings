@@ -45,9 +45,9 @@ async function inBatches<T, R>(items: T[], size: number, work: (item: T) => Prom
   return results;
 }
 
-async function fetchGames(season: number, throughWeek: number, signal?: AbortSignal): Promise<Game[]> {
+async function fetchGames(season: number, throughWeek: number, signal?: AbortSignal, readData: typeof readLocalData = readLocalData): Promise<Game[]> {
   const weeks = await Promise.all(Array.from({ length: throughWeek }, (_, index) => index + 1).map(async (week) => {
-    const response = await readLocalData(`${season}/week-${week}.json`, signal);
+    const response = await readData(`${season}/week-${week}.json`, signal);
     return { week, payload: response as { events?: Array<Record<string, unknown>> } };
   }));
 
@@ -72,9 +72,9 @@ async function fetchGames(season: number, throughWeek: number, signal?: AbortSig
   }));
 }
 
-async function fetchScoringPlays(games: Game[], season: number, signal?: AbortSignal): Promise<ScoringPlay[]> {
+async function fetchScoringPlays(games: Game[], season: number, signal?: AbortSignal, readData: typeof readLocalData = readLocalData): Promise<ScoringPlay[]> {
   const summaries = await inBatches(games, 12, async (game) => {
-    const response = await readLocalData(`${season}/summaries/${game.id}.json`, signal);
+    const response = await readData(`${season}/summaries/${game.id}.json`, signal);
     const payload = response as { scoringPlays?: Array<Record<string, unknown>> };
     const plays = (payload.scoringPlays ?? []).map((play) => ({
       gameId: game.id,
@@ -158,9 +158,9 @@ function aggregate(games: Game[], plays: ScoringPlay[]): ScopeDashboard {
   };
 }
 
-export async function fetchDashboardData(season: number, week: number, signal?: AbortSignal): Promise<DashboardData> {
-  const games = await fetchGames(season, week, signal);
-  const plays = await fetchScoringPlays(games, season, signal);
+export async function fetchDashboardData(season: number, week: number, signal?: AbortSignal, readData: typeof readLocalData = readLocalData): Promise<DashboardData> {
+  const games = await fetchGames(season, week, signal, readData);
+  const plays = await fetchScoringPlays(games, season, signal, readData);
   const weekGames = games.filter((game) => game.week === week);
   const weekIds = new Set(weekGames.map((game) => game.id));
   return {

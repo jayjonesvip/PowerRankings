@@ -85,9 +85,9 @@ function DashboardContent({ data }: { data: DashboardData }) {
   );
 }
 
-export function LeagueDashboard({ season, week, refreshToken }: { season: number; week: number; refreshToken: number }) {
-  const [data, setData] = useState<DashboardData | null>(null);
-  const [loading, setLoading] = useState(true);
+export function LeagueDashboard({ season, week, refreshToken, initialData }: { season: number; week: number; refreshToken: number; initialData?: DashboardData }) {
+  const [data, setData] = useState<DashboardData | null>(initialData ?? null);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

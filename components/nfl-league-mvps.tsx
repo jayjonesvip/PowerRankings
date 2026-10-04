@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import { Shield, Trophy } from "lucide-react";
 import { readLocalData } from "@/lib/local-data";
 type Mvp = { name: string; team: string; position: string; index: number; reason: string };
-type Snapshot = { schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; methodology: string };
+export type MvpSnapshot = { schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; methodology: string };
 
-export function NflLeagueMvps({ season, completedGames, refreshToken }: { season: number; completedGames: number; refreshToken: number }) {
-  const [data, setData] = useState<Snapshot | null>(null);
+export function NflLeagueMvps({ season, completedGames, refreshToken, initialData }: { season: number; completedGames: number; refreshToken: number; initialData?: MvpSnapshot }) {
+  const [data, setData] = useState<MvpSnapshot | null>(initialData ?? null);
   const [error, setError] = useState(false);
   useEffect(() => {
     const controller = new AbortController();
     setError(false);
     readLocalData("mvp-current.json", controller.signal).then((value) => {
-      const snapshot = value as Snapshot;
+      const snapshot = value as MvpSnapshot;
       if (snapshot.schemaVersion !== 1 || snapshot.season !== season || !Number.isFinite(Date.parse(snapshot.updatedAt))) throw new Error("Invalid MVP snapshot");
       setData(snapshot);
     }).catch(() => { if (!controller.signal.aborted) setError(true); });

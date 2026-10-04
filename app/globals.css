@@ -78,3 +78,6 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 .league-intro a{color:#005a9c;font-weight:700;text-decoration:underline;text-underline-offset:3px}.league-intro a:hover{color:#041e42}.league-intro a:focus-visible{outline:2px solid #005a9c;outline-offset:3px}main [id]{scroll-margin-top:20px}
 
 .team-abbreviation{font-weight:800;letter-spacing:.06em}.playoff-team>.team-abbreviation{font-size:11px;text-align:center}
+
+/* Keep tab panels in exported HTML while showing only the selected panel. */
+[hidden] { display: none !important; }
