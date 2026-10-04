@@ -66,7 +66,7 @@ export default function Home() {
   const [snapshots, setSnapshots] = useState<SeasonSnapshot[]>([]);
   const [games, setGames] = useState<Game[]>([]);
   const [week, setWeek] = useState(1);
-  const [view, setView] = useState<"rankings" | "dashboard">("rankings");
+  const [view, setView] = useState<"rankings" | "dashboard">("dashboard");
   const [dashboardRefresh, setDashboardRefresh] = useState(0);
   const [topFirst, setTopFirst] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -168,8 +168,8 @@ export default function Home() {
       </section>
 
       <nav className="view-tabs" aria-label="Site sections">
-        <button className={view === "rankings" ? "active" : ""} onClick={() => setView("rankings")}><ListOrdered />Power Rankings</button>
         <button className={view === "dashboard" ? "active" : ""} onClick={() => setView("dashboard")}><BarChart3 />League Dashboard</button>
+        <button className={view === "rankings" ? "active" : ""} onClick={() => setView("rankings")}><ListOrdered />Power Rankings</button>
       </nav>
 
       <section className="controls" aria-label="Ranking controls">
