@@ -6,7 +6,7 @@ function TeamTile({ team }: { team: PlayoffSeed }) {
   return (
     <div className="playoff-team">
       <span className="playoff-seed">{team.seed}</span>
-      <span className="playoff-swatch" style={{ "--team-color": `#${team.color}`, "--team-accent": `#${team.alternateColor}` } as React.CSSProperties}>{team.abbreviation}</span>
+      <span className="team-abbreviation" style={{ color: `#${team.color}` }}>{team.abbreviation}</span>
       <span><b>{team.name}</b><small>{team.wins}–{team.losses}{team.ties ? `–${team.ties}` : ""} · {team.divisionWinner ? `${team.division} leader` : "Wild card"}</small></span>
     </div>
   );

@@ -26,19 +26,6 @@ const NFL_SECTIONS = [
 ];
 type ModelContext = { registerTool: (tool: Record<string, unknown>, options?: { signal?: AbortSignal }) => void | Promise<void> };
 
-function tileAccent(primary: string, alternate: string) {
-  const luminance = (hex: string) => {
-    const channels = [0, 2, 4].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16) / 255).map((value) => value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
-    return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
-  };
-  const contrast = (a: string, b: string) => {
-    const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
-    return (light + 0.05) / (dark + 0.05);
-  };
-  if (contrast(primary, alternate) >= 3) return alternate;
-  return contrast(primary, "ffffff") >= contrast(primary, "090d0c") ? "ffffff" : "090d0c";
-}
-
 function Movement({ value }: { value: number }) {
   if (value > 0) return <span className="movement up" title={`Up ${value} spot${value === 1 ? "" : "s"}`}><ArrowUp aria-hidden="true" />{value}</span>;
   if (value < 0) return <span className="movement down" title={`Down ${Math.abs(value)} spots`}><ArrowDown aria-hidden="true" />{Math.abs(value)}</span>;
@@ -194,8 +181,7 @@ export default function Home() {
                     <div className="team-card-head">
                       <span className={`rank-number rank-${team.rank}`}>{team.rank}</span>
                       <div className="team-identity">
-                        <span className="team-color-tile" style={{ "--team-color": `#${team.color}`, "--team-accent": `#${tileAccent(team.color, team.alternateColor)}` } as React.CSSProperties} aria-hidden="true">{team.abbreviation}</span>
-                        <span><h3>#{team.rank} {team.name}</h3><small>{team.abbreviation}</small></span>
+                        <span><h3>#{team.rank} {team.name}</h3><small className="team-abbreviation" style={{ color: `#${team.color}` }}>{team.abbreviation}</small></span>
                       </div>
                       <div className="team-record"><small>Record</small><b>{team.wins}–{team.losses}{team.ties ? `–${team.ties}` : ""}</b></div>
                       <div className="team-points"><small>PF / PA</small><b><span className="pf">{team.pointsFor.toFixed(0)}</span> / <span className="pa">{team.pointsAgainst.toFixed(0)}</span></b></div>
