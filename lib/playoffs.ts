@@ -114,3 +114,33 @@ export function buildPlayoffPicture(games: Game[], teams: RankedTeam[], throughW
     return { conference, seeds };
   });
 }
+
+const TEAM_NAMES: Record<string, string> = {
+  BUF: "Buffalo Bills", MIA: "Miami Dolphins", NE: "New England Patriots", NYJ: "New York Jets",
+  BAL: "Baltimore Ravens", CIN: "Cincinnati Bengals", CLE: "Cleveland Browns", PIT: "Pittsburgh Steelers",
+  HOU: "Houston Texans", IND: "Indianapolis Colts", JAX: "Jacksonville Jaguars", TEN: "Tennessee Titans",
+  DEN: "Denver Broncos", KC: "Kansas City Chiefs", LV: "Las Vegas Raiders", LAC: "Los Angeles Chargers",
+  DAL: "Dallas Cowboys", NYG: "New York Giants", PHI: "Philadelphia Eagles", WSH: "Washington Commanders",
+  CHI: "Chicago Bears", DET: "Detroit Lions", GB: "Green Bay Packers", MIN: "Minnesota Vikings",
+  ATL: "Atlanta Falcons", CAR: "Carolina Panthers", NO: "New Orleans Saints", TB: "Tampa Bay Buccaneers",
+  ARI: "Arizona Cardinals", LAR: "Los Angeles Rams", SF: "San Francisco 49ers", SEA: "Seattle Seahawks",
+};
+
+export function buildDivisionStandings(games: Game[], teams: RankedTeam[], throughWeek: number) {
+  const available = new Map(teams.map(team => [team.abbreviation, team]));
+  // Show all divisions even before every team has played its first game.
+  const roster: RankedTeam[] = Object.keys(ALIGNMENT).map(abbreviation => available.get(abbreviation) ?? {
+    id: abbreviation, name: TEAM_NAMES[abbreviation], abbreviation, color: "34413e", alternateColor: "ffffff",
+    rank: 0, previousRank: 0, movement: 0, score: 0, wins: 0, losses: 0, ties: 0, pointsFor: 0, pointsAgainst: 0,
+    components: { record: 0, quality: 0, offense: 0, defense: 0, momentum: 0 }, summary: "", recentGames: [],
+  });
+  const eligible = games.filter(game => game.week <= throughWeek);
+  return (["AFC", "NFC"] as Conference[]).map(conference => ({
+    conference,
+    divisions: ["East", "North", "South", "West"].map(division => ({
+      division,
+      teams: roster.filter(team => ALIGNMENT[team.abbreviation].conference === conference && ALIGNMENT[team.abbreviation].division === division)
+        .sort(makeComparator(eligible, roster, conference, true)),
+    })),
+  }));
+}

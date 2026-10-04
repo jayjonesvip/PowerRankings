@@ -6,8 +6,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+import { NflDivisionStandings } from "@/components/division-standings";
 import { LeagueDashboard } from "@/components/league-dashboard";
-import { GameForecast } from "@/components/game-forecast";
+import { NextOpponent, useNextOpponents } from "@/components/next-opponent";
 import { PlayoffBracket } from "@/components/playoff-bracket";
 import { buildSnapshots, fetchSeasonGames, type Game, type RankedTeam, type SeasonSnapshot } from "@/lib/rankings";
 
@@ -96,6 +97,7 @@ export default function Home() {
   }, [season, load]);
 
   const snapshot = useMemo(() => snapshots.find((item) => item.week === week) ?? snapshots.at(-1), [snapshots, week]);
+  const nextOpponents = useNextOpponents(season, week, snapshot?.teams ?? [], updatedAt?.toISOString() ?? "");
   const rankings = useMemo(() => {
     const teams = [...(snapshot?.teams ?? [])];
     return topFirst ? teams : teams.reverse();
@@ -180,7 +182,7 @@ export default function Home() {
 
       {error ? <section className="error-card" role="alert"><strong>Couldn’t reach ESPN.</strong> {error}<Button onClick={() => load(season)}>Try again</Button></section> : null}
 
-      {view === "rankings" ? <><GameForecast season={season} throughWeek={week} teams={snapshot?.teams ?? []} /><section className="dashboard-grid" id="rankings">
+      {view === "rankings" ? <><section className="dashboard-grid" id="rankings">
         <div className="rankings-card">
           <div className="section-heading"><div><p className="eyebrow">Best NFL teams this week</p><h2>{season} NFL Power Rankings: All 32 Teams</h2></div><span>{loading ? "Updating…" : `Through Week ${week}`}</span></div>
           {loading && !rankings.length ? <div className="loading-list" aria-live="polite">{Array.from({ length: 5 }, (_, i) => <span key={i} />)}</div> : (
@@ -200,6 +202,7 @@ export default function Home() {
                       <Movement value={team.movement} />
                     </div>
                     <TeamDetail team={team} />
+                    <NextOpponent team={team} note={nextOpponents.get(team.id)} />
                   </article>
                 ))}
               </div>
@@ -218,7 +221,7 @@ export default function Home() {
           </div>
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
-      </section></> : <section className="dashboard-view" id="dashboard"><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
+      </section></> : <section className="dashboard-view" id="dashboard"><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
       <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>

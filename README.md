@@ -9,7 +9,7 @@ A mobile-first sports dashboard with NFL power rankings and an NHL league dashbo
 - Ranks every NFL team from 32 to 1 after each completed week
 - Explains each ranking using record, opponent quality, scoring, and defense
 - Shows week-over-week movement and recent results
-- Forecasts upcoming games with projected scores and favorites
+- Adds next-opponent matchup assessments to each NFL ranking card
 - Tracks league scoring, touchdown types, longest scores, and game extremes
 - Builds an “If the Playoffs Started Today” bracket for both conferences
 - Supports historical seasons and weekly snapshots
@@ -79,9 +79,10 @@ app/
   page.tsx                 Multi-sport home
   nfl/page.tsx             NFL rankings and dashboard
 components/
-  game-forecast.tsx        Upcoming-game projections
+  next-opponent.tsx        Next-opponent matchup assessments
   league-dashboard.tsx     League-wide statistics
   playoff-bracket.tsx      Current playoff field and matchups
+  division-standings.tsx   NHL and NFL standings grouped by division
 lib/
   rankings.ts              ESPN scores and ranking model
   dashboard-data.ts        Scoring-play aggregation
