@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#0b1412"/>
+  <path d="M16 13h36l-4 38H12z" fill="#f4c43f"/>
+  <text x="32" y="41" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="900" fill="#0b1412">JP</text>
+</svg>
