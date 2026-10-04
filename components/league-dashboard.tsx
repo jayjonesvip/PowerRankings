@@ -39,7 +39,7 @@ function DashboardContent({ data }: { data: DashboardData }) {
   const season = data.seasonStats;
   return (
     <>
-      <div className="dashboard-heading">
+      <section id="league-stats"><div className="dashboard-heading">
         <div><p className="eyebrow">League command center</p><h2>Current season by the numbers</h2></div>
         <span>{season.games} completed games</span>
       </div>
@@ -53,8 +53,9 @@ function DashboardContent({ data }: { data: DashboardData }) {
         <CompareCard icon={<Goal />} label="Most touchdowns" detail="Team leader" seasonValue={teamValue(season.mostTouchdowns)} />
       </div>
 
+      </section>
       <div className="dashboard-panels">
-        <section className="data-panel touchdown-panel">
+        <section className="data-panel touchdown-panel" id="touchdown-types">
           <div className="panel-title"><div><p className="eyebrow">Scoring DNA</p><h3>Touchdown types</h3></div><Crosshair /></div>
           <div className="td-grid">
             <TouchdownCard label="Receiving" season={season.touchdowns.receiving} tone="#005a9c" />
@@ -65,14 +66,14 @@ function DashboardContent({ data }: { data: DashboardData }) {
           <div className="scoring-foot"><span><b>{season.fieldGoals}</b> field goals this season</span><span><b>{season.safeties}</b> safeties</span></div>
         </section>
 
-        <section className="data-panel records-panel">
+        <section className="data-panel records-panel" id="distance-records">
           <div className="panel-title"><div><p className="eyebrow">Big-play board</p><h3>Distance records</h3></div><Route /></div>
           <RecordLine label="Longest touchdown" season={season.longestTouchdown} />
           <RecordLine label="Longest field goal" season={season.longestFieldGoal} />
         </section>
       </div>
 
-      <section className="data-panel game-records">
+      <section className="data-panel game-records" id="game-records">
         <div className="panel-title"><div><p className="eyebrow">Game records</p><h3>Extremes and finishes</h3></div><Sparkles /></div>
         <div className="game-record-grid">
           <div><span><ArrowDownToLine />Highest scoring</span><b>{gameValue(season.highestScoringGame)}</b><small>Season · {season.highestScoringGame?.value ?? 0} combined</small></div>

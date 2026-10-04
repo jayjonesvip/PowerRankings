@@ -32,7 +32,7 @@ export function PlayoffBracket({ games, teams, week }: { games: Game[]; teams: R
   if (teams.length < 32) return null;
   const picture = buildPlayoffPicture(games, teams, week);
   return (
-    <section className="playoff-section">
+    <section className="playoff-section" id="playoff-picture">
       <div className="playoff-heading">
         <div><p className="eyebrow">Postseason picture</p><h2>If the playoffs started today</h2></div>
         <span><ShieldCheck /> Through Week {week}</span>

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NflDivisionStandings } from "@/components/division-standings";
+import { LeagueSectionLinks } from "@/components/league-section-links";
 import { NflLeagueMvps } from "@/components/nfl-league-mvps";
 import { LeagueDashboard } from "@/components/league-dashboard";
 import { NextOpponent, useNextOpponents } from "@/components/next-opponent";
@@ -13,6 +14,16 @@ import { PlayoffBracket } from "@/components/playoff-bracket";
 import { buildSnapshots, fetchSeasonGames, type Game, type RankedTeam, type SeasonSnapshot } from "@/lib/rankings";
 
 const CURRENT_SEASON = currentNflSeason();
+const NFL_SECTIONS = [
+  { id: "division-standings", label: "division standings", view: "dashboard" as const },
+  { id: "league-mvps", label: "offensive and defensive MVPs", view: "dashboard" as const },
+  { id: "league-stats", label: "league stats", view: "dashboard" as const },
+  { id: "touchdown-types", label: "touchdown types", view: "dashboard" as const },
+  { id: "distance-records", label: "distance records", view: "dashboard" as const },
+  { id: "game-records", label: "game records", view: "dashboard" as const },
+  { id: "playoff-picture", label: "playoff picture", view: "dashboard" as const },
+  { id: "rankings", label: "power rankings", view: "rankings" as const },
+];
 type ModelContext = { registerTool: (tool: Record<string, unknown>, options?: { signal?: AbortSignal }) => void | Promise<void> };
 
 function tileAccent(primary: string, alternate: string) {
@@ -156,7 +167,7 @@ export default function Home() {
       </header>
 
       <section className="scoreboard-hero">
-        <div><p className="eyebrow">Updated NFL team rankings</p><h1>Jay's Power Rankings<br /><em>Week {week}, {season}</em></h1><p className="hero-copy">See where all 32 NFL teams rank after every final. Overall record, opponent quality, scoring margin, offense, and defense reshape the board each week.</p></div>
+        <div><p className="eyebrow">Updated NFL team rankings</p><h1>Jay's Power Rankings<br /><em>Week {week}, {season}</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>
         <div className="hero-score"><span>WEEK</span><strong>{String(week).padStart(2, "0")}</strong><small>{snapshot?.completedGames ?? 0} FINAL GAMES</small></div>
       </section>
 

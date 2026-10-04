@@ -4,7 +4,7 @@ import { buildDivisionStandings } from "@/lib/playoffs";
 
 export function NflDivisionStandings({ games, teams, week }: { games: Game[]; teams: RankedTeam[]; week: number }) {
   const conferences = buildDivisionStandings(games, teams, week);
-  return <section className="division-standings" aria-label="NFL division standings">
+  return <section className="division-standings" id="division-standings" aria-label="NFL division standings">
     <div className="dashboard-heading"><div><p className="eyebrow">Division race</p><h2>Standings by division</h2></div><span>Through Week {week}</span></div>
     {conferences.map(({ conference, divisions }) => <section className="standings-conference" key={conference}>
       <h3>{conference}</h3><div className="division-grid">{divisions.map(({ division, teams }) =>
@@ -21,7 +21,7 @@ export function NflDivisionStandings({ games, teams, week }: { games: Game[]; te
 
 export function NhlDivisionStandings({ teams }: { teams: HockeyTeam[] }) {
   const conferences = [{ conference: "Eastern", divisions: ["Atlantic", "Metropolitan"] }, { conference: "Western", divisions: ["Central", "Pacific"] }];
-  return <section className="division-standings" aria-label="NHL division standings">
+  return <section className="division-standings" id="division-standings" aria-label="NHL division standings">
     <div className="dashboard-heading"><div><p className="eyebrow">Division race</p><h2>Standings by division</h2></div><span>W–L–OTL</span></div>
     {conferences.map(({ conference, divisions }) => <section className="standings-conference" key={conference}>
       <h3>{conference} Conference</h3><div className="division-grid">{divisions.map(division => {
