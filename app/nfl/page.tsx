@@ -1,20 +1,17 @@
 "use client";
 
-import { snapshotUpdatedAt } from "@/lib/local-data";
+import { currentNflSeason, snapshotUpdatedAt } from "@/lib/local-data";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { NflDivisionStandings } from "@/components/division-standings";
 import { LeagueDashboard } from "@/components/league-dashboard";
 import { NextOpponent, useNextOpponents } from "@/components/next-opponent";
 import { PlayoffBracket } from "@/components/playoff-bracket";
 import { buildSnapshots, fetchSeasonGames, type Game, type RankedTeam, type SeasonSnapshot } from "@/lib/rankings";
 
-const FIRST_SEASON = 2022;
-const CURRENT_SEASON = new Date().getFullYear();
-const seasons = Array.from({ length: CURRENT_SEASON - FIRST_SEASON + 1 }, (_, index) => CURRENT_SEASON - index);
+const CURRENT_SEASON = currentNflSeason();
 type ModelContext = { registerTool: (tool: Record<string, unknown>, options?: { signal?: AbortSignal }) => void | Promise<void> };
 
 function tileAccent(primary: string, alternate: string) {
@@ -63,10 +60,9 @@ function TeamDetail({ team }: { team: RankedTeam }) {
 }
 
 export default function Home() {
-  const [season, setSeason] = useState(CURRENT_SEASON);
+  const season = CURRENT_SEASON;
   const [snapshots, setSnapshots] = useState<SeasonSnapshot[]>([]);
   const [games, setGames] = useState<Game[]>([]);
-  const [week, setWeek] = useState(1);
   const [view, setView] = useState<"rankings" | "dashboard">("dashboard");
   const [dashboardRefresh, setDashboardRefresh] = useState(0);
   const [topFirst, setTopFirst] = useState(false);
@@ -82,8 +78,7 @@ export default function Home() {
       setGames(games);
       const nextSnapshots = buildSnapshots(games);
       setSnapshots(nextSnapshots);
-      const latest = nextSnapshots.at(-1)?.week ?? 1;
-      setWeek((current) => quiet && nextSnapshots.some((item) => item.week === current) ? current : latest);
+      setDashboardRefresh((value) => value + 1);
       setUpdatedAt(await snapshotUpdatedAt(selectedSeason));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Stored NFL data could not be loaded.");
@@ -96,7 +91,8 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, [season, load]);
 
-  const snapshot = useMemo(() => snapshots.find((item) => item.week === week) ?? snapshots.at(-1), [snapshots, week]);
+  const snapshot = snapshots.at(-1);
+  const week = snapshot?.week ?? 1;
   const nextOpponents = useNextOpponents(season, week, snapshot?.teams ?? [], updatedAt?.toISOString() ?? "");
   const rankings = useMemo(() => {
     const teams = [...(snapshot?.teams ?? [])];
@@ -121,12 +117,10 @@ export default function Home() {
       void Promise.resolve(context.registerTool({
         name: "set_rankings_view",
         title: "Set rankings view",
-        description: "Change the visible NFL power rankings season, week, or sort direction.",
+        description: "Change the current NFL dashboard tab or rankings sort direction.",
         inputSchema: {
           type: "object",
           properties: {
-            season: { type: "integer", minimum: FIRST_SEASON, maximum: CURRENT_SEASON },
-            week: { type: "integer", minimum: 1, maximum: 18 },
             topFirst: { type: "boolean" },
             view: { type: "string", enum: ["rankings", "dashboard"] },
           },
@@ -134,14 +128,10 @@ export default function Home() {
         },
         annotations: { readOnlyHint: false, untrustedContentHint: false },
         execute(input: unknown) {
-          const values = input as { season?: number; week?: number; topFirst?: boolean; view?: "rankings" | "dashboard" };
-          if (values.season !== undefined && !seasons.includes(values.season)) throw new Error("Season is not available.");
-          if (values.week !== undefined && (values.week < 1 || values.week > 18)) throw new Error("Week must be between 1 and 18.");
-          if (values.season !== undefined) setSeason(values.season);
-          if (values.week !== undefined) setWeek(values.week);
+          const values = input as { topFirst?: boolean; view?: "rankings" | "dashboard" };
           if (values.topFirst !== undefined) setTopFirst(values.topFirst);
           if (values.view !== undefined) setView(values.view);
-          return { season: values.season ?? season, week: values.week ?? week, topFirst: values.topFirst ?? topFirst, view: values.view ?? view };
+          return { season, week, topFirst: values.topFirst ?? topFirst, view: values.view ?? view };
         },
       }, { signal: lifecycle.signal })).catch(report);
       void Promise.resolve(context.registerTool({
@@ -174,10 +164,9 @@ export default function Home() {
         <button className={view === "rankings" ? "active" : ""} onClick={() => setView("rankings")}><ListOrdered />Power Rankings</button>
       </nav>
 
-      <section className="controls" aria-label="Ranking controls">
-        <label><span>Season</span><NativeSelect value={season} onChange={(event) => setSeason(Number(event.target.value))}>{seasons.map((year) => <NativeSelectOption value={year} key={year}>{year}</NativeSelectOption>)}</NativeSelect></label>
-        <label><span>Through week</span><NativeSelect value={week} onChange={(event) => setWeek(Number(event.target.value))} disabled={!snapshots.length}>{snapshots.map((item) => <NativeSelectOption value={item.week} key={item.week}>Week {item.week}</NativeSelectOption>)}</NativeSelect></label>
-        <div className="control-actions">{view === "rankings" ? <Button variant="outline" onClick={() => setTopFirst((value) => !value)}>{topFirst ? <ChevronDown /> : <ChevronUp />}{topFirst ? "Show 32 → 1" : "Show 1 → 32"}</Button> : null}<Button onClick={() => { load(season); setDashboardRefresh((value) => value + 1); }} disabled={loading}><RefreshCw className={loading ? "spin" : ""} />Refresh</Button></div>
+      <section className="controls" aria-label="Current snapshot controls">
+        <span>{season} NFL · Current snapshot</span>
+        <div className="control-actions">{view === "rankings" ? <Button variant="outline" onClick={() => setTopFirst((value) => !value)}>{topFirst ? <ChevronDown /> : <ChevronUp />}{topFirst ? "Show 32 → 1" : "Show 1 → 32"}</Button> : null}<Button onClick={() => { load(season); }} disabled={loading}><RefreshCw className={loading ? "spin" : ""} />Refresh</Button></div>
       </section>
 
       {error ? <section className="error-card" role="alert"><strong>Couldn’t reach ESPN.</strong> {error}<Button onClick={() => load(season)}>Try again</Button></section> : null}
@@ -211,7 +200,7 @@ export default function Home() {
         </div>
 
         <aside className="method-card">
-          <p className="eyebrow">The formula</p><h2>Five signals.<br />One honest score.</h2><p>Each category is graded from 0–100 against the league through the selected week.</p>
+          <p className="eyebrow">The formula</p><h2>Five signals.<br />One honest score.</h2><p>Each category is graded from 0–100 against the league through the latest completed games.</p>
           <div className="weights">
             <div><span className="weight-icon yellow"><Trophy /></span><span><b>25%</b><small>Overall record</small></span></div>
             <div><span className="weight-icon blue"><Swords /></span><span><b>30%</b><small>Win quality</small></span></div>

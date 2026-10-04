@@ -1,3 +1,6 @@
+export function currentNflSeason(now = new Date()) {
+  return now.getUTCFullYear() - (now.getUTCMonth() < 2 ? 1 : 0);
+}
 export const dataPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/data/nfl/${path}`;
 export async function readLocalData(path: string, signal?: AbortSignal) {
   const response = await fetch(dataPath(path), { cache: "no-store", signal });

@@ -78,3 +78,5 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 [data-sport] .dashboard-heading{border-radius:4px;margin-bottom:18px}
 [data-sport].sport-card .sport-card-top{margin:-26px -26px 20px;padding:18px 26px;min-height:70px}
 @media(max-width:760px){[data-sport].sport-card .sport-card-top{margin:-20px -20px 20px;padding:16px 20px}[data-sport] .panel-title,[data-sport] .section-heading,[data-sport] .dashboard-heading{padding:14px 12px}}
+
+.compare-values,.record-line{grid-template-columns:1fr}.record-line{grid-template-columns:1fr 1fr}

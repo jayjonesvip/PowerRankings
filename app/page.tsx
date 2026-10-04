@@ -1,13 +1,13 @@
 "use client";
 
-import { snapshotUpdatedAt } from "@/lib/local-data";
+import { currentNflSeason, snapshotUpdatedAt } from "@/lib/local-data";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowRight, RefreshCw, Shield, TrendingUp, Trophy } from "lucide-react";
 import { buildSnapshots, fetchSeasonGames, type SeasonSnapshot } from "@/lib/rankings";
 
-const CURRENT_SEASON = new Date().getFullYear();
+const CURRENT_SEASON = currentNflSeason();
 
 export default function SportsHub() {
   const [snapshot, setSnapshot] = useState<SeasonSnapshot | null>(null);
