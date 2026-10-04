@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NflDivisionStandings } from "@/components/division-standings";
+import { NflLeagueMvps } from "@/components/nfl-league-mvps";
 import { LeagueDashboard } from "@/components/league-dashboard";
 import { NextOpponent, useNextOpponents } from "@/components/next-opponent";
 import { PlayoffBracket } from "@/components/playoff-bracket";
@@ -210,7 +211,7 @@ export default function Home() {
           </div>
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
-      </section></> : <section className="dashboard-view" id="dashboard"><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
+      </section></> : <section className="dashboard-view" id="dashboard"><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
       <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>

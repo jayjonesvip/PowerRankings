@@ -108,3 +108,7 @@ Built by [Jay Jones](https://github.com/jayjonesvip).
 The hourly workflow also fetches official NHL standings and all 32 team schedules. Preseason and playoffs are excluded. Stored JSON lives at `public/data/nhl/current.json` and is published with the site. The NHL page opens on League Dashboard; Power Rankings is the second tab. Rankings automatically activate when all 32 teams have five completed regular-season games. Standings and schedule game counts must agree before publishing; invalid, inconsistent, or truncated responses stop deployment. No manual data confirmation is needed.
 
 Run `pnpm data:refresh:nhl` before a local static build. NHL scores use authoritative standings points (including overtime losses), goal rates, opponent quality, and five-game recent form. The standings table is a league overview and does not implement all official playoff tiebreakers.
+
+## NFL league MVPs
+
+The current dashboard shows separate offensive and defensive statistical MVPs, with a plain-language reason. Actions retains completed-game player box scores and runs `pnpm data:refresh:mvp` after the NFL sync. It publishes `public/data/nfl/mvp-current.json`; browsers read only this same-origin JSON. Picks use 75% position-standardized production per team game and 25% efficiency/disruption. Qualifying players need two appearances and a minimum workload. Blocking, coverage quality, and special teams are outside the model. Run both NFL refresh commands before a local build.

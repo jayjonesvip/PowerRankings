@@ -15,6 +15,7 @@
     "data:refresh": "node scripts/refresh-nfl.mjs",
     "build:github": "next build",
     "test:data": "node --test tests/*.test.mjs",
+    "data:refresh:mvp": "node scripts/refresh-nfl-mvp.mjs",
     "data:refresh:nhl": "node scripts/refresh-nhl.mjs"
   },
   "dependencies": {

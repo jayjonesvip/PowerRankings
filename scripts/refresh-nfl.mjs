@@ -58,7 +58,7 @@ export async function refresh() {
         const summary = archived ? JSON.parse(await readFile(filename, "utf8"))
           : await request(`${endpoint}/summary?event=${event.id}`);
         if (!Array.isArray(summary.scoringPlays)) throw new Error(`Missing scoring plays: ${event.id}`);
-        pending.push([filename, { scoringPlays: summary.scoringPlays }]);
+        pending.push([filename, { scoringPlays: summary.scoringPlays, ...(season === active ? { players: summary.boxscore?.players } : {}) }]);
       }
     }
     if (season <= active && !count) throw new Error(`Empty schedule: ${season}`);

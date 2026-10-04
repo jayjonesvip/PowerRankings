@@ -6,9 +6,11 @@ if (hockey.schemaVersion !== 1 || hockey.teams.length !== 32 || !Number.isFinite
     hockey.rankingsReady !== hockey.teams.every(t => t.gamesPlayed >= 5) ||
     hockey.rankings.length !== (hockey.rankingsReady ? 32 : 0)) throw new Error("Invalid NHL export");
 await access("out/index.html");
+const mvp = JSON.parse(await readFile("out/data/nfl/mvp-current.json", "utf8"));
+if (mvp.schemaVersion !== 1 || !Number.isFinite(Date.parse(mvp.updatedAt)) || !Number.isInteger(mvp.completedGames) || [mvp.offense, mvp.defense].some(p => p && (!p.reason || !Number.isFinite(p.index)))) throw new Error("Invalid MVP export");
 const seasons = await readdir("out/data/nfl");
 if (!seasons.includes(String(new Date().getUTCFullYear()))) throw new Error("Missing current season");
-for (const season of seasons) {
+for (const season of seasons.filter(name => /^\d{4}$/.test(name))) {
   const manifest = JSON.parse(await readFile(`out/data/nfl/${season}/manifest.json`, "utf8"));
   if (manifest.schemaVersion !== 1 || !Number.isFinite(Date.parse(manifest.updatedAt))) throw new Error("Invalid manifest");
   for (let week = 1; week <= 18; week++) {

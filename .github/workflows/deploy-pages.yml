@@ -33,6 +33,7 @@ jobs:
           key: nfl-json-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: nfl-json-
       - run: pnpm data:refresh
+      - run: pnpm data:refresh:mvp
       - run: pnpm data:refresh:nhl
       - uses: actions/configure-pages@v5
         id: pages
