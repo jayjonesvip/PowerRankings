@@ -58,10 +58,10 @@ function DashboardContent({ data }: { data: DashboardData }) {
         <section className="data-panel touchdown-panel">
           <div className="panel-title"><div><p className="eyebrow">Scoring DNA</p><h3>Touchdown types</h3></div><Crosshair /></div>
           <div className="td-grid">
-            <TouchdownCard label="Receiving" week={week.touchdowns.receiving} season={season.touchdowns.receiving} tone="#f4c43f" />
-            <TouchdownCard label="Rushing" week={week.touchdowns.rushing} season={season.touchdowns.rushing} tone="#ef6a39" />
-            <TouchdownCard label="Defensive" week={week.touchdowns.defensive} season={season.touchdowns.defensive} tone="#42b7a5" />
-            <TouchdownCard label="Special teams" week={week.touchdowns.specialTeams} season={season.touchdowns.specialTeams} tone="#6197ff" />
+            <TouchdownCard label="Receiving" week={week.touchdowns.receiving} season={season.touchdowns.receiving} tone="#005a9c" />
+            <TouchdownCard label="Rushing" week={week.touchdowns.rushing} season={season.touchdowns.rushing} tone="#d50032" />
+            <TouchdownCard label="Defensive" week={week.touchdowns.defensive} season={season.touchdowns.defensive} tone="#377ea6" />
+            <TouchdownCard label="Special teams" week={week.touchdowns.specialTeams} season={season.touchdowns.specialTeams} tone="#041e42" />
           </div>
           <div className="scoring-foot"><span><b>{week.fieldGoals}</b> field goals this week</span><span><b>{season.fieldGoals}</b> this season</span><span><b>{season.safeties}</b> safeties</span></div>
         </section>

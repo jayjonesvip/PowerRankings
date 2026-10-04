@@ -44,11 +44,11 @@ function TeamDetail({ team }: { team: RankedTeam }) {
   return (
     <div className="team-detail">
       <div className="breakdown">
-        <div><span>Record</span><strong>{team.components.record.toFixed(1)}</strong><Meter value={team.components.record} tone="#f4c43f" /></div>
-        <div><span>Win quality</span><strong>{team.components.quality.toFixed(1)}</strong><Meter value={team.components.quality} tone="#6197ff" /></div>
-        <div><span>Offense</span><strong>{team.components.offense.toFixed(1)}</strong><Meter value={team.components.offense} tone="#ef6a39" /></div>
-        <div><span>Defense</span><strong>{team.components.defense.toFixed(1)}</strong><Meter value={team.components.defense} tone="#42b7a5" /></div>
-        <div><span>Recent</span><strong>{team.components.momentum.toFixed(1)}</strong><Meter value={team.components.momentum} tone="#9b7cff" /></div>
+        <div><span>Record</span><strong>{team.components.record.toFixed(1)}</strong><Meter value={team.components.record} tone="#005a9c" /></div>
+        <div><span>Win quality</span><strong>{team.components.quality.toFixed(1)}</strong><Meter value={team.components.quality} tone="#041e42" /></div>
+        <div><span>Offense</span><strong>{team.components.offense.toFixed(1)}</strong><Meter value={team.components.offense} tone="#d50032" /></div>
+        <div><span>Defense</span><strong>{team.components.defense.toFixed(1)}</strong><Meter value={team.components.defense} tone="#377ea6" /></div>
+        <div><span>Recent</span><strong>{team.components.momentum.toFixed(1)}</strong><Meter value={team.components.momentum} tone="#64748b" /></div>
       </div>
       <div className="explanation">
         <p>{team.summary}</p>
@@ -161,7 +161,7 @@ export default function Home() {
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's Power Rankings home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's Power Rankings cartoon logo" width="52" height="52" /><span><b>Jay's Power Rankings</b><small>NFL POWER INDEX</small></span></a>
-        <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
+        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}` : "Loading"}</div>
       </header>
 
       <section className="scoreboard-hero">
@@ -221,7 +221,7 @@ export default function Home() {
           </div>
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
-      </section></> : <section className="dashboard-view" id="dashboard"><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
+      </section></> : <section className="dashboard-view" id="dashboard"><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
 
       <footer><span>Unofficial rankings powered by publicly available ESPN scoreboard data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
