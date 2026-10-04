@@ -72,3 +72,5 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 .compare-values,.record-line{grid-template-columns:1fr}.record-line{grid-template-columns:1fr 1fr}
 
 .league-mvp-section{margin:24px 0}.league-mvp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.league-mvp-body{padding:20px}.league-mvp-body p{font-size:15px;line-height:1.65;margin-bottom:0}.league-mvp-body .league-mvp-team{font-size:12px;font-weight:800;color:#005a9c;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em}.league-mvp-note{font-size:12px;line-height:1.5;color:#526477;margin:12px 0 0}@media(max-width:700px){.league-mvp-grid{grid-template-columns:1fr}.league-mvp-body{padding:16px}}
+
+.hub-intro a{color:#005a9c;font-weight:700;text-decoration:underline;text-underline-offset:3px}.hub-intro a:hover{color:#041e42}.hub-intro a:focus-visible{outline:2px solid #005a9c;outline-offset:3px}.hub-page [id]{scroll-margin-top:20px}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
