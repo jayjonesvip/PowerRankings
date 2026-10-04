@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nfl-power-rankings.jayjonesvip.chatgpt.site"),
-  title: "Jay's Power Rankings | NFL and NBA Rankings",
+  title: "Jay's Power Rankings | NFL, NHL and NBA Rankings",
   description: "Jay's data-driven sports power rankings, league leaders, biggest movers, offense and defense trends.",
   keywords: ["sports power rankings", "NFL power rankings", "NBA power rankings", "NFL team rankings", "best NFL teams", "NFL offense rankings", "NFL defense rankings"],
   alternates: { canonical: "/" },

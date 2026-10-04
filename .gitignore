@@ -2,6 +2,7 @@ node_modules/
 .next/
 out/
 public/data/nfl/
+public/data/nhl/
 .sites-runtime/
 .wrangler/
 next-env.d.ts

@@ -1,5 +1,10 @@
 import { readFile, readdir, access } from "node:fs/promises";
 await access("out/nfl/index.html");
+await access("out/nhl/index.html");
+const hockey = JSON.parse(await readFile("out/data/nhl/current.json", "utf8"));
+if (hockey.schemaVersion !== 1 || hockey.teams.length !== 32 || !Number.isFinite(Date.parse(hockey.updatedAt)) ||
+    hockey.rankingsReady !== hockey.teams.every(t => t.gamesPlayed >= 5) ||
+    hockey.rankings.length !== (hockey.rankingsReady ? 32 : 0)) throw new Error("Invalid NHL export");
 await access("out/index.html");
 const seasons = await readdir("out/data/nfl");
 if (!seasons.includes(String(new Date().getUTCFullYear()))) throw new Error("Missing current season");
@@ -14,7 +19,7 @@ for (const season of seasons) {
   }
 }
 for (const name of await readdir("out/_next/static/chunks")) {
-  if (name.endsWith(".js") && (await readFile(`out/_next/static/chunks/${name}`, "utf8")).includes("site.api.espn.com")) {
+  if (name.endsWith(".js") && /site\.api\.espn\.com|api-web\.nhle\.com/.test(await readFile(`out/_next/static/chunks/${name}`, "utf8"))) {
     throw new Error("Provider URL found in browser bundle");
   }
 }

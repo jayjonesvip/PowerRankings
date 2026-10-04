@@ -1,6 +1,6 @@
 # Jay’s Power Rankings
 
-A mobile-first NFL power rankings dashboard that turns completed games into an explainable weekly ranking of all 32 teams.
+A mobile-first sports dashboard with NFL power rankings and an NHL league dashboard and power index.
 
 **Live site:** [nfl-power-rankings.jayjonesvip.chatgpt.site](https://nfl-power-rankings.jayjonesvip.chatgpt.site)
 
@@ -88,11 +88,11 @@ lib/
   playoffs.ts              Seeding and tiebreak logic
 ```
 
-## Planned data workflow
+## Hourly data workflow
 
 Enable GitHub Pages with Source set to GitHub Actions. The workflow runs on main pushes, manual dispatch, and hourly schedules. GitHub may delay scheduled jobs. JSON is included in the deployed Pages artifact and reused through Actions cache; it is not committed. Archived seasons from 2022 are reused; current-season scores and summaries refresh each run.
 
-Run `pnpm data:refresh` before local development, `pnpm test:data` for validation checks, and `pnpm build:github` for a static export. This workflow publishes GitHub Pages. The existing Sites URL needs a separate deployment. Pregame prediction history is not yet stored.
+Run `pnpm data:refresh` before local development, `pnpm test:data` for validation checks, and `pnpm build:github` for a static export. This workflow publishes GitHub Pages. Pregame prediction history is not yet stored.
 
 ## Disclaimer
 
@@ -101,3 +101,9 @@ Jay’s Power Rankings is an independent fan project for analysis and entertainm
 ---
 
 Built by [Jay Jones](https://github.com/jayjonesvip).
+
+## NHL
+
+The hourly workflow also fetches official NHL standings and all 32 team schedules. Preseason and playoffs are excluded. Stored JSON lives at `public/data/nhl/current.json` and is published with the site. The NHL page opens on League Dashboard; Power Rankings is the second tab. Rankings automatically activate when all 32 teams have five completed regular-season games. Standings and schedule game counts must agree before publishing; invalid, inconsistent, or truncated responses stop deployment. No manual data confirmation is needed.
+
+Run `pnpm data:refresh:nhl` before a local static build. NHL scores use authoritative standings points (including overtime losses), goal rates, opponent quality, and five-game recent form. The standings table is a league overview and does not implement all official playoff tiebreakers.

@@ -1,6 +1,7 @@
 "use client";
 
 import { snapshotUpdatedAt } from "@/lib/local-data";
+import type { HockeySnapshot } from "@/lib/nhl-model";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowRight, RefreshCw, Shield, TrendingUp, Trophy } from "lucide-react";
@@ -13,6 +14,18 @@ export default function SportsHub() {
   const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [hockey, setHockey] = useState<HockeySnapshot | null>(null);
+  useEffect(() => {
+    const loadHockey = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/data/nhl/current.json`, { cache: "no-store" });
+        if (response.ok) setHockey(await response.json() as HockeySnapshot);
+      } catch { /* The NHL page exposes retry controls if stored data cannot be loaded. */ }
+    };
+    void loadHockey();
+    const timer = window.setInterval(loadHockey, 5 * 60 * 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const load = useCallback(async (quiet = false) => {
     if (!quiet) setLoading(true);
@@ -67,6 +80,12 @@ export default function SportsHub() {
             {pulse.leader ? <span>{pulse.leader.wins}–{pulse.leader.losses}{pulse.leader.ties ? `–${pulse.leader.ties}` : ""} record · {pulse.leader.score.toFixed(1)} index</span> : <span>Rankings update after every final.</span>}
           </div>
           <div className="sport-card-action">Open all 32 rankings <ArrowRight /></div>
+        </a>
+
+        <a className="sport-card nhl-card" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
+          <div className="sport-card-top"><span className="sport-status"><i />League dashboard live</span><b>NHL</b></div>
+          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL Power Rankings"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
+          <div className="sport-card-action">{hockey?.rankingsReady ? "Open rankings and dashboard" : "Open dashboard · Rankings after five games per team"} <ArrowRight /></div>
         </a>
 
         <article className="sport-card nba-card">

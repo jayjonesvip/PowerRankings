@@ -1,4 +1,4 @@
-name: Sync NFL data and deploy PowerRankings
+name: Sync sports data and deploy PowerRankings
 on:
   push:
     branches: [main]
@@ -29,10 +29,11 @@ jobs:
       - run: pnpm test:data
       - uses: actions/cache@v4
         with:
-          path: public/data/nfl
+          path: public/data
           key: nfl-json-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: nfl-json-
       - run: pnpm data:refresh
+      - run: pnpm data:refresh:nhl
       - uses: actions/configure-pages@v5
         id: pages
       - run: pnpm build:github

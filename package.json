@@ -14,7 +14,8 @@
     "db:generate": "drizzle-kit generate",
     "data:refresh": "node scripts/refresh-nfl.mjs",
     "build:github": "next build",
-    "test:data": "node --test tests/data.test.mjs"
+    "test:data": "node --test tests/*.test.mjs",
+    "data:refresh:nhl": "node scripts/refresh-nhl.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
