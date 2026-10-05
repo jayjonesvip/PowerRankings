@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { buildHockeySnapshot, validateHockeyClubStats } from "../lib/nhl-model.ts";
 
+import { hockeyGoalBreakdown } from "../lib/nhl-goals.ts";
 import { hockeyPlayoffPicture } from "../lib/nhl-playoffs.ts";
 import { hockeyMvps } from "./league-mvp-model.mjs";
 
@@ -82,13 +83,14 @@ for (let i = 0; i < teams.length; i += 2) {
   await Promise.all(teams.slice(i, i + 2).map(async team => {
     const stats = await request(`club-stats/${team.abbreviation}/${season}/2`);
     if (Number(stats.season) !== season || stats.gameType !== 2 || !Array.isArray(stats.skaters) || !Array.isArray(stats.goalies)) throw new Error(`Invalid club stats: ${team.abbreviation}`);
-    team.players = stats.skaters.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, position: p.positionCode, gamesPlayed: p.gamesPlayed, goals: p.goals, assists: p.assists, points: p.points, shots: p.shots }));
+    team.players = stats.skaters.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, position: p.positionCode, gamesPlayed: p.gamesPlayed, goals: p.goals, assists: p.assists, points: p.points, shots: p.shots, powerPlayGoals:p.powerPlayGoals, shorthandedGoals:p.shorthandedGoals }));
     team.goalies = stats.goalies.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, gamesPlayed: p.gamesPlayed, shotsAgainst: p.shotsAgainst, saves: p.saves, goalsAgainst: p.goalsAgainst, shutouts: p.shutouts, timeOnIce: p.timeOnIce }));
     validateHockeyClubStats(team);
   }));
 }
 const snapshot = buildHockeySnapshot(teams, [...games.values()], season, new Date().toISOString());
 hockeyPlayoffPicture(teams);
+hockeyGoalBreakdown(teams);
 snapshot.mvps = hockeyMvps(teams);
 snapshot.seasonComplete = snapshot.completedGames === snapshot.games.length;
 if (previous?.season === season && (snapshot.games.length < previous.games.length || snapshot.completedGames < previous.completedGames)) {

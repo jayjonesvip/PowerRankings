@@ -132,3 +132,7 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 @media(max-width:700px){.nhl-playoff-section .playoff-team{grid-template-columns:80px minmax(0,1fr)}}
 
 .section-anchor{position:absolute}
+
+[data-sport="nhl"] .league-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}
+.nhl-goals-layout{display:flex;align-items:center;justify-content:center;gap:48px;padding:20px}.nhl-goals-donut{width:240px;max-width:100%;flex-shrink:0}.nhl-donut-total{font-size:36px;font-weight:800;fill:#005a9c}.nhl-donut-label{font-size:10px;letter-spacing:1px;fill:#526477}.nhl-goals-legend{min-width:260px;margin:0}.nhl-goals-legend>div{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid #d9dfe7}.nhl-goals-legend dt{display:flex;align-items:center;gap:10px;font-weight:700}.nhl-goals-legend dt span{width:12px;height:12px;border-radius:50%}.nhl-goals-legend dd{margin:0;text-align:right}.nhl-goals-legend dd b{display:block;color:#005a9c;font-size:24px}.nhl-goals-legend dd small{color:#526477}
+@media(max-width:700px){[data-sport="nhl"] .league-tabs{display:flex;overflow-x:auto}[data-sport="nhl"] .league-tabs button{flex:0 0 auto;padding-inline:12px}.nhl-goals-layout{flex-direction:column;gap:10px;padding:12px}.nhl-goals-legend{min-width:0;width:100%}.nhl-goals-donut{width:210px}}

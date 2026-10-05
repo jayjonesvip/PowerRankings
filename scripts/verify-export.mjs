@@ -1,3 +1,4 @@
+import { hockeyGoalBreakdown } from "../lib/nhl-goals.ts";
 import { validateBaseballSnapshot } from "../lib/mlb-model.ts";
 import { readFile, readdir, access } from "node:fs/promises";
 await access("out/nfl/index.html");
@@ -95,3 +96,11 @@ for(const html of [nflHtml,nhlHtml,mlbHtml]) {
 for(const id of ["hitting-panel","pitching-panel"]) if(!mlbHtml.includes(`id="${id}"`)) throw new Error("MLB team stats tab missing");
 if(!nhlHtml.includes('id="playoff-picture"') || hockey.teams.some(t=>!Number.isInteger(t.divisionRank)||!Number.isInteger(t.conferenceRank))) throw new Error("NHL playoff picture/ranks missing");
 console.log("Default dashboards, standings/playoff tabs, and separate MLB stats tabs verified");
+
+for(const [html,expected] of [[nflHtml,["dashboard","standings","rankings"]],[nhlHtml,["dashboard","standings","scoring","goaltending","rankings"]],[mlbHtml,["dashboard","standings","hitting","pitching"]]]) {
+  const ids=[...html.matchAll(/<button[^>]*id="([^"]+)-tab"[^>]*role="tab"/g)].map(m=>m[1]);
+  if(JSON.stringify(ids)!==JSON.stringify(expected)) throw new Error("Inconsistent league tab order");
+}
+const goals=hockeyGoalBreakdown(hockey.teams);
+if(!nhlHtml.includes('id="goal-breakdown"') || !nhlHtml.includes(`${goals.total} total goals: ${goals.powerPlay} power play, ${goals.shorthanded} short handed, ${goals.other} other`)) throw new Error("NHL goal donut missing from dashboard HTML");
+console.log("Consistent league tab order and stored NHL goal-situation donut verified");

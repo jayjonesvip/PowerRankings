@@ -1,5 +1,5 @@
 import type { LeagueMvps } from "./league-mvp";
-export type HockeyPlayer = { id: string; name: string; position: string; gamesPlayed: number; goals: number; assists: number; points: number; shots: number };
+export type HockeyPlayer = { id: string; name: string; position: string; gamesPlayed: number; goals: number; assists: number; points: number; shots: number; powerPlayGoals?: number; shorthandedGoals?: number };
 export type HockeyGoalie = { id: string; name: string; gamesPlayed: number; shotsAgainst: number; saves: number; goalsAgainst: number; shutouts: number; timeOnIce: number };
 export type HockeyTeam = {
   id: string; name: string; abbreviation: string; conference: string; division: string;
