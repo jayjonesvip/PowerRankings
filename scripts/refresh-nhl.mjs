@@ -2,13 +2,17 @@ import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { buildHockeySnapshot, validateHockeyClubStats } from "../lib/nhl-model.ts";
 
 async function request(path) {
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < 5; attempt++) {
     try {
       const response = await fetch(`https://api-web.nhle.com/v1/${path}`, { signal: AbortSignal.timeout(30000) });
+      if (response.status === 429) {
+        const retryAfter = Number(response.headers.get("retry-after"));
+        await new Promise(resolve => setTimeout(resolve, Math.max(5000 * (attempt + 1), Number.isFinite(retryAfter) ? retryAfter * 1000 : 0)));
+      }
       if (!response.ok) throw new Error(`NHL HTTP ${response.status}: ${path}`);
       return await response.json();
     } catch (error) {
-      if (attempt === 2) throw error;
+      if (attempt === 4) throw error;
       await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
     }
   }
@@ -25,8 +29,9 @@ const teams = standings.standings.map(t => ({
 }));
 const games = new Map();
 // Small batches keep the source request load bounded.
-for (let i = 0; i < teams.length; i += 4) {
-  await Promise.all(teams.slice(i, i + 4).map(async team => {
+for (let i = 0; i < teams.length; i += 2) {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  await Promise.all(teams.slice(i, i + 2).map(async team => {
     if (!/^[A-Z]{2,3}$/.test(team.abbreviation)) throw new Error("Invalid NHL abbreviation");
     const schedule = await request(`club-schedule-season/${team.abbreviation}/${season}`);
     if (!Array.isArray(schedule.games) || !schedule.games.length) throw new Error(`Missing schedule: ${team.abbreviation}`);
@@ -47,8 +52,9 @@ for (let i = 0; i < teams.length; i += 4) {
   }));
 }
 if (!games.size) throw new Error("Empty NHL regular-season schedule");
-for (let i = 0; i < teams.length; i += 4) {
-  await Promise.all(teams.slice(i, i + 4).map(async team => {
+for (let i = 0; i < teams.length; i += 2) {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+  await Promise.all(teams.slice(i, i + 2).map(async team => {
     const stats = await request(`club-stats/${team.abbreviation}/${season}/2`);
     if (Number(stats.season) !== season || stats.gameType !== 2 || !Array.isArray(stats.skaters) || !Array.isArray(stats.goalies)) throw new Error(`Invalid club stats: ${team.abbreviation}`);
     team.players = stats.skaters.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, position: p.positionCode, gamesPlayed: p.gamesPlayed, goals: p.goals, assists: p.assists, points: p.points, shots: p.shots }));
