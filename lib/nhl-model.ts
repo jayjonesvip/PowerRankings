@@ -1,3 +1,4 @@
+import type { LeagueMvps } from "./league-mvp";
 export type HockeyPlayer = { id: string; name: string; position: string; gamesPlayed: number; goals: number; assists: number; points: number; shots: number };
 export type HockeyGoalie = { id: string; name: string; gamesPlayed: number; shotsAgainst: number; saves: number; goalsAgainst: number; shutouts: number; timeOnIce: number };
 export type HockeyTeam = {
@@ -17,6 +18,7 @@ export type HockeyRank = HockeyTeam & {
   recent: string[];
 };
 export type HockeySnapshot = {
+  mvps?: LeagueMvps;
   schemaVersion: number; season: number; updatedAt: string; rankingsReady: boolean;
   minimumGames: number; teamsReady: number; completedGames: number;
   teams: HockeyTeam[]; games: HockeyGame[]; rankings: HockeyRank[];

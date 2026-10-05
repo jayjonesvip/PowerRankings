@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { LeagueMvpCards } from "@/components/league-mvps";
 import { BarChart3, ListOrdered, RefreshCw } from "lucide-react";
 import { AdjustedLeagueLeaders, AdjustedTeamMetrics } from "@/components/opponent-adjusted";
 import { opponentAdjustedPerformance, hockeyScoredGames } from "@/lib/opponent-adjusted";
@@ -12,6 +13,7 @@ const NHL_SECTIONS = [
   { id: "division-standings", label: "division standings", view: "dashboard" as const },
   { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-leaders", label: "league leaders", view: "dashboard" as const },
+  { id: "league-mvps", label: "league MVPs", view: "dashboard" as const },
   { id: "scoring-teams", label: "team scoring", view: "dashboard" as const },
   { id: "goaltending-teams", label: "team goaltending", view: "dashboard" as const },
   { id: "rankings", label: "power rankings", view: "rankings" as const },
@@ -57,6 +59,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
         <article><span>Best defense</span><strong>{defense ? (defense.goalsAgainst / defense.gamesPlayed).toFixed(2) : "—"}</strong><b>{defense?.name ?? "No games yet"}</b><small>goals allowed per game</small></article>
         <article><span>League scoring</span><strong>{average.toFixed(2)}</strong><b>Goals per team per game</b><small>includes shootout deciding goals in standings</small></article>
       </div></div>
+      <LeagueMvpCards data={data.mvps} />
       <NhlTeamStats teams={data.teams} />
     </section>}
     {data && <section hidden={view !== "rankings"} className="nhl-dashboard" id="rankings">

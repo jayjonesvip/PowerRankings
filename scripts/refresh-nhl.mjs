@@ -1,6 +1,8 @@
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { buildHockeySnapshot, validateHockeyClubStats } from "../lib/nhl-model.ts";
 
+import { hockeyMvps } from "./league-mvp-model.mjs";
+
 async function request(path) {
   for (let attempt = 0; attempt < 5; attempt++) {
     try {
@@ -63,6 +65,7 @@ for (let i = 0; i < teams.length; i += 2) {
   }));
 }
 const snapshot = buildHockeySnapshot(teams, [...games.values()], season, new Date().toISOString());
+snapshot.mvps = hockeyMvps(teams);
 let previous;
 try { previous = JSON.parse(await readFile("public/data/nhl/current.json", "utf8")); } catch {}
 if (previous?.season === season && (snapshot.games.length < previous.games.length || snapshot.completedGames < previous.completedGames)) {

@@ -101,3 +101,9 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 .nhl-player-details { padding: 12px; background: #f7f9fc; }
 .nhl-player-details h3 { margin: 0 0 12px; }
 .nhl-player-details .nhl-table { min-width: 540px; }
+
+.league-mvp-stats { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin: 16px 0; }
+.league-mvp-stats dt { font-size: 12px; color: #526477; }
+.league-mvp-stats dd { margin: 3px 0 0; font-size: 24px; font-weight: 800; color: #005a9c; }
+.league-mvp-sample { font-size: 12px !important; color: #7d5400; background: #fff7df; padding: 6px 10px; }
+.league-mvp-note summary { cursor: pointer; font-weight: 700; color: #005a9c; }

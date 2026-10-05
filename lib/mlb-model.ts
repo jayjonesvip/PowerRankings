@@ -1,3 +1,4 @@
+import type { LeagueMvps } from "./league-mvp";
 export type BaseballTeam = {
   id: string; name: string; abbreviation: string; league: string; division: string; divisionRank: number;
   gamesPlayed: number; wins: number; losses: number; runsFor: number; runsAgainst: number;
@@ -5,6 +6,7 @@ export type BaseballTeam = {
 };
 export type BaseballLeader = { id: string; name: string; team: string; value: number };
 export type BaseballSnapshot = {
+  mvps?: LeagueMvps;
   schemaVersion: 1; season: number; gameType: "R"; updatedAt: string; regularSeasonEnd: string;
   seasonComplete: boolean; completedGames: number; totalHomeRuns: number; teams: BaseballTeam[];
   leaders: { homeRuns: BaseballLeader[]; battingAverage: BaseballLeader[]; wins: BaseballLeader[]; losses: BaseballLeader[] };

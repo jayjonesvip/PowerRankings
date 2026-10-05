@@ -69,3 +69,9 @@ console.log("MLB regular-season JSON, division standings, team stats and player 
 for (const id of ["scoring-teams", "goaltending-teams"]) if (!nhlHtml.includes(`id="${id}"`)) throw new Error(`NHL stats section missing: ${id}`);
 for (const team of hockey.teams) if (!Array.isArray(team.players) || !Array.isArray(team.goalies)) throw new Error("NHL club JSON missing");
 console.log("NHL scoring, expandable player points, and goaltending JSON verified");
+
+for (const [snapshot,html] of [[baseball,mlbHtml],[hockey,nhlHtml]]) {
+  if (!snapshot.mvps || !html.includes('id="league-mvps"')) throw new Error("League MVP snapshot/markup missing");
+  for (const pick of [...snapshot.mvps.first,...snapshot.mvps.second]) if (!html.includes(pick.name.replaceAll("&","&amp;"))) throw new Error("League MVP name not prerendered");
+}
+console.log("MLB and NHL MVP snapshots and prerendered cards verified");
