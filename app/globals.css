@@ -107,3 +107,6 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 .league-mvp-stats dd { margin: 3px 0 0; font-size: 24px; font-weight: 800; color: #005a9c; }
 .league-mvp-sample { font-size: 12px !important; color: #7d5400; background: #fff7df; padding: 6px 10px; }
 .league-mvp-note summary { cursor: pointer; font-weight: 700; color: #005a9c; }
+
+.hub-page .pulse-grid b { white-space: normal; overflow: visible; }
+.hub-pending { font-size: 12px; color: #526477; }
