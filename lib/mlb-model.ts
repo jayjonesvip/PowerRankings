@@ -38,7 +38,7 @@ export function validateBaseballSnapshot(data: BaseballSnapshot): BaseballSnapsh
         (category === "battingAverage" ? p.value > 1 : !Number.isInteger(p.value))) || leaders.some(p => p.value !== leaders[0].value)) throw new Error(`Invalid MLB leaders: ${category}`);
   }
   if (data.playoffSeeds) {
-    if (!data.seasonComplete || data.playoffSeeds.length!==12 || new Set(data.playoffSeeds.map(t=>t.id)).size!==12) throw new Error("Invalid MLB opening seeds");
+    if (data.playoffSeeds.length!==12 || new Set(data.playoffSeeds.map(t=>t.id)).size!==12) throw new Error("Invalid MLB opening seeds");
     for (const league of ["American League","National League"]) {
       const seeds=data.playoffSeeds.filter(t=>t.league===league).sort((a,b)=>a.seed-b.seed);
       if (seeds.length!==6 || seeds.some((t,i)=>t.seed!==i+1 || t.divisionWinner!==(i<3) || !data.teams.some(team=>team.id===t.id&&team.league===league&&((team.divisionRank===1)===t.divisionWinner)))) throw new Error("Invalid MLB league seeds");

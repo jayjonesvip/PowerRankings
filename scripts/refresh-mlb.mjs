@@ -102,7 +102,11 @@ function playerRows(payload, group) {
     return {...common,outs:stat.outs,strikeOuts:stat.strikeOuts,era,whip};
   });
 }
-if (snapshot.seasonComplete) snapshot.playoffSeeds=mlbPlayoffSeeds(standings);
+try { snapshot.playoffSeeds=mlbPlayoffSeeds(standings); }
+catch (error) {
+  if (snapshot.seasonComplete) throw error;
+  console.log("Waiting for complete MLB league/wild-card ranks before showing playoff picture");
+}
 validateBaseballSnapshot(snapshot);
 snapshot.mvps=baseballMvps(playerRows(playerHitting,"hitting"),playerRows(playerPitching,"pitching"));
 if (previous?.season === season && snapshot.completedGames < previous.completedGames) throw new Error("Refusing truncated MLB season");
