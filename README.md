@@ -132,4 +132,6 @@ Published JSON is committed under `content/power-rankings/`, not kept only in an
 
 ### Regular-season player leaders
 
+The static export includes `/sitemap.xml` for the home page, three league dashboards, and four weekly ranking columns, plus a `/robots.txt` sitemap reference. Dashboard modification dates come from stored snapshots; published columns use their frozen publication dates.
+
 NFL has a Leaders tab with top-five receiving, rushing, and passing yards; passing, rushing, and receiving touchdowns; and field goals made. These totals come from the same stored completed-game box scores as MVPs, without MVP workload thresholds. NHL’s Scoring tab shows goals, assists, and points leaders above the team grid; traded club stints are combined by player ID. MLB’s Hitting and Pitching tabs show player leaders above their team grids: home runs, hits, qualified batting average, RBI, qualified ERA, wins, strikeouts, saves, and qualified WHIP. MLB leader lists are persisted in `public/data/mlb/current.json`; existing final-season snapshots receive this addition once, then stay frozen. All leader lists use regular-season statistics only and display at most five players, with alphabetical cutoff ordering for tied values.

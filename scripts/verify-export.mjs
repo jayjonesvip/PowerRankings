@@ -123,3 +123,11 @@ console.log("Dated weekly columns, portrait branding, expandable stats and remov
 
 for(const [html,ids] of [[nflHtml,["leaders-panel","player-leaders"]],[nhlHtml,["scoring-leaders"]],[mlbHtml,["hitting-leaders","pitching-leaders"]]]) for(const id of ids) if(!html.includes(`id="${id}"`)) throw new Error(`Missing player leaders: ${id}`);
 console.log("Stored regular-season player leader sections verified");
+
+const sitemap = await readFile("out/sitemap.xml", "utf8");
+const robots = await readFile("out/robots.txt", "utf8");
+const sitemapRoot = "https://jayjonesvip.github.io/PowerRankings/";
+const sitemapPaths = ["", "nfl/", "nhl/", "mlb/", ...["nfl", "nhl", "mlb", "nba"].map(league => `${league}/power-rankings/`)];
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+if (!sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') || sitemapUrls.length !== sitemapPaths.length || new Set(sitemapUrls).size !== sitemapUrls.length || sitemapPaths.some(path => !sitemapUrls.includes(`${sitemapRoot}${path}`)) || !robots.includes(`Sitemap: ${sitemapRoot}sitemap.xml`)) throw new Error("Invalid exported sitemap or robots sitemap reference");
+console.log("Sitemap includes all eight public pages and robots references it");
