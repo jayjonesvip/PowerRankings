@@ -52,14 +52,14 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
 
   const count = (value: number) => String(value);
   return <main data-sport="mlb">
-    <header className="site-header"><a className="brand" href={`${base}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${base}/jays-logo.png`} alt="Jay's League Pulse logo" width="52" height="52" /><span><b>Jay&apos;s League Pulse</b><small>MLB LEAGUE SNAPSHOT</small></span></a>
+    <header className="site-header"><a className="brand" href={`${base}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${base}/league-snapshot-logo.png`} alt="League Snapshot logo" width="52" height="52" /><span><b>League Snapshot</b><small>MLB LEAGUE SNAPSHOT</small></span></a>
       <nav className="league-nav" aria-label="Leagues"><a href={`${base}/nfl/`}>NFL</a><a href={`${base}/nhl/`}>NHL</a><a href={`${base}/mlb/`} aria-current="page">MLB</a></nav>
       <div className="header-status">Hourly snapshot · {new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ET</div>
     </header>
-    <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB League Pulse<br /><em>Regular-season snapshot</em></h1>
+    <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB Snapshot<br /><em>Regular-season snapshot</em></h1>
       <LeagueSectionLinks onViewChange={setView} sections={MLB_SECTIONS} /></div>
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
-    <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"League Dashboard"},{view:"hitting",label:"Team Hitting"},{view:"pitching",label:"Team Pitching"},{view:"standings",label:"Standings"}]} />
+    <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"MLB Snapshot"},{view:"hitting",label:"Team Hitting"},{view:"pitching",label:"Team Pitching"},{view:"standings",label:"Standings"}]} />
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}
     <section id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab" hidden={view !== "dashboard"}>

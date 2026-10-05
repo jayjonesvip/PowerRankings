@@ -104,3 +104,11 @@ for(const [html,expected] of [[nflHtml,["dashboard","standings","rankings"]],[nh
 const goals=hockeyGoalBreakdown(hockey.teams);
 if(!nhlHtml.includes('id="goal-breakdown"') || !nhlHtml.includes(`${goals.total} total goals: ${goals.powerPlay} power play, ${goals.shorthanded} short handed, ${goals.other} other`)) throw new Error("NHL goal donut missing from dashboard HTML");
 console.log("Consistent league tab order and stored NHL goal-situation donut verified");
+
+await access("out/league-snapshot-logo.png");
+for (const [route, league] of [["", null], ["nfl/", "NFL"], ["nhl/", "NHL"], ["mlb/", "MLB"]]) {
+  const page = await readFile(`out/${route}index.html`, "utf8");
+  if (!page.includes("League Snapshot") || !page.includes("league-snapshot-logo.png") || /League Pulse|league pulse|jays-logo\.png/.test(page)) throw new Error(`Stale branding on ${route || "home"}`);
+  if (league && !new RegExp(`id="dashboard-tab"[^>]*>${league} Snapshot<`).test(page.replace(/<svg[\s\S]*?<\/svg>/g, ""))) throw new Error(`Missing ${league} Snapshot tab`);
+}
+console.log("League Snapshot branding, logo and league tab labels verified");

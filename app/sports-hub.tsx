@@ -84,20 +84,20 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
   return (
     <main className="hub-page">
       <header className="site-header">
-        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's League Pulse cartoon logo" width="52" height="52" /><span><b>Jay's League Pulse</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/league-snapshot-logo.png`} alt="League Snapshot sports analytics logo" width="52" height="52" /><span><b>League Snapshot</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
         <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav>
         <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
       </header>
 
       <section className="hub-hero">
-        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>Jay’s League Pulse.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA preview</a>. See what’s happening around each league—standouts, team performance, and regular-season results from the latest snapshots.</p></div>
+        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>League Snapshot.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA preview</a>. See what’s happening around each league—standouts, team performance, and regular-season results from the latest snapshots.</p></div>
         <div className="hub-live-mark"><span>CURRENT SNAPSHOT</span><b>4</b><small>LEAGUES TRACKED</small></div>
       </section>
 
       {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the NFL dashboard to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
 
       <section className="league-pulse" id="nfl-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>{nflComplete ? "Regular-season pulse" : "Current league pulse"}</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>{nflComplete ? "Regular-season snapshot" : "Current league snapshot"}</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full snapshot <ArrowRight /></a></div>
         <div className="pulse-grid">
           <article><span><TrendingUp />Biggest mover</span><strong>{pulse.mover ? `${pulse.mover.movement > 0 ? "+" : ""}${pulse.mover.movement}` : "—"}</strong><b>{pulse.mover?.name ?? "Updating"}</b><small>spots since last week</small></article>
           <article><span><Activity />Best offense</span><strong>{pulse.offense?.components.offense.toFixed(1) ?? "—"}</strong><b>{pulse.offense?.name ?? "Updating"}</b><small>offensive grade</small></article>
@@ -107,7 +107,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
       </section>
 
       <section className="league-pulse" id="nhl-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NHL</p><h2>Current league pulse</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NHL</p><h2>Current league snapshot</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>Full snapshot <ArrowRight /></a></div>
         <div className="pulse-grid">
           <article><span><Activity />Best scoring</span><strong>{nhlScoring ? (nhlScoring.goalsFor/nhlScoring.gamesPlayed).toFixed(2) : "—"}</strong><b>{nhlScoring?.name ?? "No games yet"}</b><small>goals per game</small></article>
           <article><span><Shield />Best defense</span><strong>{nhlDefense ? (nhlDefense.goalsAgainst/nhlDefense.gamesPlayed).toFixed(2) : "—"}</strong><b>{nhlDefense?.name ?? "No games yet"}</b><small>goals allowed per game</small></article>
@@ -116,7 +116,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
         </div>
       </section>
       <section className="league-pulse" id="mlb-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around MLB</p><h2>{baseball.seasonComplete ? "Regular-season pulse" : "Current league pulse"}</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around MLB</p><h2>{baseball.seasonComplete ? "Regular-season snapshot" : "Current league snapshot"}</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>Full snapshot <ArrowRight /></a></div>
         <div className="pulse-grid">
           <article><span><Activity />Best hitting</span><strong>{mlbHitting[0]?.battingAverage.toFixed(3).replace(/^0/,"") ?? "—"}</strong><b>{mlbHitting.map(t=>t.name).join(" / ") || "No games yet"}</b><small>team batting average</small></article>
           <article><span><Shield />Best pitching</span><strong>{mlbPitching[0]?.era.toFixed(2) ?? "—"}</strong><b>{mlbPitching.map(t=>t.name).join(" / ") || "No games yet"}</b><small>team ERA</small></article>
@@ -125,7 +125,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
         </div>
       </section>
       <section className="league-pulse" id="nba-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NBA</p><h2>Coming this season</h2></div><span className="hub-pending">Dashboard coming soon</span></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NBA</p><h2>NBA Snapshot</h2></div><span className="hub-pending">Snapshot coming soon</span></div>
         <div className="pulse-grid">
           <GamesDonut played={null} total={1230} label="NBA regular season" />
           <article><span><Trophy />Minimum sample</span><strong>5</strong><b>Games per team</b><small>rankings activation threshold</small></article>

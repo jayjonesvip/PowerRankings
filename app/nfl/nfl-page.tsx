@@ -108,7 +108,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
   const structuredData = snapshot ? {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `Jay's League Pulse: NFL Power Rankings Week ${week}, ${season}`,
+    name: `League Snapshot: NFL Power Rankings Week ${week}, ${season}`,
     description: `Data-driven rankings of all 32 NFL teams through Week ${week} of the ${season} season.`,
     numberOfItems: snapshot.teams.length,
     itemListOrder: "https://schema.org/ItemListOrderAscending",
@@ -157,16 +157,16 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
     <main data-sport="nfl">
       {structuredData ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} /> : null}
       <header className="site-header">
-        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's League Pulse cartoon logo" width="52" height="52" /><span><b>Jay's League Pulse</b><small>NFL LEAGUE SNAPSHOT</small></span></a>
+        <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/league-snapshot-logo.png`} alt="League Snapshot sports analytics logo" width="52" height="52" /><span><b>League Snapshot</b><small>NFL LEAGUE SNAPSHOT</small></span></a>
         <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
       </header>
 
       <section className="scoreboard-hero">
-        <div><p className="eyebrow">NFL standings, standouts, and team performance</p><h1>NFL League Pulse<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>
+        <div><p className="eyebrow">NFL standings, standouts, and team performance</p><h1>NFL Snapshot<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>
         <div className="hero-score"><span>WEEK</span><strong>{String(week).padStart(2, "0")}</strong><small>{snapshot?.completedGames ?? 0} FINAL GAMES</small></div>
       </section>
 
-      <LeagueTabs label="NFL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"League Dashboard"},{view:"rankings",label:"Power Rankings"},{view:"standings",label:"Standings"}]} />
+      <LeagueTabs label="NFL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NFL Snapshot"},{view:"rankings",label:"Power Rankings"},{view:"standings",label:"Standings"}]} />
 
       <section className="controls" aria-label="Current snapshot controls">
         <span>{season} NFL · {seasonComplete ? "Completed regular season" : "Current snapshot"}</span>
