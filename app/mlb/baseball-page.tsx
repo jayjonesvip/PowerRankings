@@ -3,6 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { validateBaseballSnapshot, type BaseballSnapshot, type BaseballTeam, type BaseballLeader } from "@/lib/mlb-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const HITTING_COLUMNS = [
+  { key: "name", label: "Team" }, { key: "battingAverage", label: "AVG" }, { key: "hitPercentage", label: "Hit %" },
+  { key: "hits", label: "Hits" }, { key: "atBats", label: "At-bats" }, { key: "homeRuns", label: "HR" }, { key: "runsFor", label: "Runs" },
+] as const;
+type HittingSort = typeof HITTING_COLUMNS[number]["key"];
 const avg = (value: number) => value.toFixed(3).replace(/^0/, "");
 const percent = (value: number) => `${(value * 100).toFixed(1)}%`;
 const extrema = (teams: BaseballTeam[], key: "battingAverage" | "era" | "homeRuns" | "wins" | "losses", lowest = false) => {
@@ -30,7 +35,13 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
     finally { setLoading(false); }
   }, []);
   useEffect(() => { void load(); const timer = window.setInterval(load, 5 * 60 * 1000); return () => window.clearInterval(timer); }, [load]);
-  const hitting = [...data.teams].sort((a, b) => b.battingAverage - a.battingAverage || a.name.localeCompare(b.name));
+  const [hittingSort, setHittingSort] = useState<{ key: HittingSort; direction: "ascending" | "descending" }>({ key: "battingAverage", direction: "descending" });
+  const sortHitting = (key: HittingSort) => setHittingSort(current => ({ key, direction: current.key === key ? (current.direction === "ascending" ? "descending" : "ascending") : key === "name" ? "ascending" : "descending" }));
+  const hitting = [...data.teams].sort((a, b) => {
+    const key = hittingSort.key === "hitPercentage" ? "battingAverage" : hittingSort.key;
+    const comparison = key === "name" ? a.name.localeCompare(b.name) : a[key] - b[key];
+    return (hittingSort.direction === "ascending" ? comparison : -comparison) || a.name.localeCompare(b.name);
+  });
   const pitching = [...data.teams].sort((a, b) => a.era - b.era || a.name.localeCompare(b.name));
   const count = (value: number) => String(value);
   return <main data-sport="mlb">
@@ -68,7 +79,9 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <LeaderCard label="Pitcher wins leader" rows={data.leaders.wins} format={count} detail="Pitcher wins" />
       <LeaderCard label="Pitcher losses leader" rows={data.leaders.losses} format={count} detail="Pitcher losses" />
     </div><p className="mlb-method">Batting average is hits divided by at-bats; percentages show the same rate. ERA measures earned runs allowed per nine innings; lower is better. These best/worst labels use batting average and ERA, rather than an overall team-strength model. Player batting-average leaders use MLB’s qualified hitter pool. Ties use the published precision. Postseason and spring-training statistics are excluded.</p></section>
-    <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Highest batting average first</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th scope="col">Team</th><th scope="col">AVG</th><th scope="col">Hit %</th><th scope="col">Hits</th><th scope="col">At-bats</th><th scope="col">HR</th><th scope="col">Runs</th></tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
+    <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Sort: {HITTING_COLUMNS.find(column => column.key === hittingSort.key)?.label} · {hittingSort.direction === "ascending" ? "Ascending" : "Descending"}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr>{HITTING_COLUMNS.map(column => <th scope="col" key={column.key} aria-sort={hittingSort.key === column.key ? hittingSort.direction : "none"}><button className="mlb-sort-button" onClick={() => sortHitting(column.key)} aria-label={`Sort by ${column.label}, ${hittingSort.key === column.key && hittingSort.direction === "descending" ? "ascending" : hittingSort.key === column.key ? "descending" : column.key === "name" ? "ascending" : "descending"}`}>
+      {column.label}<span aria-hidden="true">{hittingSort.key === column.key ? hittingSort.direction === "ascending" ? "↑" : "↓" : "↕"}</span>
+    </button></th>)}</tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
     <section className="rankings-card mlb-team-stats" id="pitching-teams"><div className="section-heading"><h2>Team pitching</h2><span>Lowest ERA first</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th scope="col">Team</th><th scope="col">ERA</th><th scope="col">Runs allowed</th><th scope="col">Games</th><th scope="col">W–L</th></tr></thead><tbody>{pitching.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{t.era.toFixed(2)}</td><td>{t.runsAgainst}</td><td>{t.gamesPlayed}</td><td>{t.wins}–{t.losses}</td></tr>)}</tbody></table></div></section>
     <footer><span>Unofficial analysis using MLB data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
