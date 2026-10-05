@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { SortableStats } from "@/components/sortable-stats";
 import { LeagueMvpCards } from "@/components/league-mvps";
+import { MlbPlayoffSeeding } from "@/components/mlb-playoff-seeding";
 import { RefreshCw } from "lucide-react";
 import { validateBaseballSnapshot, type BaseballSnapshot, type BaseballTeam, type BaseballLeader } from "@/lib/mlb-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -52,7 +53,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <div className="header-status">Hourly snapshot · {new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ET</div>
     </header>
     <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB League Pulse<br /><em>Regular-season snapshot</em></h1>
-      <p className="hero-copy league-intro">Explore <a href="#division-standings">division standings</a>, <a href="#league-leaders">league leaders</a>, <a href="#league-mvps">league MVPs</a>, <a href="#hitting-teams">team hitting</a>, and <a href="#pitching-teams">team pitching</a>—regular-season results only.</p></div>
+      <p className="hero-copy league-intro">Explore <a href="#division-standings">division standings</a>, <a href="#league-leaders">league leaders</a>, <a href="#league-mvps">league MVPs</a>, <a href="#hitting-teams">team hitting</a>, and <a href="#pitching-teams">team pitching</a>{data.seasonComplete && data.playoffSeeds && <>, and <a href="#playoff-seeding">playoff seeding</a></>}—regular-season results only.</p></div>
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}
@@ -86,6 +87,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
           </table></div></section>;
         })}</div></section>)}
     </section>
+    <MlbPlayoffSeeding data={data} />
     <footer><span>Unofficial analysis using MLB data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
 }

@@ -6,6 +6,7 @@ export type BaseballTeam = {
 };
 export type BaseballLeader = { id: string; name: string; team: string; value: number };
 export type BaseballSnapshot = {
+  playoffSeeds?: { id: string; league: string; seed: number; divisionWinner: boolean }[];
   mvps?: LeagueMvps;
   schemaVersion: 1; season: number; gameType: "R"; updatedAt: string; regularSeasonEnd: string;
   seasonComplete: boolean; completedGames: number; totalHomeRuns: number; teams: BaseballTeam[];
@@ -35,6 +36,13 @@ export function validateBaseballSnapshot(data: BaseballSnapshot): BaseballSnapsh
     if (data.completedGames && !leaders.length && category !== "battingAverage" && !(category === "homeRuns" && data.totalHomeRuns === 0)) throw new Error(`Missing MLB leaders: ${category}`);
     if (new Set(leaders.map(p => p.id)).size !== leaders.length || leaders.some(p => !/^\d+$/.test(p.id) || !p.name || !p.team || !Number.isFinite(p.value) || p.value < 0 ||
         (category === "battingAverage" ? p.value > 1 : !Number.isInteger(p.value))) || leaders.some(p => p.value !== leaders[0].value)) throw new Error(`Invalid MLB leaders: ${category}`);
+  }
+  if (data.playoffSeeds) {
+    if (!data.seasonComplete || data.playoffSeeds.length!==12 || new Set(data.playoffSeeds.map(t=>t.id)).size!==12) throw new Error("Invalid MLB opening seeds");
+    for (const league of ["American League","National League"]) {
+      const seeds=data.playoffSeeds.filter(t=>t.league===league).sort((a,b)=>a.seed-b.seed);
+      if (seeds.length!==6 || seeds.some((t,i)=>t.seed!==i+1 || t.divisionWinner!==(i<3) || !data.teams.some(team=>team.id===t.id&&team.league===league&&((team.divisionRank===1)===t.divisionWinner)))) throw new Error("Invalid MLB league seeds");
+    }
   }
   return data;
 }

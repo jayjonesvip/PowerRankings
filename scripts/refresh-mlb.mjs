@@ -1,6 +1,7 @@
 import { readFile, mkdir, writeFile, rename } from "node:fs/promises";
 import { validateBaseballSnapshot } from "../lib/mlb-model.ts";
 import { baseballMvps } from "./league-mvp-model.mjs";
+import { mlbPlayoffSeeds } from "./mlb-playoff-seeds.mjs";
 const endpoint = "https://statsapi.mlb.com/api/v1/";
 async function request(path, params = {}) {
   const url = new URL(path, endpoint); for (const [key, value] of Object.entries(params)) url.searchParams.set(key, String(value));
@@ -25,6 +26,18 @@ let standings = await request("standings", { leagueId: "103,104", season, standi
 if (standings.records?.length !== 6 || standings.records.some(r=>r.standingsType!=="regularSeason"||r.teamRecords?.some(t=>!Number.isInteger(t.gamesPlayed)||t.gamesPlayed<0))) throw new Error("Invalid MLB season probe");
 let reportedFinals=(standings.records ?? []).flatMap(r=>r.teamRecords).reduce((n,t)=>n+t.gamesPlayed,0)/2;
 if (shouldRetainSeason(previous,season,reportedFinals)) {
+  if (previous.seasonComplete && !previous.playoffSeeds) {
+    const finalStandings=season===previous.season ? standings : await request("standings", {leagueId:"103,104",season:previous.season,standingsTypes:"regularSeason",hydrate:"team(division,league)"});
+    const finalRows=finalStandings.records?.flatMap(r=>r.teamRecords) ?? [];
+    if (finalStandings.records?.some(r=>r.standingsType!=="regularSeason") || finalRows.length!==30 || finalRows.some(row=>{
+      const team=previous.teams.find(t=>t.id===String(row.team.id));
+      return !team || team.wins!==row.wins || team.losses!==row.losses || String(row.season)!==String(previous.season);
+    })) throw new Error("Opening seeds disagree with retained regular-season snapshot");
+    previous.playoffSeeds=mlbPlayoffSeeds(finalStandings);
+    validateBaseballSnapshot(previous);
+    await writeFile("public/data/mlb/current.json.tmp",JSON.stringify(previous));
+    await rename("public/data/mlb/current.json.tmp","public/data/mlb/current.json");
+  }
   console.log(`Retaining MLB ${previous.season} until new regular-season finals arrive`); process.exit(0);
 }
 if (!reportedFinals && !previous) {
@@ -89,6 +102,8 @@ function playerRows(payload, group) {
     return {...common,outs:stat.outs,strikeOuts:stat.strikeOuts,era,whip};
   });
 }
+if (snapshot.seasonComplete) snapshot.playoffSeeds=mlbPlayoffSeeds(standings);
+validateBaseballSnapshot(snapshot);
 snapshot.mvps=baseballMvps(playerRows(playerHitting,"hitting"),playerRows(playerPitching,"pitching"));
 if (previous?.season === season && snapshot.completedGames < previous.completedGames) throw new Error("Refusing truncated MLB season");
 await mkdir("public/data/mlb", { recursive: true });

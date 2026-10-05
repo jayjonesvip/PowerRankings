@@ -82,3 +82,9 @@ for (const [html, first] of [[nflHtml, "league-stats"], [nhlHtml, "league-leader
 }
 if (nflHtml.indexOf('id="division-standings"') > nflHtml.indexOf('id="playoff-picture"')) throw new Error("NFL standings must precede playoff picture");
 console.log("Season summaries first and NFL standings before playoff picture verified");
+
+if (baseball.seasonComplete) {
+  if (baseball.playoffSeeds?.length !== 12 || !mlbHtml.includes('id="playoff-seeding"') || mlbHtml.indexOf('id="playoff-seeding"') < mlbHtml.indexOf('id="division-standings"')) throw new Error("MLB opening seeds missing or misplaced");
+  for (const seed of baseball.playoffSeeds) if (!mlbHtml.includes(baseball.teams.find(t=>t.id===seed.id).name)) throw new Error("MLB opening team missing");
+}
+console.log("MLB completed-season opening playoff seeding verified");
