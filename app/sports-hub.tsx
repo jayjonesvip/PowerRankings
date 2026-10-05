@@ -1,6 +1,7 @@
 "use client";
 
 import { currentNflSeason, snapshotUpdatedAt } from "@/lib/local-data";
+import { validateBaseballSnapshot, type BaseballSnapshot } from "@/lib/mlb-model";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -9,11 +10,18 @@ import { buildSnapshots, fetchSeasonGames, type SeasonSnapshot } from "@/lib/ran
 
 const CURRENT_SEASON = currentNflSeason();
 
-export default function SportsHub({ initial, initialHockey }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot }) {
+export default function SportsHub({ initial, initialHockey, initialBaseball }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot; initialBaseball: BaseballSnapshot }) {
   const [snapshot, setSnapshot] = useState<SeasonSnapshot | null>(initial.snapshots.at(-1) ?? null);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(() => new Date(initial.updatedAt));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [baseball, setBaseball] = useState(initialBaseball);
+  useEffect(() => {
+    const loadBaseball = async () => {
+      try { const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/data/mlb/current.json`, { cache: "no-store" }); if (response.ok) setBaseball(validateBaseballSnapshot(await response.json())); } catch { /* Retain the last successful snapshot. */ }
+    };
+    void loadBaseball(); const timer = window.setInterval(loadBaseball, 5 * 60 * 1000); return () => window.clearInterval(timer);
+  }, []);
   const [hockey, setHockey] = useState<HockeySnapshot | null>(initialHockey);
   useEffect(() => {
     const loadHockey = async () => {
@@ -61,11 +69,11 @@ export default function SportsHub({ initial, initialHockey }: { initial: Awaited
     <main className="hub-page">
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/jays-logo.png`} alt="Jay's League Pulse cartoon logo" width="52" height="52" /><span><b>Jay's League Pulse</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
-        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
+        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
       </header>
 
       <section className="hub-hero">
-        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>Jay’s League Pulse.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, and <a href="#nba-board">NBA preview</a>. Jump to the <a href="#league-pulse">NFL league pulse</a> for the biggest mover, top offense and defense, and games counted—all from the latest snapshot.</p></div>
+        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>Jay’s League Pulse.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA preview</a>. Jump to the <a href="#league-pulse">NFL league pulse</a> for the biggest mover, top offense and defense, and games counted—all from the latest snapshot.</p></div>
         <div className="hub-live-mark"><span>CURRENT SNAPSHOT</span><b>{snapshot?.teams.length ?? "—"}</b><small>NFL TEAMS TRACKED</small></div>
       </section>
 
@@ -84,8 +92,14 @@ export default function SportsHub({ initial, initialHockey }: { initial: Awaited
 
         <a id="nhl-board" className="sport-card nhl-card" data-sport="nhl" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>
           <div className="sport-card-top"><span className="sport-status"><i />League dashboard live</span><b>NHL</b></div>
-          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL League Pulse"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Standings, league leaders, final scores, and the upcoming schedule."}</span></div>
+          <div className="sport-card-main"><p>Hourly league snapshots</p><h2>{hockey?.rankingsReady ? `#1 ${hockey.rankings[0].name}` : "NHL League Pulse"}</h2><span>{hockey ? `${hockey.completedGames} regular-season finals · ${hockey.teamsReady}/32 teams have five games.` : "Division standings, opponent comparisons, and league leaders."}</span></div>
           <div className="sport-card-action">{hockey?.rankingsReady ? "Open rankings and dashboard" : "Open dashboard · Rankings after five games per team"} <ArrowRight /></div>
+        </a>
+
+        <a id="mlb-board" className="sport-card mlb-card" data-sport="mlb" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>
+          <div className="sport-card-top"><span className="sport-status"><i />Regular-season snapshot</span><b>MLB</b></div>
+          <div className="sport-card-main"><p>{baseball.season} · {baseball.seasonComplete ? "Regular season complete" : "Regular season"}</p><h2>MLB League Pulse</h2><span>{baseball.totalHomeRuns.toLocaleString("en-US")} home runs · Division standings, hitting and pitching, and player leaders.</span></div>
+          <div className="sport-card-action">Open regular-season dashboard <ArrowRight /></div>
         </a>
 
         <article id="nba-board" className="sport-card nba-card" data-sport="nba">

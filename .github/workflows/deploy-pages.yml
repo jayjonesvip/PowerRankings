@@ -35,6 +35,7 @@ jobs:
       - run: pnpm data:refresh
       - run: pnpm data:refresh:mvp
       - run: pnpm data:refresh:nhl
+      - run: pnpm data:refresh:mlb
       - uses: actions/configure-pages@v5
         id: pages
       - run: pnpm build:github

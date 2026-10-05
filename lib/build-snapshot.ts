@@ -23,3 +23,8 @@ export async function buildNflSnapshot() {
 export async function buildHockeySnapshot(): Promise<HockeySnapshot> {
   return JSON.parse(await readFile(join(process.cwd(), "public/data/nhl/current.json"), "utf8"));
 }
+
+export async function buildBaseballSnapshot() {
+  const { validateBaseballSnapshot } = await import("./mlb-model");
+  return validateBaseballSnapshot(JSON.parse(await readFile(join(process.cwd(), "public/data/mlb/current.json"), "utf8")));
+}

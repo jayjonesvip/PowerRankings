@@ -7,3 +7,5 @@ public/data/nhl/
 .wrangler/
 next-env.d.ts
 *.tsbuildinfo
+
+public/data/mlb/

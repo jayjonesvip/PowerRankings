@@ -1,3 +1,4 @@
+import { validateBaseballSnapshot } from "../lib/mlb-model.ts";
 import { readFile, readdir, access } from "node:fs/promises";
 await access("out/nfl/index.html");
 await access("out/nhl/index.html");
@@ -21,7 +22,7 @@ for (const season of seasons.filter(name => /^\d{4}$/.test(name))) {
   }
 }
 for (const name of await readdir("out/_next/static/chunks")) {
-  if (name.endsWith(".js") && /site\.api\.espn\.com|api-web\.nhle\.com/.test(await readFile(`out/_next/static/chunks/${name}`, "utf8"))) {
+  if (name.endsWith(".js") && /site\.api\.espn\.com|api-web\.nhle\.com|statsapi\.mlb\.com/.test(await readFile(`out/_next/static/chunks/${name}`, "utf8"))) {
     throw new Error("Provider URL found in browser bundle");
   }
 }
@@ -55,3 +56,12 @@ for (const html of [nflHtml, nhlHtml]) {
   }
 }
 console.log("Opponent-adjusted performance sections verified in league HTML");
+
+const baseball = validateBaseballSnapshot(JSON.parse(await readFile("out/data/mlb/current.json", "utf8")));
+const mlbHtml = await htmlText("out/mlb/index.html");
+for (const id of ["division-standings", "league-leaders", "hitting-teams", "pitching-teams"]) {
+  if (!mlbHtml.includes(`id="${id}"`)) throw new Error(`MLB section missing: ${id}`);
+}
+if (baseball.teams.some(t => !mlbHtml.includes(t.name.replaceAll("&", "&amp;"))) ||
+    !mlbHtml.includes("Player home-run leader") || !mlbHtml.includes("Player batting-average leader") || !hubHtml.includes('id="mlb-board"')) throw new Error("MLB snapshot missing from exported HTML");
+console.log("MLB regular-season JSON, division standings, team stats and player leaders verified");

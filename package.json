@@ -16,7 +16,8 @@
     "build:github": "next build",
     "test:data": "node --test tests/*.test.mjs",
     "data:refresh:mvp": "node scripts/refresh-nfl-mvp.mjs",
-    "data:refresh:nhl": "node scripts/refresh-nhl.mjs"
+    "data:refresh:nhl": "node scripts/refresh-nhl.mjs",
+    "data:refresh:mlb": "node scripts/refresh-mlb.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
