@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { SortableStats } from "@/components/sortable-stats";
 import { LeagueMvpCards } from "@/components/league-mvps";
+import { WeeklyRankingsLink } from "@/components/weekly-rankings-link";
 import { LeagueTabs } from "@/components/league-tabs";
 import { LeagueSectionLinks } from "@/components/league-section-links";
 import { MlbPlayoffSeeding } from "@/components/mlb-playoff-seeding";
@@ -59,6 +60,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
     <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB Snapshot<br /><em>Regular-season snapshot</em></h1>
       <LeagueSectionLinks onViewChange={setView} sections={MLB_SECTIONS} /></div>
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
+    <WeeklyRankingsLink league="mlb" />
     <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"MLB Snapshot"},{view:"hitting",label:"Team Hitting"},{view:"pitching",label:"Team Pitching"},{view:"standings",label:"Standings"}]} />
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}

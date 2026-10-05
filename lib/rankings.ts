@@ -1,4 +1,4 @@
-import { readLocalData } from "./local-data";
+import { readLocalData } from "./local-data.ts";
 export type Game = {
   id: string; week: number; date: string;
   homeId: string; awayId: string; homeName: string; awayName: string;

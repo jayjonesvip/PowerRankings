@@ -1,0 +1,1336 @@
+{
+  "schemaVersion": 1,
+  "league": "mlb",
+  "season": 2026,
+  "seasonComplete": true,
+  "ready": true,
+  "slot": "2026-09-29",
+  "publishedAt": "2026-10-05T23:37:41.890Z",
+  "asOf": "2026-10-05T16:04:39.379Z",
+  "completedGames": 2429,
+  "headline": "At No. 1: Milwaukee Brewers",
+  "introduction": "The No. 1 spot belongs to Milwaukee Brewers on this final regular-season board. Here’s how all 30 teams stack up, based on 2,429 completed regular-season games. Read the quick take for each team, then open the numbers if you want to dig deeper.",
+  "methodology": "Jay’s MLB Index: win percentage 40%, run differential per game 30%, team batting average 15%, ERA 15%. Win percentage is scored from 0–100; other signals use bounded curves against neutral run differential or the league’s team-average rate. This model does not adjust for opponent strength or park effects. Every team needs five regular-season games.",
+  "teams": [
+    {
+      "id": "158",
+      "name": "Milwaukee Brewers",
+      "abbreviation": "MIL",
+      "rank": 1,
+      "score": 74.91710745311404,
+      "record": "103–59",
+      "movement": null,
+      "story": "Milwaukee Brewers check in at No. 1 with a 103–59 record. The run differential is +214, with a .258 team batting average and 3.51 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "74.9"
+        },
+        {
+          "label": "Record",
+          "value": "103–59"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.636"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+1.3"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "832 / 618"
+        },
+        {
+          "label": "Batting average",
+          "value": ".258"
+        },
+        {
+          "label": "ERA",
+          "value": "3.51"
+        },
+        {
+          "label": "Home runs",
+          "value": "154"
+        }
+      ]
+    },
+    {
+      "id": "119",
+      "name": "Los Angeles Dodgers",
+      "abbreviation": "LAD",
+      "rank": 2,
+      "score": 73.31047335661744,
+      "record": "100–62",
+      "movement": null,
+      "story": "Los Angeles Dodgers check in at No. 2 with a 100–62 record. The run differential is +201, with a .257 team batting average and 3.55 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "73.3"
+        },
+        {
+          "label": "Record",
+          "value": "100–62"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.617"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+1.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "801 / 600"
+        },
+        {
+          "label": "Batting average",
+          "value": ".257"
+        },
+        {
+          "label": "ERA",
+          "value": "3.55"
+        },
+        {
+          "label": "Home runs",
+          "value": "204"
+        }
+      ]
+    },
+    {
+      "id": "139",
+      "name": "Tampa Bay Rays",
+      "abbreviation": "TB",
+      "rank": 3,
+      "score": 67.1304961044348,
+      "record": "98–64",
+      "movement": null,
+      "story": "Tampa Bay Rays check in at No. 3 with a 98–64 record. The run differential is +86, with a .258 team batting average and 3.70 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "67.1"
+        },
+        {
+          "label": "Record",
+          "value": "98–64"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.605"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.5"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "736 / 650"
+        },
+        {
+          "label": "Batting average",
+          "value": ".258"
+        },
+        {
+          "label": "ERA",
+          "value": "3.70"
+        },
+        {
+          "label": "Home runs",
+          "value": "169"
+        }
+      ]
+    },
+    {
+      "id": "144",
+      "name": "Atlanta Braves",
+      "abbreviation": "ATL",
+      "rank": 4,
+      "score": 64.33189342013105,
+      "record": "94–68",
+      "movement": null,
+      "story": "Atlanta Braves check in at No. 4 with a 94–68 record. The run differential is +116, with a .246 team batting average and 3.63 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "64.3"
+        },
+        {
+          "label": "Record",
+          "value": "94–68"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.580"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.7"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "742 / 626"
+        },
+        {
+          "label": "Batting average",
+          "value": ".246"
+        },
+        {
+          "label": "ERA",
+          "value": "3.63"
+        },
+        {
+          "label": "Home runs",
+          "value": "204"
+        }
+      ]
+    },
+    {
+      "id": "147",
+      "name": "New York Yankees",
+      "abbreviation": "NYY",
+      "rank": 5,
+      "score": 63.2108002098993,
+      "record": "93–68",
+      "movement": null,
+      "story": "New York Yankees check in at No. 5 with a 93–68 record. The run differential is +138, with a .235 team batting average and 3.23 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "63.2"
+        },
+        {
+          "label": "Record",
+          "value": "93–68"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.578"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.9"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "739 / 601"
+        },
+        {
+          "label": "Batting average",
+          "value": ".235"
+        },
+        {
+          "label": "ERA",
+          "value": "3.23"
+        },
+        {
+          "label": "Home runs",
+          "value": "223"
+        }
+      ]
+    },
+    {
+      "id": "112",
+      "name": "Chicago Cubs",
+      "abbreviation": "CHC",
+      "rank": 6,
+      "score": 63.00107353701125,
+      "record": "89–73",
+      "movement": null,
+      "story": "Chicago Cubs check in at No. 6 with a 89–73 record. The run differential is +147, with a .251 team batting average and 4.12 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "63.0"
+        },
+        {
+          "label": "Record",
+          "value": "89–73"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.549"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.9"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "850 / 703"
+        },
+        {
+          "label": "Batting average",
+          "value": ".251"
+        },
+        {
+          "label": "ERA",
+          "value": "4.12"
+        },
+        {
+          "label": "Home runs",
+          "value": "220"
+        }
+      ]
+    },
+    {
+      "id": "111",
+      "name": "Boston Red Sox",
+      "abbreviation": "BOS",
+      "rank": 7,
+      "score": 60.71130732553288,
+      "record": "87–75",
+      "movement": null,
+      "story": "Boston Red Sox check in at No. 7 with a 87–75 record. The run differential is +78, with a .245 team batting average and 3.54 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "60.7"
+        },
+        {
+          "label": "Record",
+          "value": "87–75"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.537"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.5"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "689 / 611"
+        },
+        {
+          "label": "Batting average",
+          "value": ".245"
+        },
+        {
+          "label": "ERA",
+          "value": "3.54"
+        },
+        {
+          "label": "Home runs",
+          "value": "163"
+        }
+      ]
+    },
+    {
+      "id": "135",
+      "name": "San Diego Padres",
+      "abbreviation": "SD",
+      "rank": 8,
+      "score": 56.33121726200551,
+      "record": "91–71",
+      "movement": null,
+      "story": "San Diego Padres check in at No. 8 with a 91–71 record. The run differential is +41, with a .244 team batting average and 3.99 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "56.3"
+        },
+        {
+          "label": "Record",
+          "value": "91–71"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.562"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.3"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "722 / 681"
+        },
+        {
+          "label": "Batting average",
+          "value": ".244"
+        },
+        {
+          "label": "ERA",
+          "value": "3.99"
+        },
+        {
+          "label": "Home runs",
+          "value": "183"
+        }
+      ]
+    },
+    {
+      "id": "116",
+      "name": "Detroit Tigers",
+      "abbreviation": "DET",
+      "rank": 9,
+      "score": 55.39249805876219,
+      "record": "76–86",
+      "movement": null,
+      "story": "Detroit Tigers check in at No. 9 with a 76–86 record. The run differential is +71, with a .241 team batting average and 3.67 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "55.4"
+        },
+        {
+          "label": "Record",
+          "value": "76–86"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.469"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.4"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "723 / 652"
+        },
+        {
+          "label": "Batting average",
+          "value": ".241"
+        },
+        {
+          "label": "ERA",
+          "value": "3.67"
+        },
+        {
+          "label": "Home runs",
+          "value": "181"
+        }
+      ]
+    },
+    {
+      "id": "134",
+      "name": "Pittsburgh Pirates",
+      "abbreviation": "PIT",
+      "rank": 10,
+      "score": 55.37685511542635,
+      "record": "82–80",
+      "movement": null,
+      "story": "Pittsburgh Pirates check in at No. 10 with a 82–80 record. The run differential is +28, with a .253 team batting average and 4.14 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "55.4"
+        },
+        {
+          "label": "Record",
+          "value": "82–80"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.506"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "767 / 739"
+        },
+        {
+          "label": "Batting average",
+          "value": ".253"
+        },
+        {
+          "label": "ERA",
+          "value": "4.14"
+        },
+        {
+          "label": "Home runs",
+          "value": "186"
+        }
+      ]
+    },
+    {
+      "id": "114",
+      "name": "Cleveland Guardians",
+      "abbreviation": "CLE",
+      "rank": 11,
+      "score": 52.69602591117456,
+      "record": "85–77",
+      "movement": null,
+      "story": "Cleveland Guardians check in at No. 11 with a 85–77 record. The run differential is +11, with a .239 team batting average and 3.77 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.7"
+        },
+        {
+          "label": "Record",
+          "value": "85–77"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.525"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.1"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "678 / 667"
+        },
+        {
+          "label": "Batting average",
+          "value": ".239"
+        },
+        {
+          "label": "ERA",
+          "value": "3.77"
+        },
+        {
+          "label": "Home runs",
+          "value": "162"
+        }
+      ]
+    },
+    {
+      "id": "109",
+      "name": "Arizona Diamondbacks",
+      "abbreviation": "AZ",
+      "rank": 12,
+      "score": 52.48238051537096,
+      "record": "86–76",
+      "movement": null,
+      "story": "Arizona Diamondbacks check in at No. 12 with a 86–76 record. The run differential is +9, with a .246 team batting average and 4.18 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.5"
+        },
+        {
+          "label": "Record",
+          "value": "86–76"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.531"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.1"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "739 / 730"
+        },
+        {
+          "label": "Batting average",
+          "value": ".246"
+        },
+        {
+          "label": "ERA",
+          "value": "4.18"
+        },
+        {
+          "label": "Home runs",
+          "value": "166"
+        }
+      ]
+    },
+    {
+      "id": "146",
+      "name": "Miami Marlins",
+      "abbreviation": "MIA",
+      "rank": 13,
+      "score": 52.39374370101061,
+      "record": "80–82",
+      "movement": null,
+      "story": "Miami Marlins check in at No. 13 with a 80–82 record. The run differential is +3, with a .249 team batting average and 4.09 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.4"
+        },
+        {
+          "label": "Record",
+          "value": "80–82"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.494"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.0"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "715 / 712"
+        },
+        {
+          "label": "Batting average",
+          "value": ".249"
+        },
+        {
+          "label": "ERA",
+          "value": "4.09"
+        },
+        {
+          "label": "Home runs",
+          "value": "168"
+        }
+      ]
+    },
+    {
+      "id": "143",
+      "name": "Philadelphia Phillies",
+      "abbreviation": "PHI",
+      "rank": 14,
+      "score": 52.16203515338616,
+      "record": "88–74",
+      "movement": null,
+      "story": "Philadelphia Phillies check in at No. 14 with a 88–74 record. The run differential is +15, with a .240 team batting average and 4.04 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.2"
+        },
+        {
+          "label": "Record",
+          "value": "88–74"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.543"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.1"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "713 / 698"
+        },
+        {
+          "label": "Batting average",
+          "value": ".240"
+        },
+        {
+          "label": "ERA",
+          "value": "4.04"
+        },
+        {
+          "label": "Home runs",
+          "value": "182"
+        }
+      ]
+    },
+    {
+      "id": "145",
+      "name": "Chicago White Sox",
+      "abbreviation": "CWS",
+      "rank": 15,
+      "score": 51.68262656314958,
+      "record": "84–78",
+      "movement": null,
+      "story": "Chicago White Sox check in at No. 15 with a 84–78 record. The run differential is +56, with a .236 team batting average and 4.12 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "51.7"
+        },
+        {
+          "label": "Record",
+          "value": "84–78"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.519"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.3"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "776 / 720"
+        },
+        {
+          "label": "Batting average",
+          "value": ".236"
+        },
+        {
+          "label": "ERA",
+          "value": "4.12"
+        },
+        {
+          "label": "Home runs",
+          "value": "211"
+        }
+      ]
+    },
+    {
+      "id": "141",
+      "name": "Toronto Blue Jays",
+      "abbreviation": "TOR",
+      "rank": 16,
+      "score": 49.81252595321087,
+      "record": "79–83",
+      "movement": null,
+      "story": "Toronto Blue Jays check in at No. 16 with a 79–83 record. The run differential is -46, with a .247 team batting average and 3.90 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "49.8"
+        },
+        {
+          "label": "Record",
+          "value": "79–83"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.488"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.3"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "648 / 694"
+        },
+        {
+          "label": "Batting average",
+          "value": ".247"
+        },
+        {
+          "label": "ERA",
+          "value": "3.90"
+        },
+        {
+          "label": "Home runs",
+          "value": "152"
+        }
+      ]
+    },
+    {
+      "id": "120",
+      "name": "Washington Nationals",
+      "abbreviation": "WSH",
+      "rank": 17,
+      "score": 46.68002040509882,
+      "record": "77–85",
+      "movement": null,
+      "story": "Washington Nationals check in at No. 17 with a 77–85 record. The run differential is +6, with a .246 team batting average and 4.67 ERA. They’ve backed up the record by scoring more than they allow.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "46.7"
+        },
+        {
+          "label": "Record",
+          "value": "77–85"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.475"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "+0.0"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "821 / 815"
+        },
+        {
+          "label": "Batting average",
+          "value": ".246"
+        },
+        {
+          "label": "ERA",
+          "value": "4.67"
+        },
+        {
+          "label": "Home runs",
+          "value": "210"
+        }
+      ]
+    },
+    {
+      "id": "110",
+      "name": "Baltimore Orioles",
+      "abbreviation": "BAL",
+      "rank": 18,
+      "score": 45.62768633214564,
+      "record": "79–82",
+      "movement": null,
+      "story": "Baltimore Orioles check in at No. 18 with a 79–82 record. The run differential is -21, with a .234 team batting average and 4.07 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "45.6"
+        },
+        {
+          "label": "Record",
+          "value": "79–82"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.491"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.1"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "718 / 739"
+        },
+        {
+          "label": "Batting average",
+          "value": ".234"
+        },
+        {
+          "label": "ERA",
+          "value": "4.07"
+        },
+        {
+          "label": "Home runs",
+          "value": "199"
+        }
+      ]
+    },
+    {
+      "id": "117",
+      "name": "Houston Astros",
+      "abbreviation": "HOU",
+      "rank": 19,
+      "score": 45.26025682636782,
+      "record": "81–81",
+      "movement": null,
+      "story": "Houston Astros check in at No. 19 with a 81–81 record. The run differential is -32, with a .242 team batting average and 4.45 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "45.3"
+        },
+        {
+          "label": "Record",
+          "value": "81–81"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "734 / 766"
+        },
+        {
+          "label": "Batting average",
+          "value": ".242"
+        },
+        {
+          "label": "ERA",
+          "value": "4.45"
+        },
+        {
+          "label": "Home runs",
+          "value": "226"
+        }
+      ]
+    },
+    {
+      "id": "140",
+      "name": "Texas Rangers",
+      "abbreviation": "TEX",
+      "rank": 20,
+      "score": 45.102435268311105,
+      "record": "80–82",
+      "movement": null,
+      "story": "Texas Rangers check in at No. 20 with a 80–82 record. The run differential is -46, with a .242 team batting average and 4.32 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "45.1"
+        },
+        {
+          "label": "Record",
+          "value": "80–82"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.494"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.3"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "673 / 719"
+        },
+        {
+          "label": "Batting average",
+          "value": ".242"
+        },
+        {
+          "label": "ERA",
+          "value": "4.32"
+        },
+        {
+          "label": "Home runs",
+          "value": "183"
+        }
+      ]
+    },
+    {
+      "id": "138",
+      "name": "St. Louis Cardinals",
+      "abbreviation": "STL",
+      "rank": 21,
+      "score": 44.74044286025374,
+      "record": "77–85",
+      "movement": null,
+      "story": "St. Louis Cardinals check in at No. 21 with a 77–85 record. The run differential is -29, with a .239 team batting average and 4.26 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "44.7"
+        },
+        {
+          "label": "Record",
+          "value": "77–85"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.475"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "720 / 749"
+        },
+        {
+          "label": "Batting average",
+          "value": ".239"
+        },
+        {
+          "label": "ERA",
+          "value": "4.26"
+        },
+        {
+          "label": "Home runs",
+          "value": "167"
+        }
+      ]
+    },
+    {
+      "id": "121",
+      "name": "New York Mets",
+      "abbreviation": "NYM",
+      "rank": 22,
+      "score": 44.64071685929316,
+      "record": "74–88",
+      "movement": null,
+      "story": "New York Mets check in at No. 22 with a 74–88 record. The run differential is -32, with a .239 team batting average and 4.15 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "44.6"
+        },
+        {
+          "label": "Record",
+          "value": "74–88"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.457"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "699 / 731"
+        },
+        {
+          "label": "Batting average",
+          "value": ".239"
+        },
+        {
+          "label": "ERA",
+          "value": "4.15"
+        },
+        {
+          "label": "Home runs",
+          "value": "204"
+        }
+      ]
+    },
+    {
+      "id": "142",
+      "name": "Minnesota Twins",
+      "abbreviation": "MIN",
+      "rank": 23,
+      "score": 43.105317813040706,
+      "record": "77–85",
+      "movement": null,
+      "story": "Minnesota Twins check in at No. 23 with a 77–85 record. The run differential is -58, with a .245 team batting average and 4.56 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "43.1"
+        },
+        {
+          "label": "Record",
+          "value": "77–85"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.475"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.4"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "739 / 797"
+        },
+        {
+          "label": "Batting average",
+          "value": ".245"
+        },
+        {
+          "label": "ERA",
+          "value": "4.56"
+        },
+        {
+          "label": "Home runs",
+          "value": "187"
+        }
+      ]
+    },
+    {
+      "id": "136",
+      "name": "Seattle Mariners",
+      "abbreviation": "SEA",
+      "rank": 24,
+      "score": 41.2928087010177,
+      "record": "76–86",
+      "movement": null,
+      "story": "Seattle Mariners check in at No. 24 with a 76–86 record. The run differential is -58, with a .233 team batting average and 4.20 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "41.3"
+        },
+        {
+          "label": "Record",
+          "value": "76–86"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.469"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.4"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "664 / 722"
+        },
+        {
+          "label": "Batting average",
+          "value": ".233"
+        },
+        {
+          "label": "ERA",
+          "value": "4.20"
+        },
+        {
+          "label": "Home runs",
+          "value": "182"
+        }
+      ]
+    },
+    {
+      "id": "137",
+      "name": "San Francisco Giants",
+      "abbreviation": "SF",
+      "rank": 25,
+      "score": 39.88507698278934,
+      "record": "65–97",
+      "movement": null,
+      "story": "San Francisco Giants check in at No. 25 with a 65–97 record. The run differential is -91, with a .245 team batting average and 4.33 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "39.9"
+        },
+        {
+          "label": "Record",
+          "value": "65–97"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.401"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.6"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "669 / 760"
+        },
+        {
+          "label": "Batting average",
+          "value": ".245"
+        },
+        {
+          "label": "ERA",
+          "value": "4.33"
+        },
+        {
+          "label": "Home runs",
+          "value": "178"
+        }
+      ]
+    },
+    {
+      "id": "118",
+      "name": "Kansas City Royals",
+      "abbreviation": "KC",
+      "rank": 26,
+      "score": 37.645001380376904,
+      "record": "69–93",
+      "movement": null,
+      "story": "Kansas City Royals check in at No. 26 with a 69–93 record. The run differential is -120, with a .248 team batting average and 4.77 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "37.6"
+        },
+        {
+          "label": "Record",
+          "value": "69–93"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.426"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.7"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "690 / 810"
+        },
+        {
+          "label": "Batting average",
+          "value": ".248"
+        },
+        {
+          "label": "ERA",
+          "value": "4.77"
+        },
+        {
+          "label": "Home runs",
+          "value": "170"
+        }
+      ]
+    },
+    {
+      "id": "108",
+      "name": "Los Angeles Angels",
+      "abbreviation": "LAA",
+      "rank": 27,
+      "score": 35.27811184307689,
+      "record": "62–100",
+      "movement": null,
+      "story": "Los Angeles Angels check in at No. 27 with a 62–100 record. The run differential is -97, with a .234 team batting average and 4.29 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "35.3"
+        },
+        {
+          "label": "Record",
+          "value": "62–100"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.383"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-0.6"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "655 / 752"
+        },
+        {
+          "label": "Batting average",
+          "value": ".234"
+        },
+        {
+          "label": "ERA",
+          "value": "4.29"
+        },
+        {
+          "label": "Home runs",
+          "value": "154"
+        }
+      ]
+    },
+    {
+      "id": "115",
+      "name": "Colorado Rockies",
+      "abbreviation": "COL",
+      "rank": 28,
+      "score": 31.24187206334633,
+      "record": "58–104",
+      "movement": null,
+      "story": "Colorado Rockies check in at No. 28 with a 58–104 record. The run differential is -192, with a .254 team batting average and 5.59 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "31.2"
+        },
+        {
+          "label": "Record",
+          "value": "58–104"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.358"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-1.2"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "752 / 944"
+        },
+        {
+          "label": "Batting average",
+          "value": ".254"
+        },
+        {
+          "label": "ERA",
+          "value": "5.59"
+        },
+        {
+          "label": "Home runs",
+          "value": "180"
+        }
+      ]
+    },
+    {
+      "id": "113",
+      "name": "Cincinnati Reds",
+      "abbreviation": "CIN",
+      "rank": 29,
+      "score": 30.770679538411848,
+      "record": "75–87",
+      "movement": null,
+      "story": "Cincinnati Reds check in at No. 29 with a 75–87 record. The run differential is -160, with a .229 team batting average and 4.83 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "30.8"
+        },
+        {
+          "label": "Record",
+          "value": "75–87"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.463"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-1.0"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "666 / 826"
+        },
+        {
+          "label": "Batting average",
+          "value": ".229"
+        },
+        {
+          "label": "ERA",
+          "value": "4.83"
+        },
+        {
+          "label": "Home runs",
+          "value": "213"
+        }
+      ]
+    },
+    {
+      "id": "133",
+      "name": "Athletics",
+      "abbreviation": "ATH",
+      "rank": 30,
+      "score": 28.35218411473816,
+      "record": "64–98",
+      "movement": null,
+      "story": "Athletics check in at No. 30 with a 64–98 record. The run differential is -238, with a .245 team batting average and 5.51 ERA. The scoring balance leaves room for improvement.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "28.4"
+        },
+        {
+          "label": "Record",
+          "value": "64–98"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.395"
+        },
+        {
+          "label": "Run differential per game",
+          "value": "-1.5"
+        },
+        {
+          "label": "Runs scored / allowed",
+          "value": "699 / 937"
+        },
+        {
+          "label": "Batting average",
+          "value": ".245"
+        },
+        {
+          "label": "ERA",
+          "value": "5.51"
+        },
+        {
+          "label": "Home runs",
+          "value": "194"
+        }
+      ]
+    }
+  ]
+}

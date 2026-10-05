@@ -1,0 +1,2001 @@
+{
+  "schemaVersion": 1,
+  "league": "nfl",
+  "season": 2026,
+  "seasonComplete": false,
+  "ready": true,
+  "slot": "2026-09-29",
+  "publishedAt": "2026-10-05T23:37:41.890Z",
+  "asOf": "2026-10-05T23:33:15.830Z",
+  "completedGames": 63,
+  "week": 4,
+  "headline": "At No. 1: San Francisco 49ers",
+  "introduction": "The No. 1 spot belongs to San Francisco 49ers on this week’s board. Here’s how all 32 teams stack up, based on 63 completed regular-season games. Read the quick take for each team, then open the numbers if you want to dig deeper.",
+  "methodology": "Jay’s NFL Index: record 25%, win quality 30%, offense 20%, defense 20%, recent form 5%. Win quality combines opponent performance (80%) and scoring margin (20%). This is a statistical ordering, not an official standing or a prediction.",
+  "teams": [
+    {
+      "id": "25",
+      "name": "San Francisco 49ers",
+      "abbreviation": "SF",
+      "rank": 1,
+      "score": 77.99572129607199,
+      "record": "4–0",
+      "movement": null,
+      "story": "Last time out, they beat Denver Broncos 24–14. The record is doing plenty of the heavy lifting. At 4–0, they’re outscoring opponents by 14.5 points a game, while allowing 16.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "78.0"
+        },
+        {
+          "label": "Record",
+          "value": "4–0"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "122 / 64"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "30.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "16.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "100.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "42.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "89.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "87.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "92.9"
+        }
+      ],
+      "recent": [
+        "W DEN 24–14",
+        "W ARI 36–30",
+        "W MIA 35–13"
+      ],
+      "next": {
+        "opponent": "at Seattle Seahawks",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #6 team. SF has a 14.3-point index edge; scoring averages and opponent defense favor SF."
+      }
+    },
+    {
+      "id": "12",
+      "name": "Kansas City Chiefs",
+      "abbreviation": "KC",
+      "rank": 2,
+      "score": 76.62827344635582,
+      "record": "4–0",
+      "movement": null,
+      "story": "Last time out, they beat Las Vegas Raiders 30–27. The record is doing plenty of the heavy lifting. At 4–0, they’re outscoring opponents by 10.3 points a game, while allowing 19.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "76.6"
+        },
+        {
+          "label": "Record",
+          "value": "4–0"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "118 / 77"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "29.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "19.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "100.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "50.2"
+        },
+        {
+          "label": "Offense grade",
+          "value": "86.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "74.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "87.9"
+        }
+      ],
+      "recent": [
+        "W LV 30–27",
+        "W MIA 24–10",
+        "W IND 33–30"
+      ],
+      "next": {
+        "opponent": "vs. Los Angeles Chargers",
+        "label": "Favorable matchup",
+        "reason": "At home, against the #31 team. KC has a 68.0-point index edge; scoring averages and opponent defense favor KC."
+      }
+    },
+    {
+      "id": "30",
+      "name": "Jacksonville Jaguars",
+      "abbreviation": "JAX",
+      "rank": 3,
+      "score": 72.90380653785675,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat Cincinnati Bengals 22–17. Keeping opponents off the scoreboard is their strongest part of the index. At 3–1, they’re outscoring opponents by 12.8 points a game, while allowing 13.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "72.9"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "104 / 53"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "26.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "13.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "59.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "70.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "94.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "65.7"
+        }
+      ],
+      "recent": [
+        "W CIN 22–17",
+        "W NE 35–6",
+        "L DEN 13–20"
+      ],
+      "next": {
+        "opponent": "vs. Philadelphia Eagles",
+        "label": "Favorable matchup",
+        "reason": "Neutral site, against the #24 team. JAX has a 35.6-point index edge; scoring averages and opponent defense favor JAX."
+      }
+    },
+    {
+      "id": "3",
+      "name": "Chicago Bears",
+      "abbreviation": "CHI",
+      "rank": 4,
+      "score": 71.61879595482849,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat New York Jets 23–12. Keeping opponents off the scoreboard is their strongest part of the index. At 3–1, they’re outscoring opponents by 11.8 points a game, while allowing 16.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "71.6"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "112 / 65"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "28.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "16.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "52.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "81.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "87.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "67.6"
+        }
+      ],
+      "recent": [
+        "W NYJ 23–12",
+        "W PHI 27–7",
+        "L MIN 3–9"
+      ],
+      "next": {
+        "opponent": "at Green Bay Packers",
+        "label": "Favorable matchup",
+        "reason": "On the road, against the #25 team. CHI has a 36.8-point index edge; scoring averages and opponent defense favor CHI."
+      }
+    },
+    {
+      "id": "16",
+      "name": "Minnesota Vikings",
+      "abbreviation": "MIN",
+      "rank": 5,
+      "score": 69.46147299075447,
+      "record": "4–0",
+      "movement": null,
+      "story": "Last time out, they beat Miami Dolphins 15–10. The record is doing plenty of the heavy lifting. At 4–0, they’re outscoring opponents by 8.8 points a game, while allowing 12.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "69.5"
+        },
+        {
+          "label": "Record",
+          "value": "4–0"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "86 / 51"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "21.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "12.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "100.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "43.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "39.9"
+        },
+        {
+          "label": "Defense grade",
+          "value": "94.8"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "88.1"
+        }
+      ],
+      "recent": [
+        "W MIA 15–10",
+        "W TB 23–16",
+        "W CHI 9–3"
+      ],
+      "next": {
+        "opponent": "at New Orleans Saints",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #15 team. MIN has a 18.8-point index edge; scoring averages and opponent defense favor MIN."
+      }
+    },
+    {
+      "id": "26",
+      "name": "Seattle Seahawks",
+      "abbreviation": "SEA",
+      "rank": 6,
+      "score": 63.714619248593344,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat Los Angeles Chargers 30–23. Keeping opponents off the scoreboard is their strongest part of the index. At 3–1, they’re outscoring opponents by 8.0 points a game, while allowing 18.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "63.7"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "105 / 73"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "26.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "18.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "37.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "72.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "79.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "68.4"
+        }
+      ],
+      "recent": [
+        "W LAC 30–23",
+        "L WSH 31–33",
+        "W ARI 31–7"
+      ],
+      "next": {
+        "opponent": "vs. San Francisco 49ers",
+        "label": "Tough matchup",
+        "reason": "At home, against the #1 team. SEA has a 14.3-point index deficit; scoring averages and opponent defense favor the opponent over SEA."
+      }
+    },
+    {
+      "id": "13",
+      "name": "Las Vegas Raiders",
+      "abbreviation": "LV",
+      "rank": 7,
+      "score": 61.40054998799742,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they lost to Kansas City Chiefs 27–30. Scoring is their strongest part of the index. At 3–1, they’re outscoring opponents by 7.8 points a game, while allowing 21.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "61.4"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "115 / 84"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "28.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "21.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "32.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "84.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "63.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "66.7"
+        }
+      ],
+      "recent": [
+        "L KC 27–30",
+        "W NO 35–27",
+        "W LAC 26–14"
+      ],
+      "next": {
+        "opponent": "at New England Patriots",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #14 team. LV has a 10.3-point index edge; scoring averages and opponent defense favor LV."
+      }
+    },
+    {
+      "id": "33",
+      "name": "Baltimore Ravens",
+      "abbreviation": "BAL",
+      "rank": 8,
+      "score": 61.30580972952526,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat Tennessee Titans 24–18. Scoring is their strongest part of the index. At 3–1, they’re outscoring opponents by 5.0 points a game, while allowing 24.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "61.3"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "116 / 96"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "29.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "24.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "46.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "85.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "42.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "61.0"
+        }
+      ],
+      "recent": [
+        "W TEN 24–18",
+        "W DAL 34–31",
+        "L NO 17–24"
+      ],
+      "next": {
+        "opponent": "at Atlanta Falcons",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #23 team. BAL has a 23.0-point index edge; scoring averages and opponent defense favor BAL."
+      }
+    },
+    {
+      "id": "2",
+      "name": "Buffalo Bills",
+      "abbreviation": "BUF",
+      "rank": 9,
+      "score": 55.969025565194634,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they lost to New England Patriots 26–29. Scoring is their strongest part of the index. At 3–1, they’re outscoring opponents by 5.0 points a game, while allowing 26.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "56.0"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "127 / 107"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "31.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "26.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "34.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "92.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "25.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "66.1"
+        }
+      ],
+      "recent": [
+        "L NE 26–29",
+        "W LAC 24–16",
+        "W DET 41–31"
+      ],
+      "next": {
+        "opponent": "at Los Angeles Rams",
+        "label": "Close matchup",
+        "reason": "On the road, against the #11 team. BUF has a 1.9-point index edge; scoring averages and opponent defense favor BUF."
+      }
+    },
+    {
+      "id": "19",
+      "name": "New York Giants",
+      "abbreviation": "NYG",
+      "rank": 10,
+      "score": 54.986371818522095,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat Arizona Cardinals 36–24. The record is doing plenty of the heavy lifting. At 3–1, they’re outscoring opponents by 0.8 points a game, while allowing 19.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "55.0"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "82 / 79"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "20.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "19.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "40.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "33.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "71.3"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.8"
+        }
+      ],
+      "recent": [
+        "W ARI 36–24",
+        "W TEN 12–7",
+        "L LAR 6–28"
+      ],
+      "next": {
+        "opponent": "at Washington Commanders",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #22 team. NYG has a 15.0-point index edge; scoring averages and opponent defense favor NYG."
+      }
+    },
+    {
+      "id": "14",
+      "name": "Los Angeles Rams",
+      "abbreviation": "LAR",
+      "rank": 11,
+      "score": 54.02763984895965,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Philadelphia Eagles 24–20. Recent form is their strongest part of the index. At 2–2, they’re outscoring opponents by 0.5 points a game, while allowing 20.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "54.0"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "85 / 83"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "21.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "20.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "58.5"
+        },
+        {
+          "label": "Offense grade",
+          "value": "38.2"
+        },
+        {
+          "label": "Defense grade",
+          "value": "65.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "66.1"
+        }
+      ],
+      "recent": [
+        "W PHI 24–20",
+        "L DEN 26–30",
+        "W NYG 28–6"
+      ],
+      "next": {
+        "opponent": "vs. Buffalo Bills",
+        "label": "Close matchup",
+        "reason": "At home, against the #9 team. LAR has a 1.9-point index deficit; scoring averages and opponent defense favor the opponent over LAR."
+      }
+    },
+    {
+      "id": "29",
+      "name": "Carolina Panthers",
+      "abbreviation": "CAR",
+      "rank": 12,
+      "score": 53.14122898329751,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Detroit Lions 32–26. Scoring is their strongest part of the index. At 2–2, they’re outscoring opponents by 3.0 points a game, while allowing 27.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "53.1"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "121 / 109"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "30.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "27.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "49.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "89.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "22.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "67.8"
+        }
+      ],
+      "recent": [
+        "W DET 32–26",
+        "L CLE 18–21",
+        "W ATL 34–3"
+      ],
+      "next": {
+        "opponent": "at Philadelphia Eagles",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #24 team. CAR has a 15.8-point index edge; scoring averages and opponent defense favor CAR."
+      }
+    },
+    {
+      "id": "5",
+      "name": "Cleveland Browns",
+      "abbreviation": "CLE",
+      "rank": 13,
+      "score": 51.12057512338527,
+      "record": "3–1",
+      "movement": null,
+      "story": "Last time out, they beat Pittsburgh Steelers 27–24. Recent form is their strongest part of the index. At 3–1, they’re being outscored by 3.5 points a game, while allowing 23.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "51.1"
+        },
+        {
+          "label": "Record",
+          "value": "3–1"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "81 / 95"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "20.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "23.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "75.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "43.2"
+        },
+        {
+          "label": "Offense grade",
+          "value": "31.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "44.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "84.7"
+        }
+      ],
+      "recent": [
+        "W PIT 27–24",
+        "W CAR 21–18",
+        "W TB 23–19"
+      ],
+      "next": {
+        "opponent": "at New York Jets",
+        "label": "Close matchup",
+        "reason": "On the road, against the #26 team. CLE has a 17.2-point index edge; scoring averages and opponent defense favor CLE."
+      }
+    },
+    {
+      "id": "17",
+      "name": "New England Patriots",
+      "abbreviation": "NE",
+      "rank": 14,
+      "score": 51.061239461838284,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Buffalo Bills 29–26. Keeping opponents off the scoreboard is their strongest part of the index. At 2–2, they’re being outscored by 3.0 points a game, while allowing 19.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "51.1"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "65 / 77"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "16.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "19.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "60.4"
+        },
+        {
+          "label": "Offense grade",
+          "value": "12.9"
+        },
+        {
+          "label": "Defense grade",
+          "value": "74.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.5"
+        }
+      ],
+      "recent": [
+        "W BUF 29–26",
+        "L JAX 6–35",
+        "W PIT 20–3"
+      ],
+      "next": {
+        "opponent": "vs. Las Vegas Raiders",
+        "label": "Tough matchup",
+        "reason": "At home, against the #7 team. NE has a 10.3-point index deficit; scoring averages and opponent defense favor the opponent over NE."
+      }
+    },
+    {
+      "id": "18",
+      "name": "New Orleans Saints",
+      "abbreviation": "NO",
+      "rank": 15,
+      "score": 50.66595653437055,
+      "record": "1–2",
+      "movement": null,
+      "story": "Last time out, they lost to Las Vegas Raiders 27–35. Scoring is their strongest part of the index. At 1–2, they’re being outscored by 0.7 points a game, while allowing 27.7.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "50.7"
+        },
+        {
+          "label": "Record",
+          "value": "1–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "81 / 83"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "27.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "27.7"
+        },
+        {
+          "label": "Record grade",
+          "value": "33.3"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "70.1"
+        },
+        {
+          "label": "Offense grade",
+          "value": "76.2"
+        },
+        {
+          "label": "Defense grade",
+          "value": "20.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "39.2"
+        }
+      ],
+      "recent": [
+        "L LV 27–35",
+        "W BAL 24–17",
+        "L DET 30–31"
+      ],
+      "next": {
+        "opponent": "vs. Atlanta Falcons",
+        "label": "Winnable matchup",
+        "reason": "At home, against the #23 team. NO has a 12.4-point index edge; scoring averages and opponent defense favor NO."
+      }
+    },
+    {
+      "id": "7",
+      "name": "Denver Broncos",
+      "abbreviation": "DEN",
+      "rank": 16,
+      "score": 48.780118448405496,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they lost to San Francisco 49ers 14–24. Wins against stronger opponents carry real weight here. At 2–2, they’re being outscored by 5.0 points a game, while allowing 23.5.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "48.8"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "74 / 94"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "18.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "23.5"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "65.5"
+        },
+        {
+          "label": "Offense grade",
+          "value": "22.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "45.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.8"
+        }
+      ],
+      "recent": [
+        "L SF 14–24",
+        "W LAR 30–26",
+        "W JAX 20–13"
+      ],
+      "next": {
+        "opponent": "at Los Angeles Chargers",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #31 team. DEN has a 40.1-point index edge; scoring averages and opponent defense favor DEN."
+      }
+    },
+    {
+      "id": "4",
+      "name": "Cincinnati Bengals",
+      "abbreviation": "CIN",
+      "rank": 17,
+      "score": 47.31835757005729,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they lost to Jacksonville Jaguars 17–22. Keeping opponents off the scoreboard is their strongest part of the index. At 2–2, they’re outscoring opponents by 3.0 points a game, while allowing 21.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "47.3"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "97 / 85"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "24.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "21.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "28.4"
+        },
+        {
+          "label": "Offense grade",
+          "value": "59.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "61.8"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "41.4"
+        }
+      ],
+      "recent": [
+        "L JAX 17–22",
+        "L PIT 27–30",
+        "W HOU 20–6"
+      ],
+      "next": {
+        "opponent": "at Miami Dolphins",
+        "label": "Favorable matchup",
+        "reason": "On the road, against the #32 team. CIN has a 39.5-point index edge; scoring averages and opponent defense favor CIN."
+      }
+    },
+    {
+      "id": "6",
+      "name": "Dallas Cowboys",
+      "abbreviation": "DAL",
+      "rank": 18,
+      "score": 47.101563003171094,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Houston Texans 34–30. Scoring is their strongest part of the index. At 2–2, they’re outscoring opponents by 2.5 points a game, while allowing 28.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "47.1"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "122 / 112"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "30.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "28.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "31.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "89.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "19.0"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "66.0"
+        }
+      ],
+      "recent": [
+        "W HOU 34–30",
+        "L BAL 31–34",
+        "W WSH 37–20"
+      ],
+      "next": {
+        "opponent": "vs. Tampa Bay Buccaneers",
+        "label": "Favorable matchup",
+        "reason": "At home, against the #29 team. DAL has a 33.0-point index edge; scoring averages and opponent defense favor DAL."
+      }
+    },
+    {
+      "id": "8",
+      "name": "Detroit Lions",
+      "abbreviation": "DET",
+      "rank": 19,
+      "score": 46.15186100006108,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they lost to Carolina Panthers 26–32. Scoring is their strongest part of the index. At 2–2, they’re being outscored by 2.0 points a game, while allowing 31.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "46.2"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "119 / 127"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "29.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "31.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "42.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "87.5"
+        },
+        {
+          "label": "Defense grade",
+          "value": "7.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "36.3"
+        }
+      ],
+      "recent": [
+        "L CAR 26–32",
+        "W NYJ 31–24",
+        "L BUF 31–41"
+      ],
+      "next": {
+        "opponent": "at Arizona Cardinals",
+        "label": "Winnable matchup",
+        "reason": "On the road, against the #27 team. DET has a 20.9-point index edge; scoring averages and opponent defense favor DET."
+      }
+    },
+    {
+      "id": "23",
+      "name": "Pittsburgh Steelers",
+      "abbreviation": "PIT",
+      "rank": 20,
+      "score": 45.73367697250413,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they lost to Cleveland Browns 24–27. Keeping opponents off the scoreboard is their strongest part of the index. At 2–2, they’re being outscored by 2.5 points a game, while allowing 21.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "45.7"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "77 / 87"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "19.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "21.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "48.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "25.9"
+        },
+        {
+          "label": "Defense grade",
+          "value": "58.3"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "34.4"
+        }
+      ],
+      "recent": [
+        "L CLE 24–27",
+        "W CIN 30–27",
+        "L NE 3–20"
+      ],
+      "next": {
+        "opponent": "vs. Indianapolis Colts",
+        "label": "Close matchup",
+        "reason": "At home, against the #21 team. PIT has a 1.2-point index edge; scoring averages and opponent defense favor PIT."
+      }
+    },
+    {
+      "id": "11",
+      "name": "Indianapolis Colts",
+      "abbreviation": "IND",
+      "rank": 21,
+      "score": 44.500882853934364,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Washington Commanders 30–13. Scoring is their strongest part of the index. At 2–2, they’re being outscored by 0.5 points a game, while allowing 26.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "44.5"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "102 / 104"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "25.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "26.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "31.2"
+        },
+        {
+          "label": "Offense grade",
+          "value": "67.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "29.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "65.1"
+        }
+      ],
+      "recent": [
+        "W WSH 30–13",
+        "W HOU 19–17",
+        "L KC 30–33"
+      ],
+      "next": {
+        "opponent": "at Pittsburgh Steelers",
+        "label": "Close matchup",
+        "reason": "On the road, against the #20 team. IND has a 1.2-point index deficit; scoring averages and opponent defense favor the opponent over IND."
+      }
+    },
+    {
+      "id": "28",
+      "name": "Washington Commanders",
+      "abbreviation": "WSH",
+      "rank": 22,
+      "score": 39.98466955509238,
+      "record": "1–3",
+      "movement": null,
+      "story": "Last time out, they lost to Indianapolis Colts 13–30. Wins against stronger opponents carry real weight here. At 1–3, they’re being outscored by 8.5 points a game, while allowing 30.5.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "40.0"
+        },
+        {
+          "label": "Record",
+          "value": "1–3"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "88 / 122"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "22.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "30.5"
+        },
+        {
+          "label": "Record grade",
+          "value": "25.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "71.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "43.4"
+        },
+        {
+          "label": "Defense grade",
+          "value": "10.3"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "29.8"
+        }
+      ],
+      "recent": [
+        "L IND 13–30",
+        "W SEA 33–31",
+        "L DAL 20–37"
+      ],
+      "next": {
+        "opponent": "vs. New York Giants",
+        "label": "Tough matchup",
+        "reason": "At home, against the #10 team. WSH has a 15.0-point index deficit; scoring averages and opponent defense favor the opponent over WSH."
+      }
+    },
+    {
+      "id": "1",
+      "name": "Atlanta Falcons",
+      "abbreviation": "ATL",
+      "rank": 23,
+      "score": 38.27311500106519,
+      "record": "1–2",
+      "movement": null,
+      "story": "Last time out, they beat Green Bay Packers 35–14. Keeping opponents off the scoreboard is their strongest part of the index. At 1–2, they’re being outscored by 5.7 points a game, while allowing 22.7.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "38.3"
+        },
+        {
+          "label": "Record",
+          "value": "1–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "51 / 68"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "17.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "22.7"
+        },
+        {
+          "label": "Record grade",
+          "value": "33.3"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "48.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "15.5"
+        },
+        {
+          "label": "Defense grade",
+          "value": "51.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "36.4"
+        }
+      ],
+      "recent": [
+        "W GB 35–14",
+        "L CAR 3–34",
+        "L PIT 13–20"
+      ],
+      "next": {
+        "opponent": "at New Orleans Saints",
+        "label": "Tough matchup",
+        "reason": "On the road, against the #15 team. ATL has a 12.4-point index deficit; scoring averages and opponent defense favor the opponent over ATL."
+      }
+    },
+    {
+      "id": "21",
+      "name": "Philadelphia Eagles",
+      "abbreviation": "PHI",
+      "rank": 24,
+      "score": 37.29237779975334,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they lost to Los Angeles Rams 20–24. The record is doing plenty of the heavy lifting. At 2–2, they’re being outscored by 4.5 points a game, while allowing 23.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "37.3"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "75 / 93"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "18.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "23.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "29.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "23.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "47.7"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "34.1"
+        }
+      ],
+      "recent": [
+        "L LAR 20–24",
+        "L CHI 7–27",
+        "W TEN 24–20"
+      ],
+      "next": {
+        "opponent": "vs. Jacksonville Jaguars",
+        "label": "Very tough matchup",
+        "reason": "Neutral site, against the #3 team. PHI has a 35.6-point index deficit; scoring averages and opponent defense favor the opponent over PHI."
+      }
+    },
+    {
+      "id": "9",
+      "name": "Green Bay Packers",
+      "abbreviation": "GB",
+      "rank": 25,
+      "score": 34.863586625316366,
+      "record": "2–2",
+      "movement": null,
+      "story": "Last time out, they beat Tampa Bay Buccaneers 17–14. Recent form is their strongest part of the index. At 2–2, they’re being outscored by 8.0 points a game, while allowing 26.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "34.9"
+        },
+        {
+          "label": "Record",
+          "value": "2–2"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "73 / 105"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "18.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "26.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "32.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "20.8"
+        },
+        {
+          "label": "Defense grade",
+          "value": "27.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "56.8"
+        }
+      ],
+      "recent": [
+        "W TB 17–14",
+        "L ATL 14–35",
+        "W NYJ 20–17"
+      ],
+      "next": {
+        "opponent": "vs. Chicago Bears",
+        "label": "Very tough matchup",
+        "reason": "At home, against the #4 team. GB has a 36.8-point index deficit; scoring averages and opponent defense favor the opponent over GB."
+      }
+    },
+    {
+      "id": "20",
+      "name": "New York Jets",
+      "abbreviation": "NYJ",
+      "rank": 26,
+      "score": 33.90621864843122,
+      "record": "1–3",
+      "movement": null,
+      "story": "Last time out, they lost to Chicago Bears 12–23. Keeping opponents off the scoreboard is their strongest part of the index. At 1–3, they’re being outscored by 2.0 points a game, while allowing 21.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "33.9"
+        },
+        {
+          "label": "Record",
+          "value": "1–3"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "76 / 84"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "19.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "21.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "25.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "31.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "24.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "63.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "11.1"
+        }
+      ],
+      "recent": [
+        "L CHI 12–23",
+        "L DET 24–31",
+        "L GB 17–20"
+      ],
+      "next": {
+        "opponent": "vs. Cleveland Browns",
+        "label": "Close matchup",
+        "reason": "At home, against the #13 team. NYJ has a 17.2-point index deficit; scoring averages and opponent defense favor the opponent over NYJ."
+      }
+    },
+    {
+      "id": "22",
+      "name": "Arizona Cardinals",
+      "abbreviation": "ARI",
+      "rank": 27,
+      "score": 25.276309904341947,
+      "record": "1–3",
+      "movement": null,
+      "story": "Last time out, they lost to New York Giants 24–36. Scoring is their strongest part of the index. At 1–3, they’re being outscored by 7.5 points a game, while allowing 29.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "25.3"
+        },
+        {
+          "label": "Record",
+          "value": "1–3"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "87 / 117"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "21.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "29.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "25.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "25.2"
+        },
+        {
+          "label": "Offense grade",
+          "value": "41.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "14.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "6.4"
+        }
+      ],
+      "recent": [
+        "L NYG 24–36",
+        "L SF 30–36",
+        "L SEA 7–31"
+      ],
+      "next": {
+        "opponent": "vs. Detroit Lions",
+        "label": "Tough matchup",
+        "reason": "At home, against the #19 team. ARI has a 20.9-point index deficit; scoring averages and opponent defense favor the opponent over ARI."
+      }
+    },
+    {
+      "id": "10",
+      "name": "Tennessee Titans",
+      "abbreviation": "TEN",
+      "rank": 28,
+      "score": 15.027988313506901,
+      "record": "0–4",
+      "movement": null,
+      "story": "Last time out, they lost to Baltimore Ravens 18–24. Keeping opponents off the scoreboard is their strongest part of the index. At 0–4, they’re being outscored by 7.0 points a game, while allowing 20.8.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "15.0"
+        },
+        {
+          "label": "Record",
+          "value": "0–4"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "55 / 83"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "13.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "20.8"
+        },
+        {
+          "label": "Record grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "6.8"
+        },
+        {
+          "label": "Defense grade",
+          "value": "65.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "13.2"
+        }
+      ],
+      "recent": [
+        "L BAL 18–24",
+        "L NYG 7–12",
+        "L PHI 20–24"
+      ],
+      "next": {
+        "opponent": "vs. Houston Texans",
+        "label": "Close matchup",
+        "reason": "At home, against the #30 team. TEN has a 2.6-point index edge; scoring averages and opponent defense favor TEN."
+      }
+    },
+    {
+      "id": "27",
+      "name": "Tampa Bay Buccaneers",
+      "abbreviation": "TB",
+      "rank": 29,
+      "score": 14.075253294164686,
+      "record": "0–4",
+      "movement": null,
+      "story": "Last time out, they lost to Green Bay Packers 14–17. Keeping opponents off the scoreboard is their strongest part of the index. At 0–4, they’re being outscored by 5.0 points a game, while allowing 24.0.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "14.1"
+        },
+        {
+          "label": "Record",
+          "value": "0–4"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "76 / 96"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "19.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "24.0"
+        },
+        {
+          "label": "Record grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "24.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "42.4"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "13.7"
+        }
+      ],
+      "recent": [
+        "L GB 14–17",
+        "L MIN 16–23",
+        "L CLE 19–23"
+      ],
+      "next": {
+        "opponent": "at Dallas Cowboys",
+        "label": "Very tough matchup",
+        "reason": "On the road, against the #18 team. TB has a 33.0-point index deficit; scoring averages and opponent defense favor the opponent over TB."
+      }
+    },
+    {
+      "id": "34",
+      "name": "Houston Texans",
+      "abbreviation": "HOU",
+      "rank": 30,
+      "score": 12.425881900141604,
+      "record": "0–4",
+      "movement": null,
+      "story": "Last time out, they lost to Dallas Cowboys 30–34. Scoring is their strongest part of the index. At 0–4, they’re being outscored by 6.3 points a game, while allowing 27.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "12.4"
+        },
+        {
+          "label": "Record",
+          "value": "0–4"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "84 / 109"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "21.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "27.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "36.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "22.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "12.1"
+        }
+      ],
+      "recent": [
+        "L DAL 30–34",
+        "L IND 17–19",
+        "L CIN 6–20"
+      ],
+      "next": {
+        "opponent": "at Tennessee Titans",
+        "label": "Close matchup",
+        "reason": "On the road, against the #28 team. HOU has a 2.6-point index deficit; scoring averages and opponent defense favor the opponent over HOU."
+      }
+    },
+    {
+      "id": "24",
+      "name": "Los Angeles Chargers",
+      "abbreviation": "LAC",
+      "rank": 31,
+      "score": 8.663729500360665,
+      "record": "0–4",
+      "movement": null,
+      "story": "Last time out, they lost to Seattle Seahawks 23–30. Keeping opponents off the scoreboard is their strongest part of the index. At 0–4, they’re being outscored by 9.8 points a game, while allowing 26.5.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "8.7"
+        },
+        {
+          "label": "Record",
+          "value": "0–4"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "67 / 106"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "16.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "26.5"
+        },
+        {
+          "label": "Record grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "14.6"
+        },
+        {
+          "label": "Defense grade",
+          "value": "26.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "8.8"
+        }
+      ],
+      "recent": [
+        "L SEA 23–30",
+        "L BUF 16–24",
+        "L LV 14–26"
+      ],
+      "next": {
+        "opponent": "vs. Denver Broncos",
+        "label": "Tough matchup",
+        "reason": "At home, against the #16 team. LAC has a 40.1-point index deficit; scoring averages and opponent defense favor the opponent over LAC."
+      }
+    },
+    {
+      "id": "15",
+      "name": "Miami Dolphins",
+      "abbreviation": "MIA",
+      "rank": 32,
+      "score": 7.86189773247717,
+      "record": "0–4",
+      "movement": null,
+      "story": "Last time out, they lost to Minnesota Vikings 10–15. Keeping opponents off the scoreboard is their strongest part of the index. At 0–4, they’re being outscored by 13.8 points a game, while allowing 25.3.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "7.9"
+        },
+        {
+          "label": "Record",
+          "value": "0–4"
+        },
+        {
+          "label": "Points scored / allowed",
+          "value": "46 / 101"
+        },
+        {
+          "label": "Points scored per game",
+          "value": "11.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "25.3"
+        },
+        {
+          "label": "Record grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "0.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "3.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "34.0"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "6.5"
+        }
+      ],
+      "recent": [
+        "L MIN 10–15",
+        "L KC 10–24",
+        "L SF 13–35"
+      ],
+      "next": {
+        "opponent": "vs. Cincinnati Bengals",
+        "label": "Very tough matchup",
+        "reason": "At home, against the #17 team. MIA has a 39.5-point index deficit; scoring averages and opponent defense favor the opponent over MIA."
+      }
+    }
+  ]
+}

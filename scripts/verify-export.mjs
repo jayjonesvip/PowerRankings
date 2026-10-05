@@ -34,20 +34,16 @@ console.log("Static pages, all JSON dependencies, and browser bundles verified")
 const htmlText = async (path) => (await readFile(path, "utf8"))
   .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
 const nflHtml = await htmlText("out/nfl/index.html");
-if ((nflHtml.match(/class="team-card"/g) ?? []).length !== 32 ||
-    !nflHtml.includes('id="division-standings"') || !nflHtml.includes('id="league-stats"') ||
-    !/<section[^>]*id="rankings-panel"[^>]*hidden=""/.test(nflHtml) || !nflHtml.replace(/<[^>]*>/g, "").includes("AFC East")) {
-  throw new Error("NFL standings, stats and all 32 rankings must be prerendered");
-}
+if (!nflHtml.includes('id="division-standings"') || !nflHtml.includes('id="league-stats"') || nflHtml.includes('id="rankings-tab"') || !nflHtml.replace(/<[^>]*>/g, "").includes("AFC East")) throw new Error("NFL snapshot/standings missing or old rankings tab retained");
 for (const player of [mvp.offense, mvp.defense].filter(Boolean)) {
   if (!nflHtml.includes(player.name) || !nflHtml.includes(player.reason.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#x27;"))) {
     throw new Error("MVP names and explanations must be prerendered");
   }
 }
 const nhlHtml = await htmlText("out/nhl/index.html");
-if (!nhlHtml.includes('id="division-standings"') || !nhlHtml.includes('id="rankings"') ||
+if (!nhlHtml.includes('id="division-standings"') || nhlHtml.includes('id="rankings-tab"') ||
     hockey.teams.some(team => !nhlHtml.includes(team.name))) throw new Error("NHL standings must be prerendered");
-if (hockey.rankingsReady && !nhlHtml.includes("All 32 NHL power rankings")) throw new Error("NHL rankings missing from HTML");
+
 const hubHtml = await htmlText("out/index.html");
 if (!hubHtml.includes("NFL") || !hubHtml.includes("NHL") || hubHtml.includes("Loading league snapshot")) throw new Error("Home snapshot missing");
 console.log("Rendered league standings, rankings, stats and MVP explanations verified without JavaScript");
@@ -97,7 +93,7 @@ for(const id of ["hitting-panel","pitching-panel"]) if(!mlbHtml.includes(`id="${
 if(!nhlHtml.includes('id="playoff-picture"') || hockey.teams.some(t=>!Number.isInteger(t.divisionRank)||!Number.isInteger(t.conferenceRank))) throw new Error("NHL playoff picture/ranks missing");
 console.log("Default dashboards, standings/playoff tabs, and separate MLB stats tabs verified");
 
-for(const [html,expected] of [[nflHtml,["dashboard","standings","rankings"]],[nhlHtml,["dashboard","standings","scoring","goaltending","rankings"]],[mlbHtml,["dashboard","standings","hitting","pitching"]]]) {
+for(const [html,expected] of [[nflHtml,["dashboard","standings"]],[nhlHtml,["dashboard","standings","scoring","goaltending"]],[mlbHtml,["dashboard","standings","hitting","pitching"]]]) {
   const ids=[...html.matchAll(/<button[^>]*id="([^"]+)-tab"[^>]*role="tab"/g)].map(m=>m[1]);
   if(JSON.stringify(ids)!==JSON.stringify(expected)) throw new Error("Inconsistent league tab order");
 }
@@ -112,3 +108,15 @@ for (const [route, league] of [["", null], ["nfl/", "NFL"], ["nhl/", "NHL"], ["m
   if (league && !new RegExp(`id="dashboard-tab"[^>]*>${league} Snapshot<`).test(page.replace(/<svg[\s\S]*?<\/svg>/g, ""))) throw new Error(`Missing ${league} Snapshot tab`);
 }
 console.log("League Snapshot branding, logo and league tab labels verified");
+
+for (const league of ["nfl", "nhl", "mlb", "nba"]) {
+  const article = await htmlText(`out/${league}/power-rankings/index.html`);
+  if (/â[€€“™]|Ã/.test(article)) throw new Error("Broken weekly article text encoding");
+  if (!article.includes("jays-logo.png") || !article.includes("Power Rankings") || !article.includes("weekly-column") || article.includes("Refresh")) throw new Error(`Invalid weekly column: ${league}`);
+  if (league !== "nba") {
+    const post = JSON.parse(await readFile(`content/power-rankings/${league}.json`, "utf8"));
+    if (post.ready && ((article.match(/class="weekly-team-story"/g) ?? []).length!==post.teams.length || !article.includes("Rankings as of") || !article.includes('class="weekly-team-stats"'))) throw new Error(`Weekly rankings must be prerendered with expandable stats: ${league}`);
+    for (const team of post.teams) if (!article.includes(team.name)) throw new Error("Weekly ranked team missing");
+  }
+}
+console.log("Dated weekly columns, portrait branding, expandable stats and removal of rankings tabs verified");

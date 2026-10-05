@@ -6,7 +6,7 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "League Snapshot | Standings, Standouts and Stats",
-  description: "Standings, standouts, and the numbers behind every league. Current NFL, NHL, and MLB dashboards, MVPs, opponent comparisons, and power rankings, updated hourly.",
+  description: "Standings, standouts, and the numbers behind every league. NFL, NHL, and MLB snapshots, MVPs, and opponent comparisons updated hourly, plus Jay’s weekly power rankings columns.",
   keywords: ["sports power rankings", "NFL power rankings", "NBA power rankings", "NFL team rankings", "best NFL teams", "NFL offense rankings", "NFL defense rankings"],
   alternates: { canonical: siteUrl },
   robots: { index: true, follow: true },

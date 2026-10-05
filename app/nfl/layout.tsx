@@ -4,11 +4,11 @@ const season = JSON.parse(readFileSync("public/data/nfl/current.json", "utf8")).
 
 export const metadata: Metadata = {
   title: `League Snapshot: NFL ${season} | Standings and MVPs`,
-  description: "Current NFL division standings, offensive and defensive MVPs, league stats, and power rankings for all 32 teams. Updated hourly from completed games.",
+  description: "Current NFL division standings, offensive and defensive MVPs, and league stats updated hourly. Jay’s power rankings are a separate weekly column.",
   alternates: { canonical: `https://jayjonesvip.github.io${process.env.NEXT_PUBLIC_BASE_PATH || "/PowerRankings"}/nfl/` },
   openGraph: {
     title: `League Snapshot: NFL ${season} | Standings and MVPs`,
-    description: "Data-driven NFL team rankings updated after every completed game.",
+    description: "NFL regular-season standings, standouts, and team performance updated hourly.",
     url: `https://jayjonesvip.github.io${process.env.NEXT_PUBLIC_BASE_PATH || "/PowerRankings"}/nfl/`,
   },
 };
