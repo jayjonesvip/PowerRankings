@@ -93,7 +93,7 @@ for(const id of ["hitting-panel","pitching-panel"]) if(!mlbHtml.includes(`id="${
 if(!nhlHtml.includes('id="playoff-picture"') || hockey.teams.some(t=>!Number.isInteger(t.divisionRank)||!Number.isInteger(t.conferenceRank))) throw new Error("NHL playoff picture/ranks missing");
 console.log("Default dashboards, standings/playoff tabs, and separate MLB stats tabs verified");
 
-for(const [html,expected] of [[nflHtml,["dashboard","standings"]],[nhlHtml,["dashboard","standings","scoring","goaltending"]],[mlbHtml,["dashboard","standings","hitting","pitching"]]]) {
+for(const [html,expected] of [[nflHtml,["dashboard","standings","leaders"]],[nhlHtml,["dashboard","standings","scoring","goaltending"]],[mlbHtml,["dashboard","standings","hitting","pitching"]]]) {
   const ids=[...html.matchAll(/<button[^>]*id="([^"]+)-tab"[^>]*role="tab"/g)].map(m=>m[1]);
   if(JSON.stringify(ids)!==JSON.stringify(expected)) throw new Error("Inconsistent league tab order");
 }
@@ -120,3 +120,6 @@ for (const league of ["nfl", "nhl", "mlb", "nba"]) {
   }
 }
 console.log("Dated weekly columns, portrait branding, expandable stats and removal of rankings tabs verified");
+
+for(const [html,ids] of [[nflHtml,["leaders-panel","player-leaders"]],[nhlHtml,["scoring-leaders"]],[mlbHtml,["hitting-leaders","pitching-leaders"]]]) for(const id of ids) if(!html.includes(`id="${id}"`)) throw new Error(`Missing player leaders: ${id}`);
+console.log("Stored regular-season player leader sections verified");

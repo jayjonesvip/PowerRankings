@@ -9,6 +9,7 @@ import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NflDivisionStandings } from "@/components/division-standings";
 import { LeagueSectionLinks } from "@/components/league-section-links";
+import { NflPlayerLeaders } from "@/components/nfl-player-leaders";
 import { NflLeagueMvps } from "@/components/nfl-league-mvps";
 import { LeagueTabs } from "@/components/league-tabs";
 import { LeagueDashboard } from "@/components/league-dashboard";
@@ -17,6 +18,7 @@ import { PlayoffBracket } from "@/components/playoff-bracket";
 import { buildSnapshots, fetchSeasonGames, type Game, type SeasonSnapshot } from "@/lib/rankings";
 
 const NFL_SECTIONS = [
+  {id:"player-leaders",label:"player leaders",view:"leaders" as const},
   { id: "league-stats", label: "league stats", view: "dashboard" as const },
   { id: "touchdown-types", label: "touchdown types", view: "dashboard" as const },
   { id: "distance-records", label: "distance records", view: "dashboard" as const },
@@ -31,7 +33,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
   const [seasonComplete,setSeasonComplete] = useState(initial.seasonComplete);
   const [snapshots, setSnapshots] = useState<SeasonSnapshot[]>(initial.snapshots);
   const [games, setGames] = useState<Game[]>(initial.games);
-  const [view, setView] = useState<"dashboard" | "standings">("dashboard");
+  const [view, setView] = useState<"dashboard" | "standings" | "leaders">("dashboard");
   const [dashboardRefresh, setDashboardRefresh] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +79,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
       </section>
 
       <WeeklyRankingsLink league="nfl" />
-      <LeagueTabs label="NFL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NFL Snapshot"},{view:"standings",label:"Standings"}]} />
+      <LeagueTabs label="NFL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NFL Snapshot"},{view:"standings",label:"Standings"},{view:"leaders",label:"Leaders"}]} />
 
       <section className="controls" aria-label="Current snapshot controls">
         <span>{season} NFL · {seasonComplete ? "Completed regular season" : "Current snapshot"}</span>
@@ -89,6 +91,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
       {<section className="dashboard-view" id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab" hidden={view !== "dashboard"}><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /></section>}
 
       <section className="dashboard-view" id="standings-panel" role="tabpanel" aria-labelledby="standings-tab" hidden={view !== "standings"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} seasonComplete={seasonComplete} /></section>
+      <section className="dashboard-view" id="leaders-panel" role="tabpanel" aria-labelledby="leaders-tab" hidden={view !== "leaders"}><NflPlayerLeaders season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /></section>
       <footer><span>Unofficial league analysis using publicly available ESPN data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
   );

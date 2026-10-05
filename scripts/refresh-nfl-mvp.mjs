@@ -3,7 +3,7 @@ import { buildMvpSnapshot } from "./nfl-mvp-model.mjs";
 const selected = JSON.parse(await readFile("public/data/nfl/current.json", "utf8"));
 const season = selected.season;
 let previous; try { previous = JSON.parse(await readFile("public/data/nfl/mvp-current.json", "utf8")); } catch {}
-if (selected.seasonComplete && previous?.season === season && previous.completedGames === selected.completedGames) {
+if (selected.seasonComplete && previous?.season === season && previous.completedGames === selected.completedGames && previous.leaders) {
   console.log(`Retaining completed NFL ${season} MVPs`); process.exit(0);
 }
 const root = `public/data/nfl/${season}`, events = new Map(), teams = new Set();

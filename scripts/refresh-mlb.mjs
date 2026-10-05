@@ -1,3 +1,4 @@
+import { topPlayers } from "../lib/player-leaders.ts";
 import { readFile, mkdir, writeFile, rename } from "node:fs/promises";
 import { validateBaseballSnapshot } from "../lib/mlb-model.ts";
 import { baseballMvps } from "./league-mvp-model.mjs";
@@ -13,6 +14,22 @@ async function request(path, params = {}) {
     } catch (error) { if (attempt === 2) throw error; await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); }
   }
 }
+async function fetchPlayerLeaders(season) {
+  const [counts,averages,decisions,rates]=await Promise.all([
+    request("stats/leaders",{season,sportId:1,leaderCategories:"homeRuns,hits,runsBattedIn",statGroup:"hitting",leaderGameTypes:"R",limit:100}),
+    request("stats/leaders",{season,sportId:1,leaderCategories:"battingAverage",statGroup:"hitting",leaderGameTypes:"R",playerPool:"QUALIFIED",limit:100}),
+    request("stats/leaders",{season,sportId:1,leaderCategories:"wins,strikeouts,saves",statGroup:"pitching",leaderGameTypes:"R",limit:100}),
+    request("stats/leaders",{season,sportId:1,leaderCategories:"earnedRunAverage,walksAndHitsPerInningPitched",statGroup:"pitching",leaderGameTypes:"R",playerPool:"QUALIFIED",limit:100}),
+  ]);
+  const rows=(payload,category,ascending=false)=>{
+    const section=payload.leagueLeaders?.find(s=>s.leaderCategory===category);
+    if(!section || section.gameType?.id!=="R" || String(section.season)!==String(season) || !Array.isArray(section.leaders)) throw new Error(`Invalid MLB top-five ${category}`);
+    const players=section.leaders.map(p=>({id:String(p.person.id),name:p.person.fullName,team:p.numTeams>1 ? "Multiple teams" : p.team?.name,value:Number(p.value)}));
+    if(players.some(p=>!p.name||!p.team||!Number.isFinite(p.value)||p.value<0)||new Set(players.map(p=>p.id)).size!==players.length) throw new Error(`Malformed MLB top-five ${category}`);
+    return topPlayers(players,ascending);
+  };
+  return {homeRuns:rows(counts,"homeRuns"),hits:rows(counts,"hits"),rbi:rows(counts,"runsBattedIn"),battingAverage:rows(averages,"battingAverage"),wins:rows(decisions,"wins"),strikeouts:rows(decisions,"strikeouts"),saves:rows(decisions,"saves"),era:rows(rates,"earnedRunAverage",true),whip:rows(rates,"walksAndHitsPerInningPitched",true)};
+}
 import { shouldRetainSeason } from "./season-lifecycle.mjs";
 let previous; try { previous = JSON.parse(await readFile("public/data/mlb/current.json", "utf8")); } catch {}
 const now = new Date(); let season = now.getUTCFullYear();
@@ -26,6 +43,12 @@ let standings = await request("standings", { leagueId: "103,104", season, standi
 if (standings.records?.length !== 6 || standings.records.some(r=>r.standingsType!=="regularSeason"||r.teamRecords?.some(t=>!Number.isInteger(t.gamesPlayed)||t.gamesPlayed<0))) throw new Error("Invalid MLB season probe");
 let reportedFinals=(standings.records ?? []).flatMap(r=>r.teamRecords).reduce((n,t)=>n+t.gamesPlayed,0)/2;
 if (shouldRetainSeason(previous,season,reportedFinals)) {
+  if (!previous.playerLeaders) {
+    previous.playerLeaders=await fetchPlayerLeaders(previous.season);
+    validateBaseballSnapshot(previous);
+    await writeFile("public/data/mlb/current.json.tmp",JSON.stringify(previous));
+    await rename("public/data/mlb/current.json.tmp","public/data/mlb/current.json");
+  }
   if (previous.seasonComplete && !previous.playoffSeeds) {
     const finalStandings=season===previous.season ? standings : await request("standings", {leagueId:"103,104",season:previous.season,standingsTypes:"regularSeason",hydrate:"team(division,league)"});
     const finalRows=finalStandings.records?.flatMap(r=>r.teamRecords) ?? [];
@@ -107,6 +130,8 @@ catch (error) {
   if (snapshot.seasonComplete) throw error;
   console.log("Waiting for complete MLB league/wild-card ranks before showing playoff picture");
 }
+validateBaseballSnapshot(snapshot);
+snapshot.playerLeaders=await fetchPlayerLeaders(season);
 validateBaseballSnapshot(snapshot);
 snapshot.mvps=baseballMvps(playerRows(playerHitting,"hitting"),playerRows(playerPitching,"pitching"));
 if (previous?.season === season && snapshot.completedGames < previous.completedGames) throw new Error("Refusing truncated MLB season");

@@ -1,8 +1,8 @@
 "use client";
 import { BarChart3, Trophy, Swords, Shield, type LucideIcon } from "lucide-react";
-const icons = { dashboard: BarChart3, standings: Trophy, hitting: Swords, pitching: Shield, scoring: Swords, goaltending: Shield };
+const icons = { leaders: Trophy, dashboard: BarChart3, standings: Trophy, hitting: Swords, pitching: Shield, scoring: Swords, goaltending: Shield };
 export function LeagueTabs<V extends keyof typeof icons>({ tabs, view, onChange, label }: { tabs: {view:V;label:string}[]; view:V; onChange:(view:V)=>void; label:string }) {
-  tabs=[...tabs].sort((a,b)=>["dashboard","standings","hitting","scoring","pitching","goaltending"].indexOf(a.view)-["dashboard","standings","hitting","scoring","pitching","goaltending"].indexOf(b.view));
+  tabs=[...tabs].sort((a,b)=>["dashboard","standings","leaders","hitting","scoring","pitching","goaltending"].indexOf(a.view)-["dashboard","standings","leaders","hitting","scoring","pitching","goaltending"].indexOf(b.view));
   return <nav className="view-tabs league-tabs" role="tablist" aria-label={label}>{tabs.map((tab,index)=>{
     const Icon: LucideIcon=icons[tab.view];
     return <button key={tab.view} id={`${tab.view}-tab`} role="tab" aria-selected={view===tab.view} aria-controls={`${tab.view}-panel`} tabIndex={view===tab.view ? 0 : -1} className={view===tab.view ? "active" : ""} onClick={()=>onChange(tab.view)} onKeyDown={event=>{

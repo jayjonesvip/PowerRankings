@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { PlayerLeaders } from "@/components/player-leaders";
 import { SortableStats } from "@/components/sortable-stats";
 import { LeagueMvpCards } from "@/components/league-mvps";
 import { WeeklyRankingsLink } from "@/components/weekly-rankings-link";
@@ -61,7 +62,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <LeagueSectionLinks onViewChange={setView} sections={MLB_SECTIONS} /></div>
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
     <WeeklyRankingsLink league="mlb" />
-    <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"MLB Snapshot"},{view:"hitting",label:"Team Hitting"},{view:"pitching",label:"Team Pitching"},{view:"standings",label:"Standings"}]} />
+    <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"MLB Snapshot"},{view:"hitting",label:"Hitting"},{view:"pitching",label:"Pitching"},{view:"standings",label:"Standings"}]} />
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}
     <section id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab" hidden={view !== "dashboard"}>
@@ -82,11 +83,13 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
     <LeagueMvpCards data={data.mvps} />
     </section>
     <section id="hitting-panel" role="tabpanel" aria-labelledby="hitting-tab" hidden={view !== "hitting"}>
+    <PlayerLeaders id="hitting-leaders" title="MLB hitting leaders" categories={[{label:"Home runs",rows:data.playerLeaders?.homeRuns ?? []},{label:"Hits",rows:data.playerLeaders?.hits ?? []},{label:"Batting average",rows:data.playerLeaders?.battingAverage ?? [],format:value=>`${avg(value)} · ${percent(value)}`,detail:"MLB-qualified hitters"},{label:"Runs batted in",rows:data.playerLeaders?.rbi ?? []}]} />
     <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Sort: {HITTING_COLUMNS.find(column => column.key === hittingSort.key)?.label} · {hittingSort.direction === "ascending" ? "Ascending" : "Descending"}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr>{HITTING_COLUMNS.map(column => <th scope="col" key={column.key} aria-sort={hittingSort.key === column.key ? hittingSort.direction : "none"}><button className="mlb-sort-button" onClick={() => sortHitting(column.key)} aria-label={`Sort by ${column.label}, ${hittingSort.key === column.key && hittingSort.direction === "descending" ? "ascending" : hittingSort.key === column.key ? "descending" : column.key === "name" ? "ascending" : "descending"}`}>
       {column.label}<span aria-hidden="true">{hittingSort.key === column.key ? hittingSort.direction === "ascending" ? "↑" : "↓" : "↕"}</span>
     </button></th>)}</tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
     </section>
     <section id="pitching-panel" role="tabpanel" aria-labelledby="pitching-tab" hidden={view !== "pitching"}>
+    <PlayerLeaders id="pitching-leaders" title="MLB pitching leaders" categories={[{label:"ERA",rows:data.playerLeaders?.era ?? [],format:value=>value.toFixed(2),detail:"Lowest ERA · MLB-qualified pitchers"},{label:"Wins",rows:data.playerLeaders?.wins ?? []},{label:"Strikeouts",rows:data.playerLeaders?.strikeouts ?? []},{label:"Saves",rows:data.playerLeaders?.saves ?? []},{label:"WHIP",rows:data.playerLeaders?.whip ?? [],format:value=>value.toFixed(2),detail:"Lowest WHIP · MLB-qualified pitchers"}]} />
     <SortableStats id="pitching-teams" title="Team pitching" defaultKey="era" rows={data.teams.map(t => ({id:String(t.id),name:t.name,era:t.era,runsAgainst:t.runsAgainst,gamesPlayed:t.gamesPlayed,wins:t.wins,losses:t.losses}))} columns={[{key:"name",label:"Team"},{key:"era",label:"ERA",lowerFirst:true,format:v=>v.toFixed(2)},{key:"runsAgainst",label:"Runs allowed",lowerFirst:true},{key:"gamesPlayed",label:"Games"},{key:"wins",label:"Wins"},{key:"losses",label:"Losses",lowerFirst:true}]} />
     </section>
     <section id="standings-panel" role="tabpanel" aria-labelledby="standings-tab" hidden={view !== "standings"}>

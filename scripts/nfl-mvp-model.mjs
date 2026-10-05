@@ -1,9 +1,10 @@
+import { topPlayers } from "../lib/player-leaders.ts";
 const OFFENSE = new Set(["QB", "RB", "WR", "TE"]);
 const DEFENSE = new Set(["DE", "DT", "LB", "CB", "S", "DB"]);
 const mean = values => values.reduce((a, b) => a + b, 0) / values.length;
 const sd = values => Math.sqrt(mean(values.map(v => (v - mean(values)) ** 2)));
 const number = value => Number.isFinite(Number(value)) ? Number(value) : 0;
-const REQUIRED = new Set(["passing.completions/passingAttempts", "passing.passingYards", "passing.passingTouchdowns", "passing.interceptions", "rushing.rushingAttempts", "rushing.rushingYards", "rushing.rushingTouchdowns", "receiving.receptions", "receiving.receivingTargets", "receiving.receivingYards", "receiving.receivingTouchdowns", "fumbles.fumblesLost", "defensive.totalTackles", "defensive.sacks", "defensive.passesDefended", "defensive.tacklesForLoss", "defensive.defensiveTouchdowns", "interceptions.interceptions", "interceptions.interceptionTouchdowns"]);
+const REQUIRED = new Set(["passing.completions/passingAttempts", "passing.passingYards", "passing.passingTouchdowns", "passing.interceptions", "rushing.rushingAttempts", "rushing.rushingYards", "rushing.rushingTouchdowns", "receiving.receptions", "receiving.receivingTargets", "receiving.receivingYards", "receiving.receivingTouchdowns", "fumbles.fumblesLost", "defensive.totalTackles", "defensive.sacks", "defensive.passesDefended", "defensive.tacklesForLoss", "defensive.defensiveTouchdowns", "interceptions.interceptions", "interceptions.interceptionTouchdowns", "kicking.fieldGoalsMade/fieldGoalAttempts"]);
 
 export function buildMvpSnapshot({ season, updatedAt, games, rosters }) {
   const positions = new Map();
@@ -36,6 +37,15 @@ export function buildMvpSnapshot({ season, updatedAt, games, rosters }) {
       }
     }
   }
+  const totals = new Map();
+  for (const player of players.values()) {
+    const total = totals.get(player.id) ?? {id:player.id,name:player.name,teams:new Set(),stats:{}};
+    total.teams.add(player.team);
+    for(const [key,value] of Object.entries(player.stats)) total.stats[key]=(total.stats[key] ?? 0)+value;
+    totals.set(player.id,total);
+  }
+  const categories={receivingYards:"receiving.receivingYards",rushingYards:"rushing.rushingYards",passingYards:"passing.passingYards",passingTouchdowns:"passing.passingTouchdowns",rushingTouchdowns:"rushing.rushingTouchdowns",receivingTouchdowns:"receiving.receivingTouchdowns",fieldGoals:"kicking.fieldGoalsMade"};
+  const leaders=Object.fromEntries(Object.entries(categories).map(([key,stat])=>[key,topPlayers([...totals.values()].map(p=>({id:p.id,name:p.name,team:[...p.teams].join(" / "),value:p.stats[stat] ?? 0})))]));
   const candidates = [];
   for (const player of players.values()) {
     const s = name => player.stats[name] ?? 0, g = teamGames.get(player.teamId), p = player.position;
@@ -76,7 +86,7 @@ export function buildMvpSnapshot({ season, updatedAt, games, rosters }) {
     const player = candidates.filter(p => p.side === side).sort((a, b) => b.index - a.index || a.id.localeCompare(b.id))[0];
     return player ? { ...player, reason: mvpReason(player) } : null;
   };
-  return { schemaVersion: 1, season, updatedAt, completedGames: games.length, offense: winner("offense"), defense: winner("defense"), methodology: "75% production above positional average and 25% efficiency/disruption above positional average. Rates use team games played. At least two appearances and a qualifying workload. Box-score model; excludes offensive linemen and special teams." };
+  return { schemaVersion: 1, season, updatedAt, completedGames: games.length, leaders, offense: winner("offense"), defense: winner("defense"), methodology: "75% production above positional average and 25% efficiency/disruption above positional average. Rates use team games played. At least two appearances and a qualifying workload. Box-score model; excludes offensive linemen and special teams." };
 }
 
 export function mvpReason(p) {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Shield, Trophy } from "lucide-react";
 import { readLocalData } from "@/lib/local-data";
 type Mvp = { name: string; team: string; position: string; index: number; reason: string };
-export type MvpSnapshot = { schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; methodology: string };
+export type MvpSnapshot = { leaders?: Record<string, import("@/lib/player-leaders").PlayerLeader[]>; schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; methodology: string };
 
 export function NflLeagueMvps({ season, completedGames, refreshToken, initialData }: { season: number; completedGames: number; refreshToken: number; initialData?: MvpSnapshot }) {
   const [data, setData] = useState<MvpSnapshot | null>(initialData ?? null);
