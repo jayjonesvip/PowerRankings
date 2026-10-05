@@ -127,7 +127,12 @@ console.log("Stored regular-season player leader sections verified");
 const sitemap = await readFile("out/sitemap.xml", "utf8");
 const robots = await readFile("out/robots.txt", "utf8");
 const sitemapRoot = "https://jayjonesvip.github.io/PowerRankings/";
-const sitemapPaths = ["", "nfl/", "nhl/", "mlb/", ...["nfl", "nhl", "mlb", "nba"].map(league => `${league}/power-rankings/`)];
+const sitemapPaths = ["", "nfl/", "nhl/", "mlb/"];
+for(const league of ["nfl","nhl","mlb","nba"]) {
+  let post; try { post=JSON.parse(await readFile(`content/power-rankings/${league}.json`,"utf8")); } catch(error) { if(league!=="nba" || error.code!=="ENOENT") throw error; }
+  if(post?.ready) sitemapPaths.push(`${league}/power-rankings/`);
+}
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
 if (!sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') || sitemapUrls.length !== sitemapPaths.length || new Set(sitemapUrls).size !== sitemapUrls.length || sitemapPaths.some(path => !sitemapUrls.includes(`${sitemapRoot}${path}`)) || !robots.includes(`Sitemap: ${sitemapRoot}sitemap.xml`)) throw new Error("Invalid exported sitemap or robots sitemap reference");
-console.log("Sitemap includes all eight public pages and robots references it");
+console.log("Sitemap includes every indexable page and robots references it");
+await import("./verify-seo.mjs");

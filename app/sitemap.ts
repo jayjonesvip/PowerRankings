@@ -27,11 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   const columns = await Promise.all((["nfl", "nhl", "mlb", "nba"] as const).map(async league => {
     const post = await readWeeklyPost(league);
+    if (!post?.ready) return null;
     return {
       url: `${siteUrl}${league}/power-rankings/`,
       ...(post ? { lastModified: new Date(post.publishedAt ?? post.asOf) } : {}),
       changeFrequency: "weekly" as const,
     };
   }));
-  return [...entries, ...columns];
+  return [...entries, ...columns.filter((column): column is NonNullable<typeof column> => column !== null)];
 }

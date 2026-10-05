@@ -1,18 +1,23 @@
+import { PageSeo } from "@/components/page-seo";
+import { siteUrl } from "@/lib/site-url";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { readWeeklyPost } from "@/lib/weekly-posts";
 import type { RankingLeague } from "@/lib/weekly-rankings";
 const base=process.env.NEXT_PUBLIC_BASE_PATH||"";
 const title=(league:RankingLeague)=>`Jay’s ${league.toUpperCase()} Power Rankings`;
 const date=(value:string)=>new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",month:"long",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit",timeZoneName:"short"}).format(new Date(value));
-const url=(league:RankingLeague)=>`https://jayjonesvip.github.io${process.env.NEXT_PUBLIC_BASE_PATH||"/PowerRankings"}/${league}/power-rankings/`;
+const url=(league:RankingLeague)=>`${siteUrl}${league}/power-rankings/`;
 export async function rankingPostMetadata(league:RankingLeague):Promise<Metadata> {
   const post=await readWeeklyPost(league);
-  return {title:`${title(league)} | League Snapshot`,description:post?.introduction??`Weekly ${league.toUpperCase()} rankings, published Tuesdays at 9 AM Eastern after the regular-season sample is ready.`,alternates:{canonical:url(league)},icons:{icon:`${base}/jays-logo.png`,shortcut:`${base}/jays-logo.png`,apple:`${base}/jays-logo.png`},openGraph:{title:title(league),description:post?.introduction,type:"article",url:url(league),...(post?.publishedAt?{publishedTime:post.publishedAt,modifiedTime:post.publishedAt}:{})}};
+  const description=post?.ready ? `${post.season} ${league.toUpperCase()} regular-season power rankings: ${post.headline}. Jay’s weekly team-by-team analysis, with expandable stats and rankings as of publication.` : `${league.toUpperCase()} power rankings launch after every team has five regular-season games. New editions are scheduled Tuesdays at 9 AM Eastern.`;
+  const metadata=pageMetadata(`${league}/power-rankings/`,`${title(league)} | League Snapshot`,description,true);
+  return {...metadata,robots:{index:Boolean(post?.ready),follow:true},icons:{icon:`${base}/jays-logo.png`,shortcut:`${base}/jays-logo.png`,apple:`${base}/jays-logo.png`},openGraph:{...metadata.openGraph,type:post?.ready ? "article" : "website",...(post?.publishedAt?{publishedTime:post.publishedAt,modifiedTime:post.publishedAt,authors:["Jay"]}:{})}};
 }
 export async function WeeklyRankingsPost({league}:{league:RankingLeague}) {
   const post=await readWeeklyPost(league),upper=league.toUpperCase();
-  const structured=post?.ready?{"@context":"https://schema.org","@type":"BlogPosting",headline:`${title(league)}: ${post.headline}`,description:post.introduction,datePublished:post.publishedAt,dateModified:post.publishedAt,author:{"@type":"Person",name:"Jay"},publisher:{"@type":"Organization",name:"League Snapshot"},mainEntityOfPage:url(league),about:{"@type":"ItemList",numberOfItems:post.teams.length,itemListElement:post.teams.map(t=>({"@type":"ListItem",position:t.rank,name:t.name}))}}:null;
-  return <main className="weekly-post-page">
+  const structured=post?.ready?{"@context":"https://schema.org","@type":"BlogPosting",headline:`${title(league)}: ${post.headline}`,description:post.introduction,datePublished:post.publishedAt,dateModified:post.publishedAt,author:{"@type":"Person",name:"Jay"},publisher:{"@id":`${siteUrl}#organization`},url:url(league),image:[`${siteUrl}jays-logo.png`],inLanguage:"en-US",isPartOf:{"@id":`${siteUrl}#website`},mainEntityOfPage:{"@id":`${url(league)}#webpage`},about:{"@type":"ItemList",numberOfItems:post.teams.length,itemListElement:post.teams.map(t=>({"@type":"ListItem",position:t.rank,name:t.name}))}}:null;
+  return <main className="weekly-post-page"><PageSeo path={`${league}/power-rankings/`} name={title(league)} description={post?.introduction ?? "Weekly NBA power rankings preview."} league={league === "nba" ? undefined : league} />
     <header className="site-header"><a className="brand" href={`${base}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${base}/jays-logo.png`} alt="Jay’s portrait logo" width="52" height="52"/><span><b>{title(league)}</b><small>A LEAGUE SNAPSHOT COLUMN</small></span></a><nav className="league-nav" aria-label="Weekly ranking columns">{(["nfl","nhl","mlb","nba"] as const).map(s=><a key={s} href={`${base}/${s}/power-rankings/`} aria-current={s===league?"page":undefined}>{s.toUpperCase()}</a>)}</nav><span className="header-status">Weekly · Tuesdays at 9 AM ET</span></header>
     {structured&&<script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structured).replace(/</g,"\\u003c")}}/>}
     <article className="weekly-column">
