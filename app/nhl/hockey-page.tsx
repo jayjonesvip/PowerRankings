@@ -10,12 +10,12 @@ import { NhlDivisionStandings } from "@/components/division-standings";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const NHL_SECTIONS = [
-  { id: "division-standings", label: "division standings", view: "dashboard" as const },
-  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-leaders", label: "league leaders", view: "dashboard" as const },
   { id: "league-mvps", label: "league MVPs", view: "dashboard" as const },
+  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "scoring-teams", label: "team scoring", view: "dashboard" as const },
   { id: "goaltending-teams", label: "team goaltending", view: "dashboard" as const },
+  { id: "division-standings", label: "division standings", view: "dashboard" as const },
   { id: "rankings", label: "power rankings", view: "rankings" as const },
 ];
 export default function HockeyPage({ initialData }: { initialData: HockeySnapshot }) {
@@ -45,22 +45,22 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
   const average = gp ? played.reduce((sum, t) => sum + t.goalsFor, 0) / gp : 0;
   return <main data-sport="nhl">
     <header className="site-header"><a className="brand" href={`${base}/`}><img className="brand-mark" src={`${base}/jays-logo.png`} alt="Jay's League Pulse logo" width="52" height="52" /><span><b>Jay&apos;s League Pulse</b><small>NHL LEAGUE SNAPSHOT</small></span></a><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status">Hourly snapshot · {data ? new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "Loading"} ET</div></header>
-    <section className="scoreboard-hero"><div><p className="eyebrow">{season} · Regular season</p><h1>NHL League Pulse<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NHL_SECTIONS} onViewChange={setView} /></div><div className="hero-score nhl-games-count"><span>FINAL GAMES</span><strong>{data?.completedGames ?? "—"}</strong><small>Regular season</small></div></section>
+    <section className="scoreboard-hero"><div><p className="eyebrow">{season} · {data?.seasonComplete ? "Regular season complete" : "Regular season"}</p><h1>NHL League Pulse<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NHL_SECTIONS} onViewChange={setView} /></div><div className="hero-score nhl-games-count"><span>FINAL GAMES</span><strong>{data?.completedGames ?? "—"}</strong><small>Regular season</small></div></section>
     <nav className="view-tabs" aria-label="NHL sections"><button className={view === "dashboard" ? "active" : ""} onClick={() => setView("dashboard")}><BarChart3 />League Dashboard</button><button className={view === "rankings" ? "active" : ""} onClick={() => setView("rankings")}><ListOrdered />Power Rankings</button></nav>
-    <div className="controls"><span>{season} NHL · Current snapshot</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} /> Refresh</button></div></div>
+    <div className="controls"><span>{season} NHL · {data?.seasonComplete ? "Completed regular season" : "Current snapshot"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} /> Refresh</button></div></div>
     {error && <section className="error-card" role="alert">{error} <button onClick={load}>Try again</button></section>}
     {!data && !error && <p className="forecast-loading">Loading league snapshot…</p>}
     {data && <section hidden={view !== "dashboard"} className="nhl-dashboard">
-      <NhlDivisionStandings teams={data.teams} />
-      <AdjustedLeagueLeaders teams={data.teams} metrics={adjustedMetrics} sport="nhl" />
-      <div className="league-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around the NHL</p><h2>League dashboard</h2></div><span>{data.completedGames} finals</span></div><div className="pulse-grid">
+      <div className="league-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around the NHL</p><h2>Current season by the numbers</h2></div><span>{data.completedGames} finals</span></div><div className="pulse-grid">
         <article><span>Points leader</span><strong>{standings[0]?.points ?? 0}</strong><b>{standings[0]?.name ?? "No games yet"}</b><small>standings points</small></article>
         <article><span>Best scoring average</span><strong>{offense ? (offense.goalsFor / offense.gamesPlayed).toFixed(2) : "—"}</strong><b>{offense?.name ?? "No games yet"}</b><small>goals per game</small></article>
         <article><span>Best defense</span><strong>{defense ? (defense.goalsAgainst / defense.gamesPlayed).toFixed(2) : "—"}</strong><b>{defense?.name ?? "No games yet"}</b><small>goals allowed per game</small></article>
         <article><span>League scoring</span><strong>{average.toFixed(2)}</strong><b>Goals per team per game</b><small>includes shootout deciding goals in standings</small></article>
       </div></div>
       <LeagueMvpCards data={data.mvps} />
+      <AdjustedLeagueLeaders teams={data.teams} metrics={adjustedMetrics} sport="nhl" />
       <NhlTeamStats teams={data.teams} />
+      <NhlDivisionStandings teams={data.teams} />
     </section>}
     {data && <section hidden={view !== "rankings"} className="nhl-dashboard" id="rankings">
       {!data.rankingsReady ? <section className="league-pulse"><p className="eyebrow">Building the sample</p><h2>Rankings unlock after five games per team</h2><p>{data.teamsReady} of {data.teams.length} teams have reached five regular-season finals. Rankings activate automatically after every team qualifies.</p><div className="nhl-progress">{data.teams.map(t => <span key={t.id}>{t.abbreviation} <b>{Math.min(t.gamesPlayed, data.minimumGames)}/{data.minimumGames}</b></span>)}</div></section> : <section className="rankings-card"><div className="section-heading"><h2>All 32 NHL power rankings</h2><span>{season}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th>Rank</th><th>Team</th><th>W–L–OTL</th><th>Jay’s Index</th><th>GF/G</th><th>GA/G</th><th>Last 5</th><th>Opponent performance</th></tr></thead><tbody>{data.rankings.map(t => <tr key={t.id}><td><span className={`rank-number rank-${t.rank}`}>{t.rank}</span></td><td><b>{t.name}</b><small>Record {t.components.record.toFixed(1)} · Quality {t.components.quality.toFixed(1)}</small></td><td>{t.wins}–{t.losses}–{t.overtimeLosses}</td><td><b>{t.score.toFixed(1)}</b></td><td>{t.goalsForAverage.toFixed(2)}</td><td>{t.goalsAgainstAverage.toFixed(2)}</td><td>{t.recent.join(" · ")}</td><td><AdjustedTeamMetrics data={adjustedMetrics.get(t.id)} sport="nhl" /></td></tr>)}</tbody></table></div></section>}

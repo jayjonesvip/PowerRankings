@@ -32,7 +32,7 @@ export function validateBaseballSnapshot(data: BaseballSnapshot): BaseballSnapsh
   for (const category of ["homeRuns", "battingAverage", "wins", "losses"] as const) {
     const leaders = data.leaders[category];
     if (!Array.isArray(leaders)) throw new Error(`Missing MLB leaders: ${category}`);
-    if (data.completedGames && !leaders.length) throw new Error(`Missing MLB leaders: ${category}`);
+    if (data.completedGames && !leaders.length && category !== "battingAverage" && !(category === "homeRuns" && data.totalHomeRuns === 0)) throw new Error(`Missing MLB leaders: ${category}`);
     if (new Set(leaders.map(p => p.id)).size !== leaders.length || leaders.some(p => !/^\d+$/.test(p.id) || !p.name || !p.team || !Number.isFinite(p.value) || p.value < 0 ||
         (category === "battingAverage" ? p.value > 1 : !Number.isInteger(p.value))) || leaders.some(p => p.value !== leaders[0].value)) throw new Error(`Invalid MLB leaders: ${category}`);
   }

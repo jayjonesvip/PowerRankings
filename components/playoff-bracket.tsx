@@ -28,14 +28,14 @@ function ConferenceBracket({ conference, seeds }: { conference: "AFC" | "NFC"; s
   );
 }
 
-export function PlayoffBracket({ games, teams, week }: { games: Game[]; teams: RankedTeam[]; week: number }) {
+export function PlayoffBracket({ games, teams, week, seasonComplete = false }: { games: Game[]; teams: RankedTeam[]; week: number; seasonComplete?: boolean }) {
   if (teams.length < 32) return null;
   const picture = buildPlayoffPicture(games, teams, week);
   return (
     <section className="playoff-section" id="playoff-picture">
       <div className="playoff-heading">
-        <div><p className="eyebrow">Postseason picture</p><h2>If the playoffs started today</h2></div>
-        <span><ShieldCheck /> Through Week {week}</span>
+        <div><p className="eyebrow">Postseason picture</p><h2>{seasonComplete ? "Playoff seeding" : "If the playoffs started today"}</h2></div>
+        <span><ShieldCheck /> {seasonComplete ? "Regular season complete" : `Through Week ${week}`}</span>
       </div>
       <div className="playoff-brackets">{picture.map((side) => <ConferenceBracket key={side.conference} {...side} />)}</div>
       <div className="playoff-next-round"><span>Divisional Round</span><b>No. 1 hosts the lowest remaining seed</b><i /> <span>Conference Championship</span><b>Highest remaining seed hosts</b></div>

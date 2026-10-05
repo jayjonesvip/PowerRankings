@@ -56,19 +56,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}
-    <section className="division-standings" id="division-standings"><div className="dashboard-heading"><div><p className="eyebrow">Division race</p><h2>Standings by division</h2></div><span>{data.season} regular season</span></div>
-      {["American League", "National League"].map(league => <section className="standings-conference" key={league}><h3>{league}</h3><div className="division-grid">
-        {["East", "Central", "West"].map(division => {
-          const teams = data.teams.filter(t => t.league === league && t.division === division).sort((a, b) => a.divisionRank - b.divisionRank);
-          const leader = teams[0];
-          return <section className="rankings-card" key={division}><div className="section-heading"><h4>{league === "American League" ? "AL" : "NL"} {division}</h4></div><div className="nhl-table-wrap"><table className="nhl-table"><caption className="sr-only">{league} {division} regular-season standings</caption>
-            <thead><tr><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PCT</th><th scope="col">GB</th><th scope="col">AVG</th><th scope="col">ERA</th><th scope="col">HR</th></tr></thead>
-            <tbody>{teams.map(t => <tr key={t.id}><th scope="row"><b>{t.name}</b></th><td>{t.wins}–{t.losses}</td><td>{t.gamesPlayed ? avg(t.wins / t.gamesPlayed) : "—"}</td><td>{t.id === leader.id ? "—" : ((leader.wins - t.wins + t.losses - leader.losses) / 2).toFixed(1)}</td><td>{avg(t.battingAverage)}</td><td>{t.era.toFixed(2)}</td><td>{t.homeRuns}</td></tr>)}</tbody>
-          </table></div></section>;
-        })}</div></section>)}
-    </section>
-    <LeagueMvpCards data={data.mvps} />
-    <section className="league-pulse mlb-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around MLB</p><h2>Regular-season leaders and extremes</h2></div><span>{data.teams.length} teams</span></div><div className="pulse-grid">
+    <section className="league-pulse mlb-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around MLB</p><h2>Current season by the numbers</h2></div><span>{data.teams.length} teams</span></div><div className="pulse-grid">
       <LeaderCard label="Best hitting team" rows={extrema(data.teams, "battingAverage")} format={value => `${avg(value)} · ${percent(value)}`} detail="Highest team batting average" />
       <LeaderCard label="Worst hitting team" rows={extrema(data.teams, "battingAverage", true)} format={value => `${avg(value)} · ${percent(value)}`} detail="Lowest team batting average" />
       <LeaderCard label="Best pitching team" rows={extrema(data.teams, "era", true)} format={value => value.toFixed(2)} detail="Lowest team ERA" />
@@ -82,10 +70,22 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <LeaderCard label="Pitcher wins leader" rows={data.leaders.wins} format={count} detail="Pitcher wins" />
       <LeaderCard label="Pitcher losses leader" rows={data.leaders.losses} format={count} detail="Pitcher losses" />
     </div><p className="mlb-method">Batting average is hits divided by at-bats; percentages show the same rate. ERA measures earned runs allowed per nine innings; lower is better. These best/worst labels use batting average and ERA, rather than an overall team-strength model. Player batting-average leaders use MLB’s qualified hitter pool. Ties use the published precision. Postseason and spring-training statistics are excluded.</p></section>
+    <LeagueMvpCards data={data.mvps} />
     <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Sort: {HITTING_COLUMNS.find(column => column.key === hittingSort.key)?.label} · {hittingSort.direction === "ascending" ? "Ascending" : "Descending"}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr>{HITTING_COLUMNS.map(column => <th scope="col" key={column.key} aria-sort={hittingSort.key === column.key ? hittingSort.direction : "none"}><button className="mlb-sort-button" onClick={() => sortHitting(column.key)} aria-label={`Sort by ${column.label}, ${hittingSort.key === column.key && hittingSort.direction === "descending" ? "ascending" : hittingSort.key === column.key ? "descending" : column.key === "name" ? "ascending" : "descending"}`}>
       {column.label}<span aria-hidden="true">{hittingSort.key === column.key ? hittingSort.direction === "ascending" ? "↑" : "↓" : "↕"}</span>
     </button></th>)}</tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
     <SortableStats id="pitching-teams" title="Team pitching" defaultKey="era" rows={data.teams.map(t => ({id:String(t.id),name:t.name,era:t.era,runsAgainst:t.runsAgainst,gamesPlayed:t.gamesPlayed,wins:t.wins,losses:t.losses}))} columns={[{key:"name",label:"Team"},{key:"era",label:"ERA",lowerFirst:true,format:v=>v.toFixed(2)},{key:"runsAgainst",label:"Runs allowed",lowerFirst:true},{key:"gamesPlayed",label:"Games"},{key:"wins",label:"Wins"},{key:"losses",label:"Losses",lowerFirst:true}]} />
+    <section className="division-standings" id="division-standings"><div className="dashboard-heading"><div><p className="eyebrow">Division race</p><h2>Standings by division</h2></div><span>{data.season} regular season</span></div>
+      {["American League", "National League"].map(league => <section className="standings-conference" key={league}><h3>{league}</h3><div className="division-grid">
+        {["East", "Central", "West"].map(division => {
+          const teams = data.teams.filter(t => t.league === league && t.division === division).sort((a, b) => a.divisionRank - b.divisionRank);
+          const leader = teams[0];
+          return <section className="rankings-card" key={division}><div className="section-heading"><h4>{league === "American League" ? "AL" : "NL"} {division}</h4></div><div className="nhl-table-wrap"><table className="nhl-table"><caption className="sr-only">{league} {division} regular-season standings</caption>
+            <thead><tr><th scope="col">Team</th><th scope="col">W–L</th><th scope="col">PCT</th><th scope="col">GB</th><th scope="col">AVG</th><th scope="col">ERA</th><th scope="col">HR</th></tr></thead>
+            <tbody>{teams.map(t => <tr key={t.id}><th scope="row"><b>{t.name}</b></th><td>{t.wins}–{t.losses}</td><td>{t.gamesPlayed ? avg(t.wins / t.gamesPlayed) : "—"}</td><td>{t.id === leader.id ? "—" : ((leader.wins - t.wins + t.losses - leader.losses) / 2).toFixed(1)}</td><td>{avg(t.battingAverage)}</td><td>{t.era.toFixed(2)}</td><td>{t.homeRuns}</td></tr>)}</tbody>
+          </table></div></section>;
+        })}</div></section>)}
+    </section>
     <footer><span>Unofficial analysis using MLB data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
 }

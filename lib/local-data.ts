@@ -11,3 +11,9 @@ export async function snapshotUpdatedAt(season: number): Promise<Date> {
   const manifest = await readLocalData(`${season}/manifest.json`) as { updatedAt: string };
   return new Date(manifest.updatedAt);
 }
+
+export async function publishedNflSeason() {
+  const data = await readLocalData("current.json") as {season:number;completedGames:number;seasonComplete:boolean};
+  if (!Number.isInteger(data.season) || data.completedGames < 1) throw new Error("Invalid published NFL season");
+  return data;
+}

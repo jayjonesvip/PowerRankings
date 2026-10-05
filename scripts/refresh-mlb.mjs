@@ -12,6 +12,8 @@ async function request(path, params = {}) {
     } catch (error) { if (attempt === 2) throw error; await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); }
   }
 }
+import { shouldRetainSeason } from "./season-lifecycle.mjs";
+let previous; try { previous = JSON.parse(await readFile("public/data/mlb/current.json", "utf8")); } catch {}
 const now = new Date(); let season = now.getUTCFullYear();
 let info = (await request(`seasons/${season}`, { sportId: 1 })).seasons?.[0];
 if (!info?.regularSeasonStartDate) throw new Error("Missing MLB season dates");
@@ -19,8 +21,17 @@ if (now.toISOString().slice(0, 10) < info.regularSeasonStartDate) {
   season--; info = (await request(`seasons/${season}`, { sportId: 1 })).seasons?.[0];
 }
 if (String(info?.seasonId) !== String(season) || !info.regularSeasonEndDate) throw new Error("Wrong MLB season");
-const [standings, hitting, pitching, hr, avg, decisions, playerHitting, playerPitching] = await Promise.all([
-  request("standings", { leagueId: "103,104", season, standingsTypes: "regularSeason", hydrate: "team(division,league)" }),
+let standings = await request("standings", { leagueId: "103,104", season, standingsTypes: "regularSeason", hydrate: "team(division,league)" });
+if (standings.records?.length !== 6 || standings.records.some(r=>r.standingsType!=="regularSeason"||r.teamRecords?.some(t=>!Number.isInteger(t.gamesPlayed)||t.gamesPlayed<0))) throw new Error("Invalid MLB season probe");
+let reportedFinals=(standings.records ?? []).flatMap(r=>r.teamRecords).reduce((n,t)=>n+t.gamesPlayed,0)/2;
+if (shouldRetainSeason(previous,season,reportedFinals)) {
+  console.log(`Retaining MLB ${previous.season} until new regular-season finals arrive`); process.exit(0);
+}
+if (!reportedFinals && !previous) {
+  season--; info=(await request(`seasons/${season}`, {sportId:1})).seasons?.[0];
+  standings=await request("standings", { leagueId:"103,104",season,standingsTypes:"regularSeason",hydrate:"team(division,league)" });
+}
+const [hitting, pitching, hr, avg, decisions, playerHitting, playerPitching] = await Promise.all([
   request("teams/stats", { season, sportIds: 1, stats: "season", group: "hitting", gameType: "R" }),
   request("teams/stats", { season, sportIds: 1, stats: "season", group: "pitching", gameType: "R" }),
   request("stats/leaders", { season, sportId: 1, leaderCategories: "homeRuns", statGroup: "hitting", leaderGameTypes: "R", limit: 100 }),
@@ -31,14 +42,14 @@ const [standings, hitting, pitching, hr, avg, decisions, playerHitting, playerPi
 ]);
 function statsMap(payload, group) {
   const section = payload.stats?.find(s => s.group?.displayName === group && s.type?.displayName === "season");
-  if (section?.splits?.length !== 30 || section.splits.some(s => String(s.season) !== String(season)) || new Set(section.splits.map(s => s.team?.id)).size !== 30) throw new Error(`Incomplete MLB ${group}`);
+  if (!Array.isArray(section?.splits) || section.splits.length > 30 || section.splits.some(s => String(s.season) !== String(season)) || new Set(section.splits.map(s => s.team?.id)).size !== section.splits.length) throw new Error(`Incomplete MLB ${group}`);
   return new Map(section.splits.map(s => [s.team.id, s.stat]));
 }
 const batting = statsMap(hitting, "hitting"), throwing = statsMap(pitching, "pitching");
 if (standings.records?.length !== 6 || standings.records.some(r => r.standingsType !== "regularSeason")) throw new Error("Invalid regular-season divisions");
 const teams = standings.records.flatMap(record => record.teamRecords.map(row => {
   if (String(row.season) !== String(season)) throw new Error("Wrong standings season");
-  const hit = batting.get(row.team.id), pitch = throwing.get(row.team.id);
+  const hit = batting.get(row.team.id) ?? (row.gamesPlayed === 0 ? { gamesPlayed:0, hits:0, atBats:0, avg:".000", homeRuns:0 } : null), pitch = throwing.get(row.team.id) ?? (row.gamesPlayed === 0 ? { gamesPlayed:0, era:"0.00" } : null);
   if (!hit || !pitch || hit.gamesPlayed !== row.gamesPlayed || pitch.gamesPlayed !== row.gamesPlayed) throw new Error(`MLB stats/standings disagree: ${row.team.name}`);
   return { id: String(row.team.id), name: row.team.name, abbreviation: row.team.abbreviation, league: row.team.league.name,
     division: row.team.division.name.split(" ").at(-1), divisionRank: Number(row.divisionRank), gamesPlayed: row.gamesPlayed,
@@ -47,7 +58,9 @@ const teams = standings.records.flatMap(record => record.teamRecords.map(row => 
 }));
 function leaders(payload, category) {
   const section = payload.leagueLeaders?.find(s => s.leaderCategory === category);
-  if (!section || section.gameType?.id !== "R" || String(section.season) !== String(season) || !section.leaders?.length) throw new Error(`Invalid regular-season ${category} leaders`);
+  if (!section || section.gameType?.id !== "R" || String(section.season) !== String(season) || !Array.isArray(section.leaders)) throw new Error(`Invalid regular-season ${category} leaders`);
+  if (!section.leaders.length && (category === "battingAverage" || category === "homeRuns" && teams.every(t=>t.homeRuns===0))) return [];
+  if (!section.leaders.length) throw new Error(`Missing ${category} leader sample`);
   const max = Math.max(...section.leaders.map(p => Number(p.value)));
   return section.leaders.filter(p => Number(p.value) === max).map(p => ({ id: String(p.person.id), name: p.person.fullName,
     team: p.numTeams > 1 ? "Multiple teams" : p.team?.name, value: Number(p.value) }));
@@ -77,7 +90,6 @@ function playerRows(payload, group) {
   });
 }
 snapshot.mvps=baseballMvps(playerRows(playerHitting,"hitting"),playerRows(playerPitching,"pitching"));
-let previous; try { previous = JSON.parse(await readFile("public/data/mlb/current.json", "utf8")); } catch {}
 if (previous?.season === season && snapshot.completedGames < previous.completedGames) throw new Error("Refusing truncated MLB season");
 await mkdir("public/data/mlb", { recursive: true });
 await writeFile("public/data/mlb/current.json.tmp", JSON.stringify(snapshot));

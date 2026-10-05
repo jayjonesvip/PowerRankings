@@ -1,6 +1,6 @@
 "use client";
 
-import { currentNflSeason, snapshotUpdatedAt } from "@/lib/local-data";
+import { snapshotUpdatedAt, publishedNflSeason } from "@/lib/local-data";
 import { validateBaseballSnapshot, type BaseballSnapshot } from "@/lib/mlb-model";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 
@@ -14,9 +14,9 @@ function GamesDonut({played,total,label}:{played:number|null;total:number;label:
   return <article className="hub-games"><span><Trophy />Season progress</span><div className="hub-games-layout"><svg viewBox="0 0 100 100" role="img" aria-label={played===null ? `${label}: awaiting season data` : `${label}: ${played} games played, ${remaining} remaining`}><circle cx="50" cy="50" r="40" fill="none" stroke="#d9dfe7" strokeWidth="12"/><circle cx="50" cy="50" r="40" fill="none" stroke="#005a9c" strokeWidth="12" strokeDasharray={`${fraction*251.327} 251.327`} transform="rotate(-90 50 50)"/><text x="50" y="55" textAnchor="middle">{played===null ? "—" : `${Math.round(fraction*100)}%`}</text></svg><div><b>{played===null ? "—" : played.toLocaleString("en-US")} played</b><small>{remaining===null ? "Awaiting season data" : `${remaining.toLocaleString("en-US")} remaining`}</small><small>{label}</small></div></div></article>;
 }
 
-const CURRENT_SEASON = currentNflSeason();
 
 export default function SportsHub({ initial, initialHockey, initialBaseball }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot; initialBaseball: BaseballSnapshot }) {
+  const [nflComplete,setNflComplete] = useState(initial.seasonComplete);
   const [snapshot, setSnapshot] = useState<SeasonSnapshot | null>(initial.snapshots.at(-1) ?? null);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(() => new Date(initial.updatedAt));
   const [, setLoading] = useState(false);
@@ -45,9 +45,11 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
     if (!quiet) setLoading(true);
     setError(null);
     try {
-      const snapshots = buildSnapshots(await fetchSeasonGames(CURRENT_SEASON));
+      const published = await publishedNflSeason();
+      const snapshots = buildSnapshots(await fetchSeasonGames(published.season));
+      setNflComplete(published.seasonComplete);
       setSnapshot(snapshots.at(-1) ?? null);
-      setUpdatedAt(await snapshotUpdatedAt(CURRENT_SEASON));
+      setUpdatedAt(await snapshotUpdatedAt(published.season));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Stored NFL data could not be loaded.");
     } finally {
@@ -94,12 +96,12 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
       {error ? <div className="hub-alert"><span>Live NFL data is temporarily unavailable. Open the NFL dashboard to retry.</span><button onClick={() => load()}><RefreshCw />Retry</button></div> : null}
 
       <section className="league-pulse" id="nfl-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>Current league pulse</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full dashboard <ArrowRight /></a></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NFL</p><h2>{nflComplete ? "Regular-season pulse" : "Current league pulse"}</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>Full dashboard <ArrowRight /></a></div>
         <div className="pulse-grid">
           <article><span><TrendingUp />Biggest mover</span><strong>{pulse.mover ? `${pulse.mover.movement > 0 ? "+" : ""}${pulse.mover.movement}` : "—"}</strong><b>{pulse.mover?.name ?? "Updating"}</b><small>spots since last week</small></article>
           <article><span><Activity />Best offense</span><strong>{pulse.offense?.components.offense.toFixed(1) ?? "—"}</strong><b>{pulse.offense?.name ?? "Updating"}</b><small>offensive grade</small></article>
           <article><span><Shield />Best defense</span><strong>{pulse.defense?.components.defense.toFixed(1) ?? "—"}</strong><b>{pulse.defense?.name ?? "Updating"}</b><small>defensive grade</small></article>
-          <GamesDonut played={snapshot?.completedGames ?? null} total={272} label="NFL regular season" />
+          <GamesDonut played={snapshot?.completedGames ?? null} total={nflComplete ? (snapshot?.completedGames ?? 272) : 272} label="NFL regular season" />
         </div>
       </section>
 

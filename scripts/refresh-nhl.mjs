@@ -19,7 +19,16 @@ async function request(path) {
     }
   }
 }
-const standings = await request("standings/now");
+import { shouldRetainSeason } from "./season-lifecycle.mjs";
+let previous; try { previous = JSON.parse(await readFile("public/data/nhl/current.json", "utf8")); } catch {}
+let standings = await request("standings/now");
+if (!Array.isArray(standings.standings) || standings.standings.length !== 32 || standings.standings.some(t=>!Number.isInteger(t.gamesPlayed)||t.gamesPlayed<0)) throw new Error("Invalid NHL season probe");
+const reportedSeason = standings.standings?.[0]?.seasonId;
+const reportedFinals = (standings.standings ?? []).reduce((n,t)=>n+t.gamesPlayed,0)/2;
+if (shouldRetainSeason(previous, reportedSeason, reportedFinals)) {
+  console.log(`Retaining NHL ${previous.season} until new regular-season finals arrive`); process.exit(0);
+}
+if (!reportedFinals && !previous) standings = await request(`standings/${String(reportedSeason).slice(0,4)}-06-30`);
 if (!Array.isArray(standings.standings) || standings.standings.length !== 32) throw new Error("Missing NHL teams");
 const season = standings.standings[0].seasonId;
 if (standings.standings.some(t => t.seasonId !== season)) throw new Error("Mixed NHL seasons");
@@ -66,8 +75,7 @@ for (let i = 0; i < teams.length; i += 2) {
 }
 const snapshot = buildHockeySnapshot(teams, [...games.values()], season, new Date().toISOString());
 snapshot.mvps = hockeyMvps(teams);
-let previous;
-try { previous = JSON.parse(await readFile("public/data/nhl/current.json", "utf8")); } catch {}
+snapshot.seasonComplete = snapshot.completedGames === snapshot.games.length;
 if (previous?.season === season && (snapshot.games.length < previous.games.length || snapshot.completedGames < previous.completedGames)) {
   throw new Error("Refusing truncated NHL snapshot");
 }

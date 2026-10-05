@@ -2,7 +2,7 @@
 
 import { AdjustedLeagueLeaders, AdjustedTeamMetrics } from "@/components/opponent-adjusted";
 import { opponentAdjustedPerformance } from "@/lib/opponent-adjusted";
-import { snapshotUpdatedAt } from "@/lib/local-data";
+import { snapshotUpdatedAt, publishedNflSeason } from "@/lib/local-data";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowDown, ArrowUp, BarChart3, ChevronDown, ChevronUp, ListOrdered, RefreshCw, Shield, Swords, Trophy } from "lucide-react";
@@ -16,13 +16,13 @@ import { PlayoffBracket } from "@/components/playoff-bracket";
 import { buildSnapshots, fetchSeasonGames, type Game, type RankedTeam, type SeasonSnapshot } from "@/lib/rankings";
 
 const NFL_SECTIONS = [
-  { id: "division-standings", label: "division standings", view: "dashboard" as const },
-  { id: "league-mvps", label: "offensive and defensive MVPs", view: "dashboard" as const },
-  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-stats", label: "league stats", view: "dashboard" as const },
   { id: "touchdown-types", label: "touchdown types", view: "dashboard" as const },
   { id: "distance-records", label: "distance records", view: "dashboard" as const },
   { id: "game-records", label: "game records", view: "dashboard" as const },
+  { id: "league-mvps", label: "offensive and defensive MVPs", view: "dashboard" as const },
+  { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
+  { id: "division-standings", label: "division standings", view: "dashboard" as const },
   { id: "playoff-picture", label: "playoff picture", view: "dashboard" as const },
   { id: "rankings", label: "power rankings", view: "rankings" as const },
 ];
@@ -61,7 +61,8 @@ function TeamDetail({ team }: { team: RankedTeam }) {
 }
 
 export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>> }) {
-  const season = initial.season;
+  const [season,setSeason] = useState(initial.season);
+  const [seasonComplete,setSeasonComplete] = useState(initial.seasonComplete);
   const [snapshots, setSnapshots] = useState<SeasonSnapshot[]>(initial.snapshots);
   const [games, setGames] = useState<Game[]>(initial.games);
   const [view, setView] = useState<"rankings" | "dashboard">("dashboard");
@@ -75,7 +76,10 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
     if (!quiet) setLoading(true);
     setError(null);
     try {
+      const published = await publishedNflSeason();
+      selectedSeason = published.season;
       const games = await fetchSeasonGames(selectedSeason);
+      setSeason(selectedSeason); setSeasonComplete(published.seasonComplete);
       setGames(games);
       const nextSnapshots = buildSnapshots(games);
       setSnapshots(nextSnapshots);
@@ -167,7 +171,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
       </nav>
 
       <section className="controls" aria-label="Current snapshot controls">
-        <span>{season} NFL · Current snapshot</span>
+        <span>{season} NFL · {seasonComplete ? "Completed regular season" : "Current snapshot"}</span>
         <div className="control-actions">{view === "rankings" ? <Button variant="outline" onClick={() => setTopFirst((value) => !value)}>{topFirst ? <ChevronDown /> : <ChevronUp />}{topFirst ? "Show 32 → 1" : "Show 1 → 32"}</Button> : null}<Button onClick={() => { load(season); }} disabled={loading}><RefreshCw className={loading ? "spin" : ""} />Refresh</Button></div>
       </section>
 
@@ -213,7 +217,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
       </section>}
-      {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} /></section>}
+      {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} seasonComplete={seasonComplete} /></section>}
 
       <footer><span>Unofficial league analysis using publicly available ESPN data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>

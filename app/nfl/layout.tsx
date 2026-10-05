@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { currentNflSeason } from "@/lib/local-data";
-const season = currentNflSeason();
+import { readFileSync } from "node:fs";
+const season = JSON.parse(readFileSync("public/data/nfl/current.json", "utf8")).season;
 
 export const metadata: Metadata = {
   title: `Jay's League Pulse: NFL ${season} | Standings and MVPs`,

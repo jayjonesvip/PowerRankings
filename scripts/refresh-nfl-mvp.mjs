@@ -1,6 +1,11 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { buildMvpSnapshot } from "./nfl-mvp-model.mjs";
-const now = new Date(), season = now.getUTCFullYear() - (now.getUTCMonth() < 2 ? 1 : 0);
+const selected = JSON.parse(await readFile("public/data/nfl/current.json", "utf8"));
+const season = selected.season;
+let previous; try { previous = JSON.parse(await readFile("public/data/nfl/mvp-current.json", "utf8")); } catch {}
+if (selected.seasonComplete && previous?.season === season && previous.completedGames === selected.completedGames) {
+  console.log(`Retaining completed NFL ${season} MVPs`); process.exit(0);
+}
 const root = `public/data/nfl/${season}`, events = new Map(), teams = new Set();
 for (let week = 1; week <= 18; week++) {
   const payload = JSON.parse(await readFile(`${root}/week-${week}.json`, "utf8"));

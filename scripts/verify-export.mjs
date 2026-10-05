@@ -10,7 +10,8 @@ await access("out/index.html");
 const mvp = JSON.parse(await readFile("out/data/nfl/mvp-current.json", "utf8"));
 if (mvp.schemaVersion !== 1 || !Number.isFinite(Date.parse(mvp.updatedAt)) || !Number.isInteger(mvp.completedGames) || [mvp.offense, mvp.defense].some(p => p && (!p.reason || !Number.isFinite(p.index)))) throw new Error("Invalid MVP export");
 const seasons = await readdir("out/data/nfl");
-if (!seasons.includes(String(new Date().getUTCFullYear()))) throw new Error("Missing current season");
+const published = JSON.parse(await readFile("out/data/nfl/current.json", "utf8"));
+if (!seasons.includes(String(published.season)) || published.completedGames < 1 || mvp.season !== published.season) throw new Error("Invalid published regular-season selection");
 for (const season of seasons.filter(name => /^\d{4}$/.test(name))) {
   const manifest = JSON.parse(await readFile(`out/data/nfl/${season}/manifest.json`, "utf8"));
   if (manifest.schemaVersion !== 1 || !Number.isFinite(Date.parse(manifest.updatedAt))) throw new Error("Invalid manifest");
@@ -75,3 +76,9 @@ for (const [snapshot,html] of [[baseball,mlbHtml],[hockey,nhlHtml]]) {
   for (const pick of [...snapshot.mvps.first,...snapshot.mvps.second]) if (!html.includes(pick.name.replaceAll("&","&amp;"))) throw new Error("League MVP name not prerendered");
 }
 console.log("MLB and NHL MVP snapshots and prerendered cards verified");
+
+for (const [html, first] of [[nflHtml, "league-stats"], [nhlHtml, "league-leaders"], [mlbHtml, "league-leaders"]]) {
+  if (html.indexOf(`id="${first}"`) > html.indexOf('id="division-standings"') || !html.includes("Current season by the numbers")) throw new Error("Season summary must precede standings");
+}
+if (nflHtml.indexOf('id="division-standings"') > nflHtml.indexOf('id="playoff-picture"')) throw new Error("NFL standings must precede playoff picture");
+console.log("Season summaries first and NFL standings before playoff picture verified");

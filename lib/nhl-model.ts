@@ -18,7 +18,7 @@ export type HockeyRank = HockeyTeam & {
   recent: string[];
 };
 export type HockeySnapshot = {
-  mvps?: LeagueMvps;
+  mvps?: LeagueMvps; seasonComplete?: boolean;
   schemaVersion: number; season: number; updatedAt: string; rankingsReady: boolean;
   minimumGames: number; teamsReady: number; completedGames: number;
   teams: HockeyTeam[]; games: HockeyGame[]; rankings: HockeyRank[];

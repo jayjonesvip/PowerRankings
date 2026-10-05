@@ -2,10 +2,14 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { latestPlayedSeason } from "./season-lifecycle.mjs";
+
 export function validateWeek(payload) {
+  if (payload.season?.type != null && payload.season.type !== 2) throw new Error("Not an NFL regular-season scoreboard");
   if (!Array.isArray(payload.events)) throw new Error("Invalid scoreboard");
   const ids = new Set();
   for (const e of payload.events) {
+    if (e.season?.type != null && e.season.type !== 2) throw new Error("Not a regular-season game");
     const teams = e.competitions?.[0]?.competitors;
     if (!/^\d+$/.test(e.id) || ids.has(e.id) || !Number.isFinite(Date.parse(e.date)) ||
         typeof e.status?.type?.completed !== "boolean" || teams?.length !== 2 ||
@@ -38,11 +42,12 @@ export async function refresh() {
   const active = new Date().getUTCMonth() < 2 ? year - 1 : year;
   const endpoint = "https://site.api.espn.com/apis/site/v2/sports/football/nfl";
   const pending = [];
+  const manifests = [];
   for (let season = 2022; season <= year; season++) {
     const dir = join(root, String(season));
     let previous;
     try { previous = JSON.parse(await readFile(join(dir, "manifest.json"), "utf8")); } catch {}
-    const archived = season < active && previous?.schemaVersion === 1;
+    const archived = (season < active || previous?.seasonComplete) && previous?.schemaVersion === 1;
     let count = 0;
     let completed = 0;
     for (let week = 1; week <= 18; week++) {
@@ -58,16 +63,29 @@ export async function refresh() {
         const summary = archived ? JSON.parse(await readFile(filename, "utf8"))
           : await request(`${endpoint}/summary?event=${event.id}`);
         if (!Array.isArray(summary.scoringPlays)) throw new Error(`Missing scoring plays: ${event.id}`);
-        pending.push([filename, { scoringPlays: summary.scoringPlays, ...(season === active ? { players: summary.boxscore?.players } : {}) }]);
+        pending.push([filename, { scoringPlays: summary.scoringPlays, ...(summary.boxscore?.players ? { players: summary.boxscore.players } : summary.players ? { players: summary.players } : {}) }]);
       }
     }
-    if (season <= active && !count) throw new Error(`Empty schedule: ${season}`);
+    if (season < active && !count) throw new Error(`Empty schedule: ${season}`);
     if (previous && (count < previous.events || completed < (previous.completed || 0))) {
       throw new Error(`Refusing a truncated season: ${season}`);
     }
-    pending.push([join(dir, "manifest.json"), { schemaVersion: 1, season, updatedAt: archived ? previous.updatedAt : new Date().toISOString(), events: count, completed }]);
+    const manifest = { schemaVersion: 1, season, updatedAt: archived ? previous.updatedAt : new Date().toISOString(), events: count, completed, seasonComplete: count > 0 && completed === count };
+    manifests.push(manifest);
+    pending.push([join(dir, "manifest.json"), manifest]);
     console.log(`Validated ${season}: ${count} games`);
   }
+  const selected = latestPlayedSeason(manifests);
+  // Cached snapshots from older sync versions may lack retained player boxes.
+  for (const [filename, payload] of pending) {
+    if (filename.startsWith(join(root, String(selected.season), "summaries")) && !payload.players) {
+      const id = filename.split(/[\\/]/).at(-1).replace(".json", "");
+      const summary = await request(`${endpoint}/summary?event=${id}`);
+      if (summary.boxscore?.players?.length !== 2) throw new Error(`Missing retained player boxes: ${id}`);
+      payload.players = summary.boxscore.players;
+    }
+  }
+  pending.push([join(root, "current.json"), { ...selected, completedGames: selected.completed }]);
   // No files change until all upstream requests and validations succeed.
   for (const [filename, payload] of pending) {
     await mkdir(resolve(filename, ".."), { recursive: true });
