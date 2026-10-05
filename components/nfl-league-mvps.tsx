@@ -19,8 +19,8 @@ export function NflLeagueMvps({ season, completedGames, refreshToken, initialDat
     return () => controller.abort();
   }, [season, refreshToken]);
   const current = data?.season === season && data.completedGames === completedGames;
-  return <section className="league-mvp-section" id="league-mvps" aria-label="NFL league MVPs">
-    <div className="dashboard-heading"><div><p className="eyebrow">Standouts above the average</p><h2>League MVPs</h2></div><span>Current season · Offense &amp; defense</span></div>
+  return <section className="league-pulse league-mvp-section" id="league-mvps" aria-label="NFL league MVPs">
+    <div className="pulse-heading"><div><p className="eyebrow">Standouts above the average</p><h2>League MVPs</h2></div><span>Current season · Offense &amp; defense</span></div>
     {error ? <p role="status">MVP snapshot unavailable. Refresh to retry.</p> : !current ? <p role="status">Loading the current MVP snapshot…</p> : <>
       <div className="league-mvp-grid">{(["offense", "defense"] as const).map(side => {
         const player = data[side];

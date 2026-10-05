@@ -139,3 +139,31 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 
 .nfl-season-pulse .pulse-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nfl-season-pulse .pulse-grid b{white-space:normal;overflow:visible}[data-sport="mlb"] #dashboard-panel{padding-top:18px}
 .dashboard-panels:has(>.records-panel:only-child){grid-template-columns:1fr}
+
+/* One visual system for every league, with sport-specific grid density. */
+main[data-sport]{--league-section-gap:24px;--league-card-padding:24px;--league-border:#d9dfe7;--league-muted:#526477}
+main[data-sport]>[role="tabpanel"]{padding:18px 0 36px}
+main[data-sport] .league-pulse{padding:var(--league-card-padding);margin:0 0 var(--league-section-gap);border:1px solid var(--league-border);background:#fff}
+main[data-sport] .pulse-heading{gap:20px;margin-bottom:18px;align-items:flex-end}
+main[data-sport] .pulse-heading h2{font-size:29px;font-weight:800;letter-spacing:-.02em;line-height:1.2}
+main[data-sport] .pulse-heading>span{color:var(--league-muted);font-size:13px;text-align:right}
+main[data-sport] .pulse-grid{gap:10px}
+main[data-sport] .pulse-grid article{padding:16px;background:#f7f9fc;border:1px solid var(--league-border)}
+main[data-sport] .pulse-grid strong{font-size:38px;line-height:1.2;margin:15px 0 8px}
+main[data-sport] .pulse-grid b{white-space:normal;overflow:visible;line-height:1.4}
+main[data-sport] .pulse-grid small{line-height:1.5}
+main[data-sport] .league-mvp-grid,main[data-sport] .adjusted-leader-grid{gap:16px}
+main[data-sport] .league-mvp-section .panel-title,main[data-sport] .league-mvp-section article>.section-heading{min-height:76px;padding:16px 18px;background:#f7f9fc;color:#333;border-bottom:1px solid var(--league-border)}
+main[data-sport] .league-mvp-section article>.section-heading h3{color:#333}
+main[data-sport] .mlb-team-stats{margin-top:0}
+@media(max-width:760px){
+  main[data-sport]{--league-card-padding:15px;--league-section-gap:18px}
+  main[data-sport] .league-tabs{display:flex;overflow-x:auto}
+  main[data-sport] .league-tabs button{flex:0 0 auto;min-height:48px;padding:8px 14px;font-size:11px}
+  main[data-sport] .pulse-heading{align-items:flex-start;flex-wrap:wrap;gap:10px}
+  main[data-sport] .pulse-heading h2{font-size:24px}
+  main[data-sport] .pulse-heading>span{font-size:12px;text-align:left}
+  main[data-sport] .pulse-grid strong{font-size:32px}
+  main[data-sport] .mlb-pulse .pulse-grid strong{font-size:clamp(20px,4vw,32px)}
+}
+@media(max-width:420px){main[data-sport] .pulse-grid{grid-template-columns:1fr!important}}

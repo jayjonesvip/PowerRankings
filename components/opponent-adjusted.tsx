@@ -14,8 +14,8 @@ export function AdjustedTeamMetrics({ data, sport }: { data?: AdjustedPerformanc
 export function AdjustedLeagueLeaders({ teams, metrics, sport }: { teams: Array<{ id: string; name: string }>; metrics: Map<string, AdjustedPerformance>; sport: "nfl" | "nhl" }) {
   const unit = sport === "nfl" ? "points" : "goals";
   const eligible = teams.map(team => ({ ...team, metric: metrics.get(team.id) })).filter(team => team.metric && team.metric.qualifyingGames >= 3);
-  return <section className="adjusted-leaders" id="opponent-performance" aria-label="Opponent-adjusted performance">
-    <div className="dashboard-heading"><div><p className="eyebrow">Beyond the box score</p><h2>Performance against opponents</h2></div><span>Higher is better for both</span></div>
+  return <section className="league-pulse adjusted-leaders" id="opponent-performance" aria-label="Opponent-adjusted performance">
+    <div className="pulse-heading"><div><p className="eyebrow">Beyond the box score</p><h2>Performance against opponents</h2></div><span>Higher is better for both</span></div>
     <div className="adjusted-leader-grid">{(["offense", "defense"] as const).map(side => {
       const leaders = [...eligible].sort((a, b) => b.metric![side]! - a.metric![side]! || a.name.localeCompare(b.name)).slice(0, 3);
       return <article className="data-panel" key={side}><div className="panel-title"><h3>{side === "offense" ? "Offense above expectation" : "Defensive suppression"}</h3></div>
