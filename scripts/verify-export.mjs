@@ -65,3 +65,7 @@ for (const id of ["division-standings", "league-leaders", "hitting-teams", "pitc
 if (baseball.teams.some(t => !mlbHtml.includes(t.name.replaceAll("&", "&amp;"))) ||
     !mlbHtml.includes("Player home-run leader") || !mlbHtml.includes("Player batting-average leader") || !hubHtml.includes('id="mlb-board"')) throw new Error("MLB snapshot missing from exported HTML");
 console.log("MLB regular-season JSON, division standings, team stats and player leaders verified");
+
+for (const id of ["scoring-teams", "goaltending-teams"]) if (!nhlHtml.includes(`id="${id}"`)) throw new Error(`NHL stats section missing: ${id}`);
+for (const team of hockey.teams) if (!Array.isArray(team.players) || !Array.isArray(team.goalies)) throw new Error("NHL club JSON missing");
+console.log("NHL scoring, expandable player points, and goaltending JSON verified");

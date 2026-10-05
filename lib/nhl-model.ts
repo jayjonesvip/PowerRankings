@@ -1,6 +1,9 @@
+export type HockeyPlayer = { id: string; name: string; position: string; gamesPlayed: number; goals: number; assists: number; points: number; shots: number };
+export type HockeyGoalie = { id: string; name: string; gamesPlayed: number; shotsAgainst: number; saves: number; goalsAgainst: number; shutouts: number; timeOnIce: number };
 export type HockeyTeam = {
   id: string; name: string; abbreviation: string; conference: string; division: string;
   gamesPlayed: number; wins: number; losses: number; overtimeLosses: number;
+  players?: HockeyPlayer[]; goalies?: HockeyGoalie[];
   points: number; goalsFor: number; goalsAgainst: number; regulationWins: number;
 };
 export type HockeyGame = {
@@ -80,4 +83,21 @@ export function buildHockeySnapshot(teams: HockeyTeam[], games: HockeyGame[], se
   return { schemaVersion: 1, season, updatedAt, minimumGames, teamsReady, rankingsReady: teamsReady === teams.length,
     completedGames: finals.length, teams, games: [...games].sort((a, b) => a.date.localeCompare(b.date)),
     rankings: teamsReady === teams.length ? ranked.map((t, i) => ({ ...t, rank: i + 1 })) : [] };
+}
+
+export function validateHockeyClubStats(team: HockeyTeam) {
+  if (!team.players || !team.goalies) throw new Error(`Missing club stats: ${team.abbreviation}`);
+  for (const group of [team.players, team.goalies]) {
+    if (new Set(group.map(p=>p.id)).size !== group.length) throw new Error("Duplicate club player");
+    for (const player of group) {
+      if (!player.id || !player.name || !Number.isInteger(player.gamesPlayed) || player.gamesPlayed < 0 || player.gamesPlayed > team.gamesPlayed) throw new Error("Invalid club appearance count");
+    }
+  }
+  for (const player of team.players) {
+    if (![player.goals,player.assists,player.points,player.shots].every(n=>Number.isInteger(n)&&n>=0) || player.points !== player.goals+player.assists) throw new Error("Invalid club scoring totals");
+  }
+  for (const goalie of team.goalies) {
+    if (![goalie.saves,goalie.shotsAgainst,goalie.goalsAgainst,goalie.shutouts,goalie.timeOnIce].every(n=>Number.isInteger(n)&&n>=0) || goalie.saves > goalie.shotsAgainst) throw new Error("Invalid club goalie totals");
+  }
+  if (team.gamesPlayed > 0 && (!team.players.length || !team.goalies.length)) throw new Error("Missing played club statistics");
 }

@@ -4,6 +4,7 @@ import { BarChart3, ListOrdered, RefreshCw } from "lucide-react";
 import { AdjustedLeagueLeaders, AdjustedTeamMetrics } from "@/components/opponent-adjusted";
 import { opponentAdjustedPerformance, hockeyScoredGames } from "@/lib/opponent-adjusted";
 import { LeagueSectionLinks } from "@/components/league-section-links";
+import { NhlTeamStats } from "@/components/nhl-team-stats";
 import { NhlDivisionStandings } from "@/components/division-standings";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -11,6 +12,8 @@ const NHL_SECTIONS = [
   { id: "division-standings", label: "division standings", view: "dashboard" as const },
   { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "league-leaders", label: "league leaders", view: "dashboard" as const },
+  { id: "scoring-teams", label: "team scoring", view: "dashboard" as const },
+  { id: "goaltending-teams", label: "team goaltending", view: "dashboard" as const },
   { id: "rankings", label: "power rankings", view: "rankings" as const },
 ];
 export default function HockeyPage({ initialData }: { initialData: HockeySnapshot }) {
@@ -54,6 +57,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
         <article><span>Best defense</span><strong>{defense ? (defense.goalsAgainst / defense.gamesPlayed).toFixed(2) : "—"}</strong><b>{defense?.name ?? "No games yet"}</b><small>goals allowed per game</small></article>
         <article><span>League scoring</span><strong>{average.toFixed(2)}</strong><b>Goals per team per game</b><small>includes shootout deciding goals in standings</small></article>
       </div></div>
+      <NhlTeamStats teams={data.teams} />
     </section>}
     {data && <section hidden={view !== "rankings"} className="nhl-dashboard" id="rankings">
       {!data.rankingsReady ? <section className="league-pulse"><p className="eyebrow">Building the sample</p><h2>Rankings unlock after five games per team</h2><p>{data.teamsReady} of {data.teams.length} teams have reached five regular-season finals. Rankings activate automatically after every team qualifies.</p><div className="nhl-progress">{data.teams.map(t => <span key={t.id}>{t.abbreviation} <b>{Math.min(t.gamesPlayed, data.minimumGames)}/{data.minimumGames}</b></span>)}</div></section> : <section className="rankings-card"><div className="section-heading"><h2>All 32 NHL power rankings</h2><span>{season}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th>Rank</th><th>Team</th><th>W–L–OTL</th><th>Jay’s Index</th><th>GF/G</th><th>GA/G</th><th>Last 5</th><th>Opponent performance</th></tr></thead><tbody>{data.rankings.map(t => <tr key={t.id}><td><span className={`rank-number rank-${t.rank}`}>{t.rank}</span></td><td><b>{t.name}</b><small>Record {t.components.record.toFixed(1)} · Quality {t.components.quality.toFixed(1)}</small></td><td>{t.wins}–{t.losses}–{t.overtimeLosses}</td><td><b>{t.score.toFixed(1)}</b></td><td>{t.goalsForAverage.toFixed(2)}</td><td>{t.goalsAgainstAverage.toFixed(2)}</td><td>{t.recent.join(" · ")}</td><td><AdjustedTeamMetrics data={adjustedMetrics.get(t.id)} sport="nhl" /></td></tr>)}</tbody></table></div></section>}

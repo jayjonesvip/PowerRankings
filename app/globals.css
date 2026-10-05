@@ -95,3 +95,9 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 @media(max-width:420px){.mlb-pulse .pulse-grid{grid-template-columns:1fr}.mlb-pulse .pulse-grid strong{font-size:30px}}
 
 .mlb-sort-button{display:inline-flex;align-items:center;gap:7px;padding:4px 0;border:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}.mlb-sort-button:hover{color:#005a9c}.mlb-sort-button:focus-visible{outline:2px solid #005a9c;outline-offset:4px}.mlb-sort-button span{font-size:13px}
+
+.nhl-points-expand { border: 1px solid #ccd6e1; background: #eef4fa; color: #005a9c; padding: 6px 10px; font: inherit; font-weight: 700; cursor: pointer; }
+.nhl-points-expand:focus-visible { outline: 2px solid #005a9c; outline-offset: 2px; }
+.nhl-player-details { padding: 12px; background: #f7f9fc; }
+.nhl-player-details h3 { margin: 0 0 12px; }
+.nhl-player-details .nhl-table { min-width: 540px; }

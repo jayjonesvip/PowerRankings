@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { SortableStats } from "@/components/sortable-stats";
 import { RefreshCw } from "lucide-react";
 import { validateBaseballSnapshot, type BaseballSnapshot, type BaseballTeam, type BaseballLeader } from "@/lib/mlb-model";
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -42,7 +43,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
     const comparison = key === "name" ? a.name.localeCompare(b.name) : a[key] - b[key];
     return (hittingSort.direction === "ascending" ? comparison : -comparison) || a.name.localeCompare(b.name);
   });
-  const pitching = [...data.teams].sort((a, b) => a.era - b.era || a.name.localeCompare(b.name));
+
   const count = (value: number) => String(value);
   return <main data-sport="mlb">
     <header className="site-header"><a className="brand" href={`${base}/`} aria-label="Jay's League Pulse home"><img className="brand-mark" src={`${base}/jays-logo.png`} alt="Jay's League Pulse logo" width="52" height="52" /><span><b>Jay&apos;s League Pulse</b><small>MLB LEAGUE SNAPSHOT</small></span></a>
@@ -82,7 +83,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
     <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Sort: {HITTING_COLUMNS.find(column => column.key === hittingSort.key)?.label} · {hittingSort.direction === "ascending" ? "Ascending" : "Descending"}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr>{HITTING_COLUMNS.map(column => <th scope="col" key={column.key} aria-sort={hittingSort.key === column.key ? hittingSort.direction : "none"}><button className="mlb-sort-button" onClick={() => sortHitting(column.key)} aria-label={`Sort by ${column.label}, ${hittingSort.key === column.key && hittingSort.direction === "descending" ? "ascending" : hittingSort.key === column.key ? "descending" : column.key === "name" ? "ascending" : "descending"}`}>
       {column.label}<span aria-hidden="true">{hittingSort.key === column.key ? hittingSort.direction === "ascending" ? "↑" : "↓" : "↕"}</span>
     </button></th>)}</tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
-    <section className="rankings-card mlb-team-stats" id="pitching-teams"><div className="section-heading"><h2>Team pitching</h2><span>Lowest ERA first</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr><th scope="col">Team</th><th scope="col">ERA</th><th scope="col">Runs allowed</th><th scope="col">Games</th><th scope="col">W–L</th></tr></thead><tbody>{pitching.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{t.era.toFixed(2)}</td><td>{t.runsAgainst}</td><td>{t.gamesPlayed}</td><td>{t.wins}–{t.losses}</td></tr>)}</tbody></table></div></section>
+    <SortableStats id="pitching-teams" title="Team pitching" defaultKey="era" rows={data.teams.map(t => ({id:String(t.id),name:t.name,era:t.era,runsAgainst:t.runsAgainst,gamesPlayed:t.gamesPlayed,wins:t.wins,losses:t.losses}))} columns={[{key:"name",label:"Team"},{key:"era",label:"ERA",lowerFirst:true,format:v=>v.toFixed(2)},{key:"runsAgainst",label:"Runs allowed",lowerFirst:true},{key:"gamesPlayed",label:"Games"},{key:"wins",label:"Wins"},{key:"losses",label:"Losses",lowerFirst:true}]} />
     <footer><span>Unofficial analysis using MLB data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
 }

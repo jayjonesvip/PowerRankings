@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
-import { buildHockeySnapshot } from "../lib/nhl-model.ts";
+import { buildHockeySnapshot, validateHockeyClubStats } from "../lib/nhl-model.ts";
 
 async function request(path) {
   for (let attempt = 0; attempt < 3; attempt++) {
@@ -47,6 +47,15 @@ for (let i = 0; i < teams.length; i += 4) {
   }));
 }
 if (!games.size) throw new Error("Empty NHL regular-season schedule");
+for (let i = 0; i < teams.length; i += 4) {
+  await Promise.all(teams.slice(i, i + 4).map(async team => {
+    const stats = await request(`club-stats/${team.abbreviation}/${season}/2`);
+    if (Number(stats.season) !== season || stats.gameType !== 2 || !Array.isArray(stats.skaters) || !Array.isArray(stats.goalies)) throw new Error(`Invalid club stats: ${team.abbreviation}`);
+    team.players = stats.skaters.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, position: p.positionCode, gamesPlayed: p.gamesPlayed, goals: p.goals, assists: p.assists, points: p.points, shots: p.shots }));
+    team.goalies = stats.goalies.map(p => ({ id: String(p.playerId), name: `${p.firstName.default} ${p.lastName.default}`, gamesPlayed: p.gamesPlayed, shotsAgainst: p.shotsAgainst, saves: p.saves, goalsAgainst: p.goalsAgainst, shutouts: p.shutouts, timeOnIce: p.timeOnIce }));
+    validateHockeyClubStats(team);
+  }));
+}
 const snapshot = buildHockeySnapshot(teams, [...games.values()], season, new Date().toISOString());
 let previous;
 try { previous = JSON.parse(await readFile("public/data/nhl/current.json", "utf8")); } catch {}
