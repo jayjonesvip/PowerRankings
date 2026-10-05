@@ -32,16 +32,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
     };
     void loadHockey();
     const timer = window.setInterval(loadHockey, 5 * 60 * 1000);
-    const playedHockey = hockey?.teams.filter(t=>t.gamesPlayed>0) ?? [];
-  const nhlScoring = [...playedHockey].sort((a,b)=>b.goalsFor/b.gamesPlayed-a.goalsFor/a.gamesPlayed)[0];
-  const nhlDefense = [...playedHockey].sort((a,b)=>a.goalsAgainst/a.gamesPlayed-b.goalsAgainst/b.gamesPlayed)[0];
-  const playedBaseball = baseball.teams.filter(t=>t.gamesPlayed>0);
-  const highestAverage = Math.max(...playedBaseball.map(t=>t.battingAverage));
-  const lowestEra = Math.min(...playedBaseball.map(t=>t.era));
-  const mlbHitting = playedBaseball.filter(t=>t.battingAverage===highestAverage);
-  const mlbPitching = playedBaseball.filter(t=>t.era===lowestEra);
-
-  return () => window.clearInterval(timer);
+    return () => window.clearInterval(timer);
   }, []);
 
   const load = useCallback(async (quiet = false) => {
@@ -72,6 +63,15 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
       defense: [...teams].sort((a, b) => b.components.defense - a.components.defense)[0],
     };
   }, [snapshot]);
+
+  const playedHockey = hockey?.teams.filter(t=>t.gamesPlayed>0) ?? [];
+  const nhlScoring = [...playedHockey].sort((a,b)=>b.goalsFor/b.gamesPlayed-a.goalsFor/a.gamesPlayed)[0];
+  const nhlDefense = [...playedHockey].sort((a,b)=>a.goalsAgainst/a.gamesPlayed-b.goalsAgainst/b.gamesPlayed)[0];
+  const playedBaseball = baseball.teams.filter(t=>t.gamesPlayed>0);
+  const highestAverage = Math.max(...playedBaseball.map(t=>t.battingAverage));
+  const lowestEra = Math.min(...playedBaseball.map(t=>t.era));
+  const mlbHitting = playedBaseball.filter(t=>t.battingAverage===highestAverage);
+  const mlbPitching = playedBaseball.filter(t=>t.era===lowestEra);
 
   return (
     <main className="hub-page">
