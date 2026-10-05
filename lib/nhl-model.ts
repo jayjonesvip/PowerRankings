@@ -4,6 +4,7 @@ export type HockeyGoalie = { id: string; name: string; gamesPlayed: number; shot
 export type HockeyTeam = {
   id: string; name: string; abbreviation: string; conference: string; division: string;
   gamesPlayed: number; wins: number; losses: number; overtimeLosses: number;
+  divisionRank?: number; conferenceRank?: number; wildCardRank?: number;
   players?: HockeyPlayer[]; goalies?: HockeyGoalie[];
   points: number; goalsFor: number; goalsAgainst: number; regulationWins: number;
 };

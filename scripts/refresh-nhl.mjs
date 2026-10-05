@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { buildHockeySnapshot, validateHockeyClubStats } from "../lib/nhl-model.ts";
 
+import { hockeyPlayoffPicture } from "../lib/nhl-playoffs.ts";
 import { hockeyMvps } from "./league-mvp-model.mjs";
 
 async function request(path) {
@@ -26,6 +27,18 @@ if (!Array.isArray(standings.standings) || standings.standings.length !== 32 || 
 const reportedSeason = standings.standings?.[0]?.seasonId;
 const reportedFinals = (standings.standings ?? []).reduce((n,t)=>n+t.gamesPlayed,0)/2;
 if (shouldRetainSeason(previous, reportedSeason, reportedFinals)) {
+  if (previous.teams.some(t=>!Number.isInteger(t.divisionRank))) {
+    const finalStandings=reportedSeason===previous.season ? standings : await request(`standings/${String(previous.season).slice(4)}-06-30`);
+    if(finalStandings.standings?.length!==32) throw new Error("Missing retained NHL standings ranks");
+    for(const team of previous.teams) {
+      const row=finalStandings.standings.find(t=>t.teamAbbrev?.default===team.abbreviation);
+      if(!row || row.seasonId!==previous.season || row.gamesPlayed!==team.gamesPlayed || row.points!==team.points) throw new Error("NHL ranks disagree with retained snapshot");
+      Object.assign(team,{divisionRank:row.divisionSequence,conferenceRank:row.conferenceSequence,wildCardRank:row.wildcardSequence});
+    }
+    hockeyPlayoffPicture(previous.teams);
+    await writeFile("public/data/nhl/current.json.tmp",JSON.stringify(previous));
+    await rename("public/data/nhl/current.json.tmp","public/data/nhl/current.json");
+  }
   console.log(`Retaining NHL ${previous.season} until new regular-season finals arrive`); process.exit(0);
 }
 if (!reportedFinals && !previous) standings = await request(`standings/${String(reportedSeason).slice(0,4)}-06-30`);
@@ -36,6 +49,7 @@ const teams = standings.standings.map(t => ({
   id: "", name: t.teamName?.default, abbreviation: t.teamAbbrev?.default,
   conference: t.conferenceName, division: t.divisionName,
   gamesPlayed: t.gamesPlayed, wins: t.wins, losses: t.losses, overtimeLosses: t.otLosses,
+  divisionRank: t.divisionSequence, conferenceRank: t.conferenceSequence, wildCardRank: t.wildcardSequence,
   points: t.points, goalsFor: t.goalFor, goalsAgainst: t.goalAgainst, regulationWins: t.regulationWins,
 }));
 const games = new Map();
@@ -74,6 +88,7 @@ for (let i = 0; i < teams.length; i += 2) {
   }));
 }
 const snapshot = buildHockeySnapshot(teams, [...games.values()], season, new Date().toISOString());
+hockeyPlayoffPicture(teams);
 snapshot.mvps = hockeyMvps(teams);
 snapshot.seasonComplete = snapshot.completedGames === snapshot.games.length;
 if (previous?.season === season && (snapshot.games.length < previous.games.length || snapshot.completedGames < previous.completedGames)) {

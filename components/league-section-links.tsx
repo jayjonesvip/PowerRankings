@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-type Section = { id: string; label: string; view: "dashboard" | "rankings" };
-export function LeagueSectionLinks({ sections, onViewChange }: { sections: Section[]; onViewChange: (view: "dashboard" | "rankings") => void }) {
+type Section<V extends string> = { id: string; label: string; view: V };
+export function LeagueSectionLinks<V extends string>({ sections, onViewChange }: { sections: Section<V>[]; onViewChange: (view: V) => void }) {
   const [target, setTarget] = useState<string | null>(null);
   useEffect(() => {
     const followHash = () => {

@@ -2,9 +2,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { SortableStats } from "@/components/sortable-stats";
 import { LeagueMvpCards } from "@/components/league-mvps";
+import { LeagueTabs } from "@/components/league-tabs";
+import { LeagueSectionLinks } from "@/components/league-section-links";
 import { MlbPlayoffSeeding } from "@/components/mlb-playoff-seeding";
 import { RefreshCw } from "lucide-react";
 import { validateBaseballSnapshot, type BaseballSnapshot, type BaseballTeam, type BaseballLeader } from "@/lib/mlb-model";
+const MLB_SECTIONS = [{id:"league-leaders",label:"league leaders",view:"dashboard" as const},{id:"league-mvps",label:"league MVPs",view:"dashboard" as const},{id:"hitting-teams",label:"team hitting",view:"hitting" as const},{id:"pitching-teams",label:"team pitching",view:"pitching" as const},{id:"division-standings",label:"division standings",view:"standings" as const},{id:"playoff-seeding",label:"playoff picture",view:"standings" as const}];
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const HITTING_COLUMNS = [
   { key: "name", label: "Team" }, { key: "battingAverage", label: "AVG" }, { key: "hitPercentage", label: "Hit %" },
@@ -25,6 +28,7 @@ function LeaderCard({ label, rows, format, detail }: { label: string; rows: Base
     <small>{detail}{rows.length > 1 ? " · Tied leaders" : ""}</small></article>;
 }
 export default function BaseballPage({ initialData }: { initialData: BaseballSnapshot }) {
+  const [view,setView] = useState<"dashboard" | "standings" | "hitting" | "pitching">("dashboard");
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -53,10 +57,12 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <div className="header-status">Hourly snapshot · {new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ET</div>
     </header>
     <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB League Pulse<br /><em>Regular-season snapshot</em></h1>
-      <p className="hero-copy league-intro">Explore <a href="#division-standings">division standings</a>, <a href="#league-leaders">league leaders</a>, <a href="#league-mvps">league MVPs</a>, <a href="#hitting-teams">team hitting</a>, and <a href="#pitching-teams">team pitching</a>{data.playoffSeeds && <>, and <a href="#playoff-seeding">{data.seasonComplete ? "playoff seeding" : "playoff picture"}</a></>}—regular-season results only.</p></div>
+      <LeagueSectionLinks onViewChange={setView} sections={MLB_SECTIONS} /></div>
       <div className="hero-score mlb-games-count nhl-games-count"><span>FINAL GAMES</span><strong>{data.completedGames}</strong><small>Regular season</small></div></section>
+    <LeagueTabs label="MLB sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"League Dashboard"},{view:"hitting",label:"Team Hitting"},{view:"pitching",label:"Team Pitching"},{view:"standings",label:"Standings"}]} />
     <div className="controls"><span>{data.season} MLB · {data.seasonComplete ? "Completed regular season" : "Current regular season"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} />Refresh</button></div></div>
     {error && <section className="error-card" role="alert">Showing the last successful snapshot. {error}<button onClick={load}>Try again</button></section>}
+    <section id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab" hidden={view !== "dashboard"}>
     <section className="league-pulse mlb-pulse" id="league-leaders"><div className="pulse-heading"><div><p className="eyebrow">Around MLB</p><h2>Current season by the numbers</h2></div><span>{data.teams.length} teams</span></div><div className="pulse-grid">
       <LeaderCard label="Best hitting team" rows={extrema(data.teams, "battingAverage")} format={value => `${avg(value)} · ${percent(value)}`} detail="Highest team batting average" />
       <LeaderCard label="Worst hitting team" rows={extrema(data.teams, "battingAverage", true)} format={value => `${avg(value)} · ${percent(value)}`} detail="Lowest team batting average" />
@@ -72,10 +78,16 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
       <LeaderCard label="Pitcher losses leader" rows={data.leaders.losses} format={count} detail="Pitcher losses" />
     </div><p className="mlb-method">Batting average is hits divided by at-bats; percentages show the same rate. ERA measures earned runs allowed per nine innings; lower is better. These best/worst labels use batting average and ERA, rather than an overall team-strength model. Player batting-average leaders use MLB’s qualified hitter pool. Ties use the published precision. Postseason and spring-training statistics are excluded.</p></section>
     <LeagueMvpCards data={data.mvps} />
+    </section>
+    <section id="hitting-panel" role="tabpanel" aria-labelledby="hitting-tab" hidden={view !== "hitting"}>
     <section className="rankings-card mlb-team-stats" id="hitting-teams"><div className="section-heading"><h2>Team hitting</h2><span>Sort: {HITTING_COLUMNS.find(column => column.key === hittingSort.key)?.label} · {hittingSort.direction === "ascending" ? "Ascending" : "Descending"}</span></div><div className="nhl-table-wrap"><table className="nhl-table"><thead><tr>{HITTING_COLUMNS.map(column => <th scope="col" key={column.key} aria-sort={hittingSort.key === column.key ? hittingSort.direction : "none"}><button className="mlb-sort-button" onClick={() => sortHitting(column.key)} aria-label={`Sort by ${column.label}, ${hittingSort.key === column.key && hittingSort.direction === "descending" ? "ascending" : hittingSort.key === column.key ? "descending" : column.key === "name" ? "ascending" : "descending"}`}>
       {column.label}<span aria-hidden="true">{hittingSort.key === column.key ? hittingSort.direction === "ascending" ? "↑" : "↓" : "↕"}</span>
     </button></th>)}</tr></thead><tbody>{hitting.map(t => <tr key={t.id}><th scope="row">{t.name}</th><td>{avg(t.battingAverage)}</td><td>{percent(t.battingAverage)}</td><td>{t.hits}</td><td>{t.atBats}</td><td>{t.homeRuns}</td><td>{t.runsFor}</td></tr>)}</tbody></table></div></section>
+    </section>
+    <section id="pitching-panel" role="tabpanel" aria-labelledby="pitching-tab" hidden={view !== "pitching"}>
     <SortableStats id="pitching-teams" title="Team pitching" defaultKey="era" rows={data.teams.map(t => ({id:String(t.id),name:t.name,era:t.era,runsAgainst:t.runsAgainst,gamesPlayed:t.gamesPlayed,wins:t.wins,losses:t.losses}))} columns={[{key:"name",label:"Team"},{key:"era",label:"ERA",lowerFirst:true,format:v=>v.toFixed(2)},{key:"runsAgainst",label:"Runs allowed",lowerFirst:true},{key:"gamesPlayed",label:"Games"},{key:"wins",label:"Wins"},{key:"losses",label:"Losses",lowerFirst:true}]} />
+    </section>
+    <section id="standings-panel" role="tabpanel" aria-labelledby="standings-tab" hidden={view !== "standings"}>
     <section className="division-standings" id="division-standings"><div className="dashboard-heading"><div><p className="eyebrow">Division race</p><h2>Standings by division</h2></div><span>{data.season} regular season</span></div>
       {["American League", "National League"].map(league => <section className="standings-conference" key={league}><h3>{league}</h3><div className="division-grid">
         {["East", "Central", "West"].map(division => {
@@ -88,6 +100,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
         })}</div></section>)}
     </section>
     <MlbPlayoffSeeding data={data} />
+    </section>
     <footer><span>Unofficial analysis using MLB data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
 }

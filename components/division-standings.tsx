@@ -26,12 +26,12 @@ export function NhlDivisionStandings({ teams }: { teams: HockeyTeam[] }) {
     {conferences.map(({ conference, divisions }) => <section className="standings-conference" key={conference}>
       <h3>{conference} Conference</h3><div className="division-grid">{divisions.map(division => {
         const rows = teams.filter(t => t.conference === conference && t.division === division)
-          .sort((a, b) => b.points - a.points || b.regulationWins - a.regulationWins || a.abbreviation.localeCompare(b.abbreviation));
+          .sort((a, b) => a.divisionRank && b.divisionRank ? a.divisionRank - b.divisionRank : b.points - a.points || b.regulationWins - a.regulationWins || a.abbreviation.localeCompare(b.abbreviation));
         return <section className="rankings-card" key={division}><div className="section-heading"><h4>{division} Division</h4></div>
           <div className="nhl-table-wrap"><table className="nhl-table"><caption className="sr-only">{conference} {division} standings</caption><thead><tr><th scope="col">Team</th><th scope="col">GP</th><th scope="col">W–L–OTL</th><th scope="col">PTS</th><th scope="col">GF</th><th scope="col">GA</th><th scope="col">DIFF</th></tr></thead><tbody>{rows.map(t => <tr key={t.id}><th scope="row"><b>{t.name}</b></th><td>{t.gamesPlayed}</td><td>{t.wins}–{t.losses}–{t.overtimeLosses}</td><td><b>{t.points}</b></td><td>{t.goalsFor}</td><td>{t.goalsAgainst}</td><td>{t.goalsFor - t.goalsAgainst}</td></tr>)}</tbody></table></div>
         </section>;
       })}</div>
     </section>)}
-    <p className="nhl-note">Within each division: points, regulation wins, then abbreviation. Tied rows do not apply all official playoff tiebreakers.</p>
+    <p className="nhl-note">{teams.every(t => Number.isInteger(t.divisionRank)) ? "Division order follows NHL’s published regular-season standings and tiebreakers." : "Within each division: points, regulation wins, then abbreviation. Tied rows do not apply all official playoff tiebreakers."}</p>
   </section>;
 }

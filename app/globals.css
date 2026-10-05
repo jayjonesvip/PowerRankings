@@ -121,3 +121,14 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 .mlb-playoff-section .bye-card{grid-template-columns:1fr}
 .mlb-playoff-section .playoff-next-round{grid-template-columns:auto 1fr 28px 1fr}
 @media(max-width:700px){.mlb-playoff-section .conference-title span{font-size:20px;letter-spacing:.02em}.mlb-playoff-section .playoff-next-round{grid-template-columns:1fr}}
+
+.league-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+[data-sport="mlb"] .league-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:700px){[data-sport="mlb"] .league-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.league-tabs button{padding:8px 4px;gap:5px;font-size:10px}}
+
+.nhl-playoff-section .playoff-team{grid-template-columns:100px minmax(0,1fr)}
+.nhl-seed-label{font-size:10px;font-weight:800;color:#005a9c}
+.nhl-playoff-section .conference-title span{font-size:21px;letter-spacing:.02em}
+@media(max-width:700px){.nhl-playoff-section .playoff-team{grid-template-columns:80px minmax(0,1fr)}}
+
+.section-anchor{position:absolute}

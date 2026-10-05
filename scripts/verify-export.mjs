@@ -35,7 +35,7 @@ const htmlText = async (path) => (await readFile(path, "utf8"))
 const nflHtml = await htmlText("out/nfl/index.html");
 if ((nflHtml.match(/class="team-card"/g) ?? []).length !== 32 ||
     !nflHtml.includes('id="division-standings"') || !nflHtml.includes('id="league-stats"') ||
-    !nflHtml.includes('id="rankings" hidden=""') || !nflHtml.replace(/<[^>]*>/g, "").includes("AFC East")) {
+    !/<section[^>]*id="rankings-panel"[^>]*hidden=""/.test(nflHtml) || !nflHtml.replace(/<[^>]*>/g, "").includes("AFC East")) {
   throw new Error("NFL standings, stats and all 32 rankings must be prerendered");
 }
 for (const player of [mvp.offense, mvp.defense].filter(Boolean)) {
@@ -88,3 +88,10 @@ if (baseball.seasonComplete) {
   for (const seed of baseball.playoffSeeds) if (!mlbHtml.includes(baseball.teams.find(t=>t.id===seed.id).name)) throw new Error("MLB opening team missing");
 }
 console.log("MLB completed-season opening playoff seeding verified");
+
+for(const html of [nflHtml,nhlHtml,mlbHtml]) {
+  if (!html.includes('id="standings-panel"') || !html.includes('id="standings-tab"') || !html.includes('aria-selected="true" aria-controls="dashboard-panel"')) throw new Error("Standings tab or default dashboard missing");
+}
+for(const id of ["hitting-panel","pitching-panel"]) if(!mlbHtml.includes(`id="${id}"`)) throw new Error("MLB team stats tab missing");
+if(!nhlHtml.includes('id="playoff-picture"') || hockey.teams.some(t=>!Number.isInteger(t.divisionRank)||!Number.isInteger(t.conferenceRank))) throw new Error("NHL playoff picture/ranks missing");
+console.log("Default dashboards, standings/playoff tabs, and separate MLB stats tabs verified");

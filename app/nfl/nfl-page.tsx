@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { NflDivisionStandings } from "@/components/division-standings";
 import { LeagueSectionLinks } from "@/components/league-section-links";
 import { NflLeagueMvps } from "@/components/nfl-league-mvps";
+import { LeagueTabs } from "@/components/league-tabs";
 import { LeagueDashboard } from "@/components/league-dashboard";
 import { NextOpponent, useNextOpponents } from "@/components/next-opponent";
 import { PlayoffBracket } from "@/components/playoff-bracket";
@@ -22,8 +23,8 @@ const NFL_SECTIONS = [
   { id: "game-records", label: "game records", view: "dashboard" as const },
   { id: "league-mvps", label: "offensive and defensive MVPs", view: "dashboard" as const },
   { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
-  { id: "division-standings", label: "division standings", view: "dashboard" as const },
-  { id: "playoff-picture", label: "playoff picture", view: "dashboard" as const },
+  { id: "division-standings", label: "division standings", view: "standings" as const },
+  { id: "playoff-picture", label: "playoff picture", view: "standings" as const },
   { id: "rankings", label: "power rankings", view: "rankings" as const },
 ];
 type ModelContext = { registerTool: (tool: Record<string, unknown>, options?: { signal?: AbortSignal }) => void | Promise<void> };
@@ -65,7 +66,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
   const [seasonComplete,setSeasonComplete] = useState(initial.seasonComplete);
   const [snapshots, setSnapshots] = useState<SeasonSnapshot[]>(initial.snapshots);
   const [games, setGames] = useState<Game[]>(initial.games);
-  const [view, setView] = useState<"rankings" | "dashboard">("dashboard");
+  const [view, setView] = useState<"rankings" | "dashboard" | "standings">("dashboard");
   const [dashboardRefresh, setDashboardRefresh] = useState(0);
   const [topFirst, setTopFirst] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -128,13 +129,13 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
           type: "object",
           properties: {
             topFirst: { type: "boolean" },
-            view: { type: "string", enum: ["rankings", "dashboard"] },
+            view: { type: "string", enum: ["rankings", "dashboard", "standings"] },
           },
           additionalProperties: false,
         },
         annotations: { readOnlyHint: false, untrustedContentHint: false },
         execute(input: unknown) {
-          const values = input as { topFirst?: boolean; view?: "rankings" | "dashboard" };
+          const values = input as { topFirst?: boolean; view?: "rankings" | "dashboard" | "standings" };
           if (values.topFirst !== undefined) setTopFirst(values.topFirst);
           if (values.view !== undefined) setView(values.view);
           return { season, week, topFirst: values.topFirst ?? topFirst, view: values.view ?? view };
@@ -165,10 +166,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
         <div className="hero-score"><span>WEEK</span><strong>{String(week).padStart(2, "0")}</strong><small>{snapshot?.completedGames ?? 0} FINAL GAMES</small></div>
       </section>
 
-      <nav className="view-tabs" aria-label="Site sections">
-        <button className={view === "dashboard" ? "active" : ""} onClick={() => setView("dashboard")}><BarChart3 />League Dashboard</button>
-        <button className={view === "rankings" ? "active" : ""} onClick={() => setView("rankings")}><ListOrdered />Power Rankings</button>
-      </nav>
+      <LeagueTabs label="NFL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"League Dashboard"},{view:"rankings",label:"Power Rankings"},{view:"standings",label:"Standings"}]} />
 
       <section className="controls" aria-label="Current snapshot controls">
         <span>{season} NFL · {seasonComplete ? "Completed regular season" : "Current snapshot"}</span>
@@ -177,7 +175,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
 
       {error ? <section className="error-card" role="alert"><strong>Couldn’t reach ESPN.</strong> {error}<Button onClick={() => load(season)}>Try again</Button></section> : null}
 
-      {<section className="dashboard-grid" id="rankings" hidden={view !== "rankings"}>
+      {<section className="dashboard-grid" id="rankings-panel" role="tabpanel" aria-labelledby="rankings-tab" hidden={view !== "rankings"}><span id="rankings" className="section-anchor" />
         <div className="rankings-card">
           <div className="section-heading"><div><p className="eyebrow">Best NFL teams this week</p><h2>{season} NFL Power Rankings: All 32 Teams</h2></div><span>{loading ? "Updating…" : `Through Week ${week}`}</span></div>
           {loading && !rankings.length ? <div className="loading-list" aria-live="polite">{Array.from({ length: 5 }, (_, i) => <span key={i} />)}</div> : (
@@ -217,8 +215,9 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
           <div className="method-note"><b>No preseason. No double-counting wins.</b><br />Win quality is 80% opponent performance and 20% scoring margin. Beating bottom-ranked teams now earns a low quality score.</div>
         </aside>
       </section>}
-      {<section className="dashboard-view" id="dashboard" hidden={view !== "dashboard"}><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} seasonComplete={seasonComplete} /></section>}
+      {<section className="dashboard-view" id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab" hidden={view !== "dashboard"}><LeagueDashboard season={season} week={week} refreshToken={dashboardRefresh} initialData={initial.dashboard} /><NflLeagueMvps season={season} completedGames={snapshot?.completedGames ?? 0} refreshToken={dashboardRefresh} initialData={initial.mvp} /><AdjustedLeagueLeaders teams={snapshot?.teams ?? []} metrics={adjustedMetrics} sport="nfl" /></section>}
 
+      <section className="dashboard-view" id="standings-panel" role="tabpanel" aria-labelledby="standings-tab" hidden={view !== "standings"}><NflDivisionStandings games={games} teams={snapshot?.teams ?? []} week={week} /><PlayoffBracket games={games} teams={snapshot?.teams ?? []} week={week} seasonComplete={seasonComplete} /></section>
       <footer><span>Unofficial league analysis using publicly available ESPN data.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
     </main>
   );
