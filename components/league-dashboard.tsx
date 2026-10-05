@@ -1,29 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Activity, ArrowDownToLine, Bolt, Crosshair, Gauge, Goal, Route, ShieldCheck, Sparkles, Trophy } from "lucide-react";
-import type { DashboardData, DistanceRecord, GameMetric, TeamMetric } from "@/lib/dashboard-types";
+import { ArrowDownToLine, Bolt, Crosshair, Route, Sparkles } from "lucide-react";
+import type { DashboardData, DistanceRecord, GameMetric } from "@/lib/dashboard-types";
 import { fetchDashboardData } from "@/lib/dashboard-data";
 
 function format(value: number, decimals = 1) {
   return value.toLocaleString(undefined, { maximumFractionDigits: decimals, minimumFractionDigits: decimals });
 }
 
-function teamValue(metric: TeamMetric | null, decimals = 0) {
-  return metric ? `${metric.abbreviation} · ${format(metric.value, decimals)}` : "—";
-}
-
 function gameValue(metric: GameMetric | null) {
   return metric ? `${metric.matchup} · ${metric.score}` : "—";
 }
 
-function CompareCard({ icon, label, seasonValue, detail }: { icon: React.ReactNode; label: string; seasonValue: string; detail: string }) {
-  return (
-    <article className="compare-card">
-      <div className="compare-title"><span>{icon}</span><div><small>{label}</small><b>{detail}</b></div></div>
-      <div className="compare-values"><div><small>Season</small><strong>{seasonValue}</strong></div></div>
-    </article>
-  );
+function SeasonCard({ label, value, team, detail }: { label: string; value: string; team: string; detail: string }) {
+  return <article><span>{label}</span><strong>{value}</strong><b>{team}</b><small>{detail}</small></article>;
 }
 
 function RecordLine({ label, season }: { label: string; season: DistanceRecord }) {
@@ -31,41 +22,41 @@ function RecordLine({ label, season }: { label: string; season: DistanceRecord }
   return <div className="record-line"><strong>{label}</strong><div><small>Season</small>{value(season)}</div></div>;
 }
 
-function TouchdownCard({ label, season, tone }: { label: string; season: number; tone: string }) {
-  return <div className="td-card" style={{ "--td-tone": tone } as React.CSSProperties}><small>{label}</small><strong>{season}</strong><span>season to date</span></div>;
+function TouchdownDonut({ touchdowns }: { touchdowns: DashboardData["seasonStats"]["touchdowns"] }) {
+  const slices = [{label:"Receiving",value:touchdowns.receiving,color:"#005a9c"},{label:"Rushing",value:touchdowns.rushing,color:"#d50032"},{label:"Defensive",value:touchdowns.defensive,color:"#377ea6"},{label:"Special teams",value:touchdowns.specialTeams,color:"#041e42"}];
+  const total = slices.reduce((sum, slice) => sum + slice.value, 0);
+  let offset = 0;
+  return <section className="league-pulse" id="touchdown-types"><div className="pulse-heading"><div><p className="eyebrow">How the league scores</p><h2>Touchdown types</h2></div><span>Regular season only</span></div>
+    <div className="nhl-goals-layout"><svg viewBox="0 0 200 200" className="nhl-goals-donut" role="img" aria-label={`${total} total touchdowns: ${slices.map(slice => `${slice.value} ${slice.label.toLowerCase()}`).join(", ")}`}><circle cx="100" cy="100" r="76" fill="none" stroke="#edf2f7" strokeWidth="24" />{slices.map(slice => {
+      const length = total ? slice.value / total * 100 : 0, start = offset; offset += length;
+      return <circle key={slice.label} cx="100" cy="100" r="76" fill="none" stroke={slice.color} strokeWidth="24" pathLength="100" strokeDasharray={`${length} ${100-length}`} strokeDashoffset={-start} transform="rotate(-90 100 100)" />;
+    })}<text x="100" y="100" textAnchor="middle" className="nhl-donut-total">{total}</text><text x="100" y="121" textAnchor="middle" className="nhl-donut-label">TOTAL TOUCHDOWNS</text></svg><dl className="nhl-goals-legend">{slices.map(slice => <div key={slice.label}><dt><span style={{background:slice.color}} />{slice.label}</dt><dd><b>{slice.value}</b><small>{total ? (slice.value / total * 100).toFixed(1) : "0.0"}%</small></dd></div>)}</dl></div>
+    <p className="mlb-method">Regular-season touchdowns from the stored league snapshot. Receiving touchdowns count passing scores once.</p>
+  </section>;
 }
 
 function DashboardContent({ data }: { data: DashboardData }) {
   const season = data.seasonStats;
   return (
     <>
-      <section id="league-stats"><div className="dashboard-heading">
-        <div><p className="eyebrow">League command center</p><h2>Current season by the numbers</h2></div>
+      <section id="league-stats" className="league-pulse nfl-season-pulse"><div className="pulse-heading">
+        <div><p className="eyebrow">Around the NFL</p><h2>Current season by the numbers</h2></div>
         <span>{season.games} completed games</span>
       </div>
 
-      <div className="compare-grid">
-        <CompareCard icon={<Trophy />} label="Most points" detail="Team total" seasonValue={teamValue(season.mostPoints)} />
-        <CompareCard icon={<Gauge />} label="Average team score" detail="League-wide" seasonValue={format(season.averageTeamScore)} />
-        <CompareCard icon={<Bolt />} label="Best scoring average" detail="Points per game" seasonValue={teamValue(season.bestScoringAverage, 1)} />
-        <CompareCard icon={<ShieldCheck />} label="Best defense" detail="Fewest allowed/game" seasonValue={teamValue(season.bestDefenseAverage, 1)} />
-        <CompareCard icon={<Activity />} label="Average game score" detail="Combined points" seasonValue={format(season.averageGameScore)} />
-        <CompareCard icon={<Goal />} label="Most touchdowns" detail="Team leader" seasonValue={teamValue(season.mostTouchdowns)} />
+      <div className="pulse-grid">
+        <SeasonCard label="Most points" value={season.mostPoints ? format(season.mostPoints.value, 0) : "—"} team={season.mostPoints?.team ?? "Awaiting data"} detail="Team total" />
+        <SeasonCard label="Average team score" value={format(season.averageTeamScore)} team="League-wide" detail="Points per team per game" />
+        <SeasonCard label="Best scoring average" value={season.bestScoringAverage ? format(season.bestScoringAverage.value) : "—"} team={season.bestScoringAverage?.team ?? "Awaiting data"} detail="Points per game" />
+        <SeasonCard label="Best defense" value={season.bestDefenseAverage ? format(season.bestDefenseAverage.value) : "—"} team={season.bestDefenseAverage?.team ?? "Awaiting data"} detail="Fewest points allowed per game" />
+        <SeasonCard label="Average game score" value={format(season.averageGameScore)} team="Combined points" detail="Both teams per game" />
+        <SeasonCard label="Most touchdowns" value={season.mostTouchdowns ? format(season.mostTouchdowns.value, 0) : "—"} team={season.mostTouchdowns?.team ?? "Awaiting data"} detail="Team total" />
       </div>
 
       </section>
+      <TouchdownDonut touchdowns={season.touchdowns} />
+      <div className="scoring-foot"><span><b>{season.fieldGoals}</b> field goals this season</span><span><b>{season.safeties}</b> safeties</span></div>
       <div className="dashboard-panels">
-        <section className="data-panel touchdown-panel" id="touchdown-types">
-          <div className="panel-title"><div><p className="eyebrow">Scoring DNA</p><h3>Touchdown types</h3></div><Crosshair /></div>
-          <div className="td-grid">
-            <TouchdownCard label="Receiving" season={season.touchdowns.receiving} tone="#005a9c" />
-            <TouchdownCard label="Rushing" season={season.touchdowns.rushing} tone="#d50032" />
-            <TouchdownCard label="Defensive" season={season.touchdowns.defensive} tone="#377ea6" />
-            <TouchdownCard label="Special teams" season={season.touchdowns.specialTeams} tone="#041e42" />
-          </div>
-          <div className="scoring-foot"><span><b>{season.fieldGoals}</b> field goals this season</span><span><b>{season.safeties}</b> safeties</span></div>
-        </section>
-
         <section className="data-panel records-panel" id="distance-records">
           <div className="panel-title"><div><p className="eyebrow">Big-play board</p><h3>Distance records</h3></div><Route /></div>
           <RecordLine label="Longest touchdown" season={season.longestTouchdown} />
