@@ -138,3 +138,4 @@ footer{color:#526477;border-color:#d9dfe7}.team-color-tile,.playoff-swatch{font-
 @media(max-width:700px){[data-sport="nhl"] .league-tabs{display:flex;overflow-x:auto}[data-sport="nhl"] .league-tabs button{flex:0 0 auto;padding-inline:12px}.nhl-goals-layout{flex-direction:column;gap:10px;padding:12px}.nhl-goals-legend{min-width:0;width:100%}.nhl-goals-donut{width:210px}}
 
 .nfl-season-pulse .pulse-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nfl-season-pulse .pulse-grid b{white-space:normal;overflow:visible}[data-sport="mlb"] #dashboard-panel{padding-top:18px}
+.dashboard-panels:has(>.records-panel:only-child){grid-template-columns:1fr}
