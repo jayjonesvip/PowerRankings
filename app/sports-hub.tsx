@@ -8,6 +8,12 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Activity, ArrowRight, RefreshCw, Shield, TrendingUp, Trophy } from "lucide-react";
 import { buildSnapshots, fetchSeasonGames, type SeasonSnapshot } from "@/lib/rankings";
 
+function GamesDonut({played,total,label}:{played:number|null;total:number;label:string}) {
+  const remaining=played===null ? null : Math.max(0,total-played);
+  const fraction=played===null||!total ? 0 : Math.min(1,played/total);
+  return <article className="hub-games"><span><Trophy />Season progress</span><div className="hub-games-layout"><svg viewBox="0 0 100 100" role="img" aria-label={played===null ? `${label}: awaiting season data` : `${label}: ${played} games played, ${remaining} remaining`}><circle cx="50" cy="50" r="40" fill="none" stroke="#d9dfe7" strokeWidth="12"/><circle cx="50" cy="50" r="40" fill="none" stroke="#005a9c" strokeWidth="12" strokeDasharray={`${fraction*251.327} 251.327`} transform="rotate(-90 50 50)"/><text x="50" y="55" textAnchor="middle">{played===null ? "—" : `${Math.round(fraction*100)}%`}</text></svg><div><b>{played===null ? "—" : played.toLocaleString("en-US")} played</b><small>{remaining===null ? "Awaiting season data" : `${remaining.toLocaleString("en-US")} remaining`}</small><small>{label}</small></div></div></article>;
+}
+
 const CURRENT_SEASON = currentNflSeason();
 
 export default function SportsHub({ initial, initialHockey, initialBaseball }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot; initialBaseball: BaseballSnapshot }) {
@@ -93,7 +99,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
           <article><span><TrendingUp />Biggest mover</span><strong>{pulse.mover ? `${pulse.mover.movement > 0 ? "+" : ""}${pulse.mover.movement}` : "—"}</strong><b>{pulse.mover?.name ?? "Updating"}</b><small>spots since last week</small></article>
           <article><span><Activity />Best offense</span><strong>{pulse.offense?.components.offense.toFixed(1) ?? "—"}</strong><b>{pulse.offense?.name ?? "Updating"}</b><small>offensive grade</small></article>
           <article><span><Shield />Best defense</span><strong>{pulse.defense?.components.defense.toFixed(1) ?? "—"}</strong><b>{pulse.defense?.name ?? "Updating"}</b><small>defensive grade</small></article>
-          <article><span><Trophy />Games counted</span><strong>{snapshot?.completedGames ?? "—"}</strong><b>Through Week {snapshot?.week ?? "—"}</b><small>completed NFL games</small></article>
+          <GamesDonut played={snapshot?.completedGames ?? null} total={272} label="NFL regular season" />
         </div>
       </section>
 
@@ -103,7 +109,7 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
           <article><span><Activity />Best scoring</span><strong>{nhlScoring ? (nhlScoring.goalsFor/nhlScoring.gamesPlayed).toFixed(2) : "—"}</strong><b>{nhlScoring?.name ?? "No games yet"}</b><small>goals per game</small></article>
           <article><span><Shield />Best defense</span><strong>{nhlDefense ? (nhlDefense.goalsAgainst/nhlDefense.gamesPlayed).toFixed(2) : "—"}</strong><b>{nhlDefense?.name ?? "No games yet"}</b><small>goals allowed per game</small></article>
           <article><span><Trophy />Skater MVP</span><strong>{hockey?.mvps?.first[0]?.stats.find(s=>s.label==="Points")?.value ?? "—"}</strong><b>{hockey?.mvps?.first.map(p=>p.name).join(" / ") || "Building the sample"}</b><small>points · statistical pick</small></article>
-          <article><span><Trophy />Games counted</span><strong>{hockey?.completedGames ?? "—"}</strong><b>{hockey ? `${String(hockey.season).slice(0,4)}–${String(hockey.season).slice(6)}` : "Current season"}</b><small>regular-season finals</small></article>
+          <GamesDonut played={hockey?.completedGames ?? null} total={hockey?.games.length ?? 0} label="NHL regular season" />
         </div>
       </section>
       <section className="league-pulse" id="mlb-board">
@@ -112,13 +118,13 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
           <article><span><Activity />Best hitting</span><strong>{mlbHitting[0]?.battingAverage.toFixed(3).replace(/^0/,"") ?? "—"}</strong><b>{mlbHitting.map(t=>t.name).join(" / ") || "No games yet"}</b><small>team batting average</small></article>
           <article><span><Shield />Best pitching</span><strong>{mlbPitching[0]?.era.toFixed(2) ?? "—"}</strong><b>{mlbPitching.map(t=>t.name).join(" / ") || "No games yet"}</b><small>team ERA</small></article>
           <article><span><TrendingUp />Home runs</span><strong>{baseball.totalHomeRuns.toLocaleString("en-US")}</strong><b>All 30 teams</b><small>regular-season total</small></article>
-          <article><span><Trophy />Games counted</span><strong>{baseball.completedGames.toLocaleString("en-US")}</strong><b>{baseball.season} regular season</b><small>{baseball.seasonComplete ? "completed season" : "completed games"}</small></article>
+          <GamesDonut played={baseball.completedGames} total={baseball.seasonComplete ? baseball.completedGames : 2430} label={`${baseball.season} MLB regular season`} />
         </div>
       </section>
       <section className="league-pulse" id="nba-board">
         <div className="pulse-heading"><div><p className="eyebrow">Around the NBA</p><h2>Coming this season</h2></div><span className="hub-pending">Dashboard coming soon</span></div>
         <div className="pulse-grid">
-          <article><span><Activity />League status</span><strong>NBA</strong><b>Preparing the dashboard</b><small>regular season only</small></article>
+          <GamesDonut played={null} total={1230} label="NBA regular season" />
           <article><span><Trophy />Minimum sample</span><strong>5</strong><b>Games per team</b><small>rankings activation threshold</small></article>
           <article><span><Shield />Team performance</span><strong>—</strong><b>Waiting for season data</b><small>offense and defense</small></article>
           <article><span><TrendingUp />League standouts</span><strong>—</strong><b>Waiting for season data</b><small>player leaders</small></article>
