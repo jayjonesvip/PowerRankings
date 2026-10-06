@@ -82,11 +82,10 @@ export function buildMvpSnapshot({ season, updatedAt, games, rosters }) {
     player.averageYardsPerGame = mean(peers.map(p => (p.position === "QB" ? p.passingYards : p.position === "RB" ? p.rushingYards + p.receivingYards : p.receivingYards) / p.games));
     player.averageSacksPerGame = mean(peers.map(p => p.sacks / p.games));
   }
-  const winner = side => {
-    const player = candidates.filter(p => p.side === side).sort((a, b) => b.index - a.index || a.id.localeCompare(b.id))[0];
-    return player ? { ...player, reason: mvpReason(player) } : null;
-  };
-  return { schemaVersion: 1, season, updatedAt, completedGames: games.length, leaders, offense: winner("offense"), defense: winner("defense"), methodology: "75% production above positional average and 25% efficiency/disruption above positional average. Rates use team games played. At least two appearances and a qualifying workload. Box-score model; excludes offensive linemen and special teams." };
+  const ranked = side => candidates.filter(p=>p.side===side).sort((a,b)=>b.index-a.index||a.id.localeCompare(b.id));
+  const offense = ranked("offense"), defense = ranked("defense");
+  const winner = rows => rows[0] ? {...rows[0],reason:mvpReason(rows[0])} : null;
+  return { schemaVersion: 1, season, updatedAt, completedGames: games.length, leaders, offense: winner(offense), defense: winner(defense), offenseRunnersUp: offense.slice(1,5), defenseRunnersUp: defense.slice(1,5), methodology: "75% production above positional average and 25% efficiency/disruption above positional average. Rates use team games played. At least two appearances and a qualifying workload. Box-score model; excludes offensive linemen and special teams." };
 }
 
 export function mvpReason(p) {

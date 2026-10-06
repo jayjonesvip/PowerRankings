@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { Shield, Trophy } from "lucide-react";
 import { readLocalData } from "@/lib/local-data";
-type Mvp = { name: string; team: string; position: string; index: number; reason: string };
-export type MvpSnapshot = { leaders?: Record<string, import("@/lib/player-leaders").PlayerLeader[]>; schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; methodology: string };
+type Mvp = { id: string; games: number; passingYards: number; rushingYards: number; receivingYards: number; passingTouchdowns: number; touchdowns: number; tackles: number; sacks: number; interceptions: number; passesDefended: number; name: string; team: string; position: string; index: number; reason: string };
+export type MvpSnapshot = { leaders?: Record<string, import("@/lib/player-leaders").PlayerLeader[]>; schemaVersion: number; season: number; completedGames: number; updatedAt: string; offense: Mvp | null; defense: Mvp | null; offenseRunnersUp?: Mvp[]; defenseRunnersUp?: Mvp[]; methodology: string };
 
 export function NflLeagueMvps({ season, completedGames, refreshToken, initialData }: { season: number; completedGames: number; refreshToken: number; initialData?: MvpSnapshot }) {
   const [data, setData] = useState<MvpSnapshot | null>(initialData ?? null);
@@ -24,9 +24,10 @@ export function NflLeagueMvps({ season, completedGames, refreshToken, initialDat
     {error ? <p role="status">MVP snapshot unavailable. Refresh to retry.</p> : !current ? <p role="status">Loading the current MVP snapshot…</p> : <>
       <div className="league-mvp-grid">{(["offense", "defense"] as const).map(side => {
         const player = data[side];
+        const runnersUp = data[side === "offense" ? "offenseRunnersUp" : "defenseRunnersUp"] ?? [];
         return <article className="data-panel league-mvp-card" key={side}>
           <div className="panel-title"><div><p className="eyebrow">{side === "offense" ? "Offensive MVP" : "Defensive MVP"}</p><h3>{player?.name ?? "Building the sample"}</h3></div>{side === "offense" ? <Trophy /> : <Shield />}</div>
-          {player ? <div className="league-mvp-body"><p className="league-mvp-team">{player.team} · {player.position}</p><p>{player.reason}</p></div> : <div className="league-mvp-body"><p>Players qualify after at least two appearances and enough regular-season workload for a fair comparison.</p></div>}
+          {player ? <div className="league-mvp-body"><p className="league-mvp-team">{player.team} · {player.position}</p><p>{player.reason}</p>{runnersUp.length > 0 && <div className="goalie-runners-up"><h4>Next top {side === "offense" ? "offensive players" : "defenders"}</h4><p>Next four eligible candidates by the same MVP score.</p><ol>{runnersUp.map(candidate=><li key={candidate.id}><b>{candidate.name}</b><span>{candidate.team} · {candidate.position}</span><small>{side === "offense" ? candidate.position === "QB" ? `${candidate.passingYards.toLocaleString("en-US")} passing yards · ${candidate.passingTouchdowns} passing TDs · ${candidate.rushingYards} rushing yards · ${candidate.touchdowns} rushing/receiving TDs` : `${(candidate.rushingYards+candidate.receivingYards).toLocaleString("en-US")} scrimmage yards · ${candidate.touchdowns} TDs` : `${candidate.tackles} tackles · ${candidate.sacks} sacks · ${candidate.interceptions} INTs · ${candidate.passesDefended} passes defended`} · {candidate.games} team games</small></li>)}</ol></div>}</div> : <div className="league-mvp-body"><p>Players qualify after at least two appearances and enough regular-season workload for a fair comparison.</p></div>}
         </article>;
       })}</div>
       <p className="league-mvp-note">Our statistical MVP picks compare production and efficiency against players at the same position. Season to date through {data.completedGames} completed games. Offensive linemen and special teams are outside this box-score model.</p>

@@ -40,3 +40,15 @@ test("missing required stats fail instead of silently becoming zero", () => {
   input.games[0].players[0].statistics[0].athletes[0].stats = [];
   assert.throws(() => buildMvpSnapshot(input), /Missing MVP statistic/);
 });
+test("NFL MVP runners-up retain position-relative ordering, exclude the winner and cap at four",()=>{
+ const input=fixture();input.rosters=Array.from({length:8},(_,i)=>roster(String(i)));
+ input.games=Array.from({length:8},(_,i)=>({id:String(i),players:[team(String(i),i+1),team(String((i+1)%8),(i+1)%8+1)]}));
+ const result=buildMvpSnapshot(input);
+ for(const side of ["offense","defense"]){
+  const rows=result[side+"RunnersUp"];
+  assert.equal(rows.length,4);assert.ok(rows.every(p=>p.id!==result[side].id));
+  assert.ok(rows.every((p,i)=>i===0?p.index<=result[side].index:p.index<=rows[i-1].index));
+ }
+ const tiny=buildMvpSnapshot({...fixture(),games:fixture().games.slice(0,1)});
+ assert.deepEqual(tiny.offenseRunnersUp,[]);assert.deepEqual(tiny.defenseRunnersUp,[]);
+});
