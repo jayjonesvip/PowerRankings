@@ -7,6 +7,10 @@ on:
     - cron: "17 * * * *"
     - cron: "0 9 * * 2"
       timezone: "America/New_York"
+    # Retry away from the busy start of the hour if GitHub delays/drops 9 AM.
+    # The publisher retains an edition once its weekly slot is published.
+    - cron: "7,37 9 * * 2"
+      timezone: "America/New_York"
 permissions:
   contents: read
   pages: write
