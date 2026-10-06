@@ -33,3 +33,11 @@ test("NHL goalie runners-up keep MVP order, exclude tied winners and tiny sample
  assert.deepEqual(result.second.map(p=>p.id),["g0","tied"]);
  assert.deepEqual(result.secondRunnersUp.map(p=>p.id),["g1","g2","g3","g4"]);
 });
+test("NHL skater runners-up exclude tied MVPs and ineligible samples and retain score order",()=>{
+ const teams=Array.from({length:7},(_,i)=>team(String(i),14-i*2,{id:`g${i}`,saves:90,shotsAgainst:100,goalsAgainst:10,timeOnIce:10800}));
+ teams.push(team("tied",14,{id:"tie-goalie",saves:90,shotsAgainst:100,goalsAgainst:10,timeOnIce:10800}));
+ teams[0].players.push({id:"tiny",name:"tiny",gamesPlayed:1,points:100,goals:100,assists:0,shots:100});
+ const result=hockeyMvps(teams);
+ assert.deepEqual(result.first.map(p=>p.id),["0","tied"]);
+ assert.deepEqual(result.firstRunnersUp.map(p=>p.id),["1","2","3","4"]);
+});

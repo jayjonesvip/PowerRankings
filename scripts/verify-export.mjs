@@ -68,7 +68,7 @@ console.log("MLB regular-season JSON, division standings, team stats and player 
 if (!nhlHtml.includes('id="scoring-teams"')) throw new Error("NHL scoring section missing");
 if (nhlHtml.includes('id="goaltending-teams"') || nhlHtml.includes('id="goaltending-tab"')) throw new Error("Removed NHL goaltending tab still rendered");
 const goalieSnapshot = JSON.parse(await readFile("public/data/nhl/current.json", "utf8"));
-for (const goalie of goalieSnapshot.mvps?.secondRunnersUp ?? []) if (!nhlHtml.includes(goalie.name)) throw new Error(`NHL goalie runner-up missing: ${goalie.name}`);
+for (const goalie of [...(goalieSnapshot.mvps?.firstRunnersUp ?? []), ...(goalieSnapshot.mvps?.secondRunnersUp ?? [])]) if (!nhlHtml.includes(goalie.name)) throw new Error(`NHL goalie runner-up missing: ${goalie.name}`);
 for (const team of hockey.teams) if (!Array.isArray(team.players) || !Array.isArray(team.goalies)) throw new Error("NHL club JSON missing");
 console.log("NHL scoring, expandable player points, and goaltending JSON verified");
 
