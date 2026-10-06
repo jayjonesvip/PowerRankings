@@ -178,3 +178,16 @@ main[data-sport="nhl"] .league-tabs{grid-template-columns:repeat(4,minmax(0,1fr)
 main[data-sport="nfl"] .league-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
 .player-leaders{margin-top:20px;margin-bottom:20px}.player-leader-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.player-leader-card{border:1px solid #d9dfe7;background:#f6f8fb;padding:16px}.player-leader-card h3{font-size:17px;margin:0 0 12px;color:#041e42}.player-leader-card ol{list-style:none;padding:0;margin:0}.player-leader-card li{display:flex;gap:10px;align-items:center;padding:12px 0;border-top:1px solid #d9dfe7}.player-leader-card li>div{flex:1;min-width:0}.player-leader-card b{font-size:14px}.player-leader-card small{display:block;font-size:11px;color:#526477;margin-top:3px}.player-leader-card strong{font-size:20px;color:#005a9c;white-space:nowrap}.player-leader-rank{font-size:12px;color:#526477;width:14px;flex-shrink:0}.player-leader-detail{font-size:12px;color:#526477;margin:0 0 12px}
 @media(max-width:1000px){.player-leader-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.player-leader-grid{grid-template-columns:1fr}}
+
+/* Shared league navigation: desktop links and a native mobile disclosure. */
+.header-desktop-navigation{display:flex;align-items:center;flex:1;min-width:0;margin-left:24px}.header-mobile-menu{display:none}.site-header .brand{flex-shrink:0}.header-mobile-menu summary:focus-visible,.header-mobile-panel a:focus-visible{outline:3px solid #99c8ff;outline-offset:3px}
+@media(max-width:760px){
+ .site-header{position:relative;min-height:68px;height:auto;padding:8px 16px;gap:12px;flex-wrap:nowrap;z-index:20}
+ .site-header .brand{min-width:0;flex:1;gap:10px}.site-header .brand-mark{width:44px;height:44px;flex:0 0 44px}.site-header .brand b{font-size:14px;line-height:1.25}.site-header .brand small{font-size:8px;letter-spacing:.12em}.weekly-post-page .brand b{max-width:none;font-size:12px}
+ .header-desktop-navigation{display:none}.header-mobile-menu{display:block;flex:0 0 44px;margin-left:auto}
+ .header-mobile-menu summary{display:flex;align-items:center;justify-content:center;list-style:none;width:44px;height:44px;border:1px solid #526477;border-radius:4px;cursor:pointer;color:#fff;background:transparent}
+ .header-mobile-menu summary::-webkit-details-marker{display:none}.header-mobile-menu summary svg{width:24px;height:24px}.header-mobile-menu .menu-close-icon{display:none}.header-mobile-menu[open] .menu-open-icon{display:none}.header-mobile-menu[open] .menu-close-icon{display:block}
+ .header-mobile-panel{position:absolute;left:0;right:0;top:100%;padding:12px 16px 18px;background:#041e42;border-bottom:4px solid #d50032;box-shadow:0 12px 20px rgba(4,30,66,.22)}
+ .header-mobile-panel .league-nav{display:grid;gap:0;margin:0}.header-mobile-panel .league-nav a{display:flex;align-items:center;min-height:48px;padding:10px 12px;font-size:16px;border-bottom:1px solid #526477}.header-mobile-panel .league-nav a[aria-current="page"]{background:#005a9c}
+ .header-mobile-panel .header-status{display:flex;flex-wrap:wrap;font-size:12px;margin:16px 12px 0;line-height:1.5}.header-mobile-panel .header-status .divider{font-size:12px}
+}

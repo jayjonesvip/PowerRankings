@@ -1,4 +1,5 @@
 "use client";
+import { HeaderNavigation } from "@/components/header-navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { WeeklyRankingsLink } from "@/components/weekly-rankings-link";
 import { LeagueTabs } from "@/components/league-tabs";
@@ -51,7 +52,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
   const gp = played.reduce((sum, t) => sum + t.gamesPlayed, 0);
   const average = gp ? played.reduce((sum, t) => sum + t.goalsFor, 0) / gp : 0;
   return <main data-sport="nhl">
-    <header className="site-header"><a className="brand" href={`${base}/`}><img className="brand-mark" src={`${base}/league-snapshot-logo.png`} alt="League Snapshot logo" width="52" height="52" /><span><b>League Snapshot</b><small>NHL LEAGUE SNAPSHOT</small></span></a><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status">Hourly snapshot · {data ? new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "Loading"} ET</div></header>
+    <header className="site-header"><a className="brand" href={`${base}/`}><img className="brand-mark" src={`${base}/league-snapshot-logo.png`} alt="League Snapshot logo" width="52" height="52" /><span><b>League Snapshot</b><small>NHL LEAGUE SNAPSHOT</small></span></a><HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status">Hourly snapshot · {data ? new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "Loading"} ET</div></HeaderNavigation></header>
     <section className="scoreboard-hero"><div><p className="eyebrow">{season} · {data?.seasonComplete ? "Regular season complete" : "Regular season"}</p><h1>NHL Snapshot<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NHL_SECTIONS} onViewChange={setView} /></div><div className="hero-score nhl-games-count"><span>FINAL GAMES</span><strong>{data?.completedGames ?? "—"}</strong><small>Regular season</small></div></section>
     <WeeklyRankingsLink league="nhl" />
     <LeagueTabs label="NHL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NHL Snapshot"},{view:"standings",label:"Standings"},{view:"scoring",label:"Scoring"},{view:"goaltending",label:"Team Goaltending"}]} />

@@ -1,4 +1,5 @@
 "use client";
+import { HeaderNavigation } from "@/components/header-navigation";
 
 import { AdjustedLeagueLeaders } from "@/components/opponent-adjusted";
 import { opponentAdjustedPerformance } from "@/lib/opponent-adjusted";
@@ -70,8 +71,7 @@ export default function NflPage({ initial }: { initial: Awaited<ReturnType<typeo
     <main data-sport="nfl">
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/league-snapshot-logo.png`} alt="League Snapshot sports analytics logo" width="52" height="52" /><span><b>League Snapshot</b><small>NFL LEAGUE SNAPSHOT</small></span></a>
-        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
-      </header>
+        <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div></HeaderNavigation></header>
 
       <section className="scoreboard-hero">
         <div><p className="eyebrow">NFL standings, standouts, and team performance</p><h1>NFL Snapshot<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NFL_SECTIONS} onViewChange={setView} /></div>

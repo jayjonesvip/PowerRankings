@@ -1,4 +1,5 @@
 "use client";
+import { HeaderNavigation } from "@/components/header-navigation";
 
 import { snapshotUpdatedAt, publishedNflSeason } from "@/lib/local-data";
 import { validateBaseballSnapshot, type BaseballSnapshot } from "@/lib/mlb-model";
@@ -85,9 +86,8 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
     <main className="hub-page">
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/league-snapshot-logo.png`} alt="League Snapshot sports analytics logo" width="52" height="52" /><span><b>League Snapshot</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
-        <nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav>
-        <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div>
-      </header>
+        <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav>
+        <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div></HeaderNavigation></header>
 
       <section className="hub-hero">
         <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>League Snapshot.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA preview</a>. See what’s happening around each league—standouts, team performance, and regular-season results from the latest snapshots.</p></div>
