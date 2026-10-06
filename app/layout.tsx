@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 import { siteUrl } from "@/lib/site-url";
@@ -22,6 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-T1B7S7LYEF" strategy="afterInteractive" />
+      <Script id="google-analytics" strategy="afterInteractive">{`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-T1B7S7LYEF');
+      `}</Script>
       <body className="antialiased"><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":`${siteUrl}#organization`,name:"League Snapshot",url:siteUrl,logo:{"@type":"ImageObject",url:`${siteUrl}league-snapshot-logo.png`}}, {"@type":"WebSite","@id":`${siteUrl}#website`,name:"League Snapshot",url:siteUrl,inLanguage:"en-US",publisher:{"@id":`${siteUrl}#organization`}}]}).replace(/</g,"\\u003c")}} />{children}</body>
     </html>
   );
