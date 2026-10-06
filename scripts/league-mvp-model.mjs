@@ -1,12 +1,12 @@
 const mean = values => values.reduce((a,b)=>a+b,0)/values.length;
-function rank(rows, metrics) {
+function rank(rows, metrics, leadersOnly = true) {
   if (rows.length < 2) return [];
   const baselines = metrics.map(([key,weight]) => {
     const values=rows.map(r=>r[key]); const average=mean(values);
     return {key,weight,average,sd:Math.sqrt(mean(values.map(v=>(v-average)**2)))};
   });
   const ranked=rows.map(row=>({...row,score:baselines.reduce((sum,m)=>sum+(m.sd ? (row[m.key]-m.average)/m.sd*m.weight : 0),0)})).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name));
-  return ranked.filter(r=>Math.abs(r.score-ranked[0].score)<1e-9).map(r=>({...r,baselines}));
+  return ranked.filter(r=>!leadersOnly || Math.abs(r.score-ranked[0].score)<1e-9).map(r=>({...r,baselines}));
 }
 const signed = value => `${value>=0 ? "+" : "−"}${Math.abs(value).toFixed(1)}`;
 const pick = (row, reason, stats, limited=false) => ({id:row.id,name:row.name,team:row.team,reason,stats,limited});
@@ -40,8 +40,11 @@ export function hockeyMvps(teams) {
   const skater=rank(skaterPool.map(p=>({...p,pointRate:p.points/p.teamGames,goalRate:p.goals/p.teamGames})),[["pointRate",.75],["goalRate",.25]]).map(p=>pick(p,
     `${p.name} has ${p.points} points (${p.goals} goals and ${p.assists} assists) in ${p.gamesPlayed} games. Their ${p.pointRate.toFixed(2)} points per team game compares with ${mean(skaterPool.map(r=>r.points/r.teamGames)).toFixed(2)} for eligible scorers. The best combined point and goal production per team game earns this pick.`,
     [{label:"Points",value:String(p.points)},{label:"Goals",value:String(p.goals)},{label:"Assists",value:String(p.assists)},{label:"Games",value:String(p.gamesPlayed)}],p.gamesPlayed<5));
-  const goalie=rank(goaliePool.map(p=>({...p,sv:p.saves/p.shotsAgainst,gsa:p.saves-p.shotsAgainst*leagueSave,gsaRate:(p.saves-p.shotsAgainst*leagueSave)/p.teamGames})),[["gsaRate",.7],["sv",.3]]).map(p=>pick(p,
+  const rankedGoalies=rank(goaliePool.map(p=>({...p,sv:p.saves/p.shotsAgainst,gsa:p.saves-p.shotsAgainst*leagueSave,gsaRate:(p.saves-p.shotsAgainst*leagueSave)/p.teamGames})),[["gsaRate",.7],["sv",.3]], false);
+  const goaliePicks=rankedGoalies.map(p=>pick(p,
     `${p.name} stopped ${p.saves} of ${p.shotsAgainst} shots for a ${(p.sv*100).toFixed(1)}% save rate; the league goalie rate is ${(leagueSave*100).toFixed(1)}%. That is ${signed(p.gsa)} goals saved versus a league-average save rate on the same shot volume. The best blend of goals saved per team game and save percentage earns this pick. This measure does not adjust for shot difficulty.`,
     [{label:"Save percentage",value:p.sv.toFixed(3).replace(/^0/,"")},{label:"Goals saved vs average",value:signed(p.gsa)},{label:"Saves",value:String(p.saves)},{label:"Games",value:String(p.gamesPlayed)}],p.gamesPlayed<5));
-  return {first:skater,second:goalie,firstLabel:"Skater MVP",secondLabel:"Goalie MVP",method:"Jay’s statistical picks, separate from official awards. Metrics are standardized against eligible players: skater points per team game 75% and goals per team game 25%; goalie goals saved above the league’s shot-weighted save rate per team game 70% and save percentage 30%. Skaters need two appearances and games in at least half their club’s schedule; goalies need two appearances and half their club’s available regulation ice time. At least two eligible candidates are required per category. Traded players’ club totals are combined. Regular season only."};
+  const goalie = goaliePicks.filter((_,i)=>Math.abs(rankedGoalies[i].score-rankedGoalies[0].score)<1e-9);
+  const secondRunnersUp = goaliePicks.filter(p=>!goalie.some(winner=>winner.id===p.id)).slice(0,4);
+  return {first:skater,second:goalie,secondRunnersUp,firstLabel:"Skater MVP",secondLabel:"Goalie MVP",method:"Jay’s statistical picks, separate from official awards. Metrics are standardized against eligible players: skater points per team game 75% and goals per team game 25%; goalie goals saved above the league’s shot-weighted save rate per team game 70% and save percentage 30%. Skaters need two appearances and games in at least half their club’s schedule; goalies need two appearances and half their club’s available regulation ice time. At least two eligible candidates are required per category. Traded players’ club totals are combined. Regular season only."};
 }

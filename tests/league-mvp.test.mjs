@@ -25,3 +25,11 @@ test("traded NHL players are combined once",()=>{
  teams[1].players.push({...teams[0].players[0],gamesPlayed:2,points:2,goals:1,assists:1});
  const result=hockeyMvps(teams);assert.equal(result.first[0].team,"Multiple teams");assert.equal(result.first[0].stats[0].value,"10");
 });
+test("NHL goalie runners-up keep MVP order, exclude tied winners and tiny samples, and cap at four",()=>{
+ const teams=Array.from({length:7},(_,i)=>team(String(i),8,{id:`g${i}`,saves:95-i*3,shotsAgainst:100,goalsAgainst:5+i*3,timeOnIce:10800}));
+ teams.push(team("tied",8,{id:"tied",saves:95,shotsAgainst:100,goalsAgainst:5,timeOnIce:10800}));
+ teams.push(team("tiny",8,{id:"tiny",saves:100,shotsAgainst:100,goalsAgainst:0,timeOnIce:100}));
+ const result=hockeyMvps(teams);
+ assert.deepEqual(result.second.map(p=>p.id),["g0","tied"]);
+ assert.deepEqual(result.secondRunnersUp.map(p=>p.id),["g1","g2","g3","g4"]);
+});

@@ -22,13 +22,12 @@ const NHL_SECTIONS = [
   { id: "league-mvps", label: "league MVPs", view: "dashboard" as const },
   { id: "opponent-performance", label: "performance against opponents", view: "dashboard" as const },
   { id: "scoring-teams", label: "scoring and player leaders", view: "scoring" as const },
-  { id: "goaltending-teams", label: "team goaltending", view: "goaltending" as const },
   { id: "division-standings", label: "division standings", view: "standings" as const },
   { id: "playoff-picture", label: "playoff picture", view: "standings" as const },
 ];
 export default function HockeyPage({ initialData }: { initialData: HockeySnapshot }) {
   const [data, setData] = useState<HockeySnapshot | null>(initialData);
-  const [view, setView] = useState<"dashboard" | "standings" | "scoring" | "goaltending">("dashboard");
+  const [view, setView] = useState<"dashboard" | "standings" | "scoring">("dashboard");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const load = useCallback(async () => {
@@ -55,7 +54,7 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
     <header className="site-header"><a className="brand" href={`${base}/`}><img className="brand-mark" src={`${base}/league-snapshot-logo.png`} alt="League Snapshot logo" width="52" height="52" /><span><b>League Snapshot</b><small>NHL LEAGUE SNAPSHOT</small></span></a><HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav><div className="header-status">Hourly snapshot · {data ? new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) : "Loading"} ET</div></HeaderNavigation></header>
     <section className="scoreboard-hero"><div><p className="eyebrow">{season} · {data?.seasonComplete ? "Regular season complete" : "Regular season"}</p><h1>NHL Snapshot<br /><em>Current snapshot</em></h1><LeagueSectionLinks sections={NHL_SECTIONS} onViewChange={setView} /></div><div className="hero-score nhl-games-count"><span>FINAL GAMES</span><strong>{data?.completedGames ?? "—"}</strong><small>Regular season</small></div></section>
     <WeeklyRankingsLink league="nhl" />
-    <LeagueTabs label="NHL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NHL Snapshot"},{view:"standings",label:"Standings"},{view:"scoring",label:"Scoring"},{view:"goaltending",label:"Team Goaltending"}]} />
+    <LeagueTabs label="NHL sections" view={view} onChange={setView} tabs={[{view:"dashboard",label:"NHL Snapshot"},{view:"standings",label:"Standings"},{view:"scoring",label:"Scoring"}]} />
     <div className="controls"><span>{season} NHL · {data?.seasonComplete ? "Completed regular season" : "Current snapshot"}</span><div className="control-actions"><button onClick={load} disabled={loading}><RefreshCw size={16} className={loading ? "spin" : ""} /> Refresh</button></div></div>
     {error && <section className="error-card" role="alert">{error} <button onClick={load}>Try again</button></section>}
     {!data && !error && <p className="forecast-loading">Loading league snapshot…</p>}
@@ -72,7 +71,6 @@ export default function HockeyPage({ initialData }: { initialData: HockeySnapsho
     </section>}
     {data && <section hidden={view !== "standings"} className="nhl-dashboard" id="standings-panel" role="tabpanel" aria-labelledby="standings-tab"><NhlDivisionStandings teams={data.teams} /><NhlPlayoffPicture data={data} /></section>}
     {data && <section hidden={view !== "scoring"} id="scoring-panel" role="tabpanel" aria-labelledby="scoring-tab"><PlayerLeaders id="scoring-leaders" title="NHL scoring leaders" categories={Object.entries(hockeyLeaders(data.teams)).map(([key,rows])=>({label:key === "points" ? "Points" : key === "goals" ? "Goals" : "Assists",rows}))} /><NhlTeamStats teams={data.teams} view="scoring" /></section>}
-    {data && <section hidden={view !== "goaltending"} id="goaltending-panel" role="tabpanel" aria-labelledby="goaltending-tab"><NhlTeamStats teams={data.teams} view="goaltending" /></section>}
     <footer><span>Unofficial analysis using NHL data. Regular season only.</span><span>Data syncs hourly; checks for updates every 5 minutes.</span></footer>
   </main>;
 }
