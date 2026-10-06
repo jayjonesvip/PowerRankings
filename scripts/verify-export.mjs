@@ -1,3 +1,4 @@
+import { siteUrl } from "../lib/site-url.ts";
 import { hockeyGoalBreakdown } from "../lib/nhl-goals.ts";
 import { validateBaseballSnapshot } from "../lib/mlb-model.ts";
 import { readFile, readdir, access } from "node:fs/promises";
@@ -126,7 +127,7 @@ console.log("Stored regular-season player leader sections verified");
 
 const sitemap = await readFile("out/sitemap.xml", "utf8");
 const robots = await readFile("out/robots.txt", "utf8");
-const sitemapRoot = "https://jayjonesvip.github.io/PowerRankings/";
+const sitemapRoot = siteUrl;
 const sitemapPaths = ["", "nfl/", "nhl/", "mlb/"];
 for(const league of ["nfl","nhl","mlb","nba"]) {
   let post; try { post=JSON.parse(await readFile(`content/power-rankings/${league}.json`,"utf8")); } catch(error) { if(league!=="nba" || error.code!=="ENOENT") throw error; }
