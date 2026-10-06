@@ -28,6 +28,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+      - name: Load latest editions after waiting for earlier deployments
+        run: git pull --ff-only origin main
       - uses: pnpm/action-setup@v4
         with:
           version: 11.25.0
