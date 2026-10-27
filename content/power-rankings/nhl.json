@@ -4,12 +4,12 @@
   "season": 20262027,
   "seasonComplete": false,
   "ready": true,
-  "slot": "2026-10-20",
-  "publishedAt": "2026-10-20T13:16:00.966Z",
-  "asOf": "2026-10-20T13:16:00.000Z",
-  "completedGames": 140,
+  "slot": "2026-10-27",
+  "publishedAt": "2026-10-27T13:20:04.741Z",
+  "asOf": "2026-10-27T13:20:03.887Z",
+  "completedGames": 187,
   "headline": "At No. 1: Boston Bruins",
-  "introduction": "The No. 1 spot belongs to Boston Bruins on this week’s board. Here’s how all 32 teams stack up, based on 140 completed regular-season games. Read the quick take for each team, then open the numbers if you want to dig deeper.",
+  "introduction": "The No. 1 spot belongs to Boston Bruins on this week’s board. Here’s how all 32 teams stack up, based on 187 completed regular-season games. Read the quick take for each team, then open the numbers if you want to dig deeper.",
   "methodology": "Jay’s NHL Index: standings points percentage 25%, win quality 30%, offense 20%, defense 20%, last five games 5%. Win quality combines opponent points percentage (80%) and goal margin (20%). Every team needs five regular-season games before rankings are published.",
   "teams": [
     {
@@ -17,50 +17,176 @@
       "name": "Boston Bruins",
       "abbreviation": "BOS",
       "rank": 1,
-      "score": 73.73588023878663,
-      "record": "7–2–0",
-      "movement": null,
-      "story": "Boston Bruins take No. 1 with a 7–2–0 record and 14 standings points. They’re scoring 3.78 goals per game and allowing 2.11. That positive scoring balance helps their case.",
+      "score": 74.6657649405185,
+      "record": "9–2–1",
+      "movement": 0,
+      "story": "Boston Bruins take No. 1 with a 9–2–1 record and 19 standings points. They’re scoring 4.00 goals per game and allowing 2.17. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "73.7"
+          "value": "74.7"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "7–2–0"
+          "value": "9–2–1"
         },
         {
           "label": "Standings points",
-          "value": "14"
+          "value": "19"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "34 / 19"
+          "value": "48 / 26"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.78"
+          "value": "4.00"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.11"
+          "value": "2.17"
         },
         {
           "label": "Record grade",
-          "value": "77.8"
+          "value": "79.2"
         },
         {
           "label": "Win quality grade",
-          "value": "59.2"
+          "value": "59.7"
         },
         {
           "label": "Offense grade",
-          "value": "74.4"
+          "value": "79.2"
         },
         {
           "label": "Defense grade",
-          "value": "83.2"
+          "value": "83.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "90.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "W",
+        "OTL",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "Carolina Hurricanes",
+      "abbreviation": "CAR",
+      "rank": 2,
+      "score": 68.04556674456929,
+      "record": "9–2–2",
+      "movement": 3,
+      "story": "Carolina Hurricanes take No. 2 with a 9–2–2 record and 20 standings points. They’re scoring 3.92 goals per game and allowing 2.54. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "68.0"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "9–2–2"
+        },
+        {
+          "label": "Standings points",
+          "value": "20"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "51 / 33"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.92"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "2.54"
+        },
+        {
+          "label": "Record grade",
+          "value": "76.9"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "50.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "77.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "73.1"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "70.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "OTL",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "id": "25",
+      "name": "Dallas Stars",
+      "abbreviation": "DAL",
+      "rank": 3,
+      "score": 66.17801364241046,
+      "record": "7–3–1",
+      "movement": 9,
+      "story": "Dallas Stars take No. 3 with a 7–3–1 record and 15 standings points. They’re scoring 2.91 goals per game and allowing 1.82. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "66.2"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "7–3–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "15"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "32 / 20"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.91"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "1.82"
+        },
+        {
+          "label": "Record grade",
+          "value": "68.2"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "60.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "40.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "89.6"
         },
         {
           "label": "Recent form grade",
@@ -76,65 +202,65 @@
       ]
     },
     {
-      "id": "54",
-      "name": "Vegas Golden Knights",
-      "abbreviation": "VGK",
-      "rank": 2,
-      "score": 70.84098434474919,
-      "record": "8–2–0",
-      "movement": null,
-      "story": "Vegas Golden Knights take No. 2 with a 8–2–0 record and 16 standings points. They’re scoring 4.20 goals per game and allowing 2.40. That positive scoring balance helps their case.",
+      "id": "30",
+      "name": "Minnesota Wild",
+      "abbreviation": "MIN",
+      "rank": 4,
+      "score": 65.3314801369475,
+      "record": "8–3–2",
+      "movement": 0,
+      "story": "Minnesota Wild take No. 4 with a 8–3–2 record and 18 standings points. They’re scoring 3.15 goals per game and allowing 2.31. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "70.8"
+          "value": "65.3"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "8–2–0"
+          "value": "8–3–2"
         },
         {
           "label": "Standings points",
-          "value": "16"
+          "value": "18"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "42 / 24"
+          "value": "41 / 30"
         },
         {
           "label": "Goals scored per game",
-          "value": "4.20"
+          "value": "3.15"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.40"
+          "value": "2.31"
         },
         {
           "label": "Record grade",
-          "value": "80.0"
+          "value": "69.2"
         },
         {
           "label": "Win quality grade",
-          "value": "48.9"
+          "value": "62.2"
         },
         {
           "label": "Offense grade",
-          "value": "85.1"
+          "value": "49.6"
         },
         {
           "label": "Defense grade",
-          "value": "75.7"
+          "value": "79.7"
         },
         {
           "label": "Recent form grade",
-          "value": "80.0"
+          "value": "70.0"
         }
       ],
       "recent": [
         "W",
         "W",
-        "W",
         "L",
+        "OTL",
         "W"
       ]
     },
@@ -142,161 +268,35 @@
       "id": "22",
       "name": "Edmonton Oilers",
       "abbreviation": "EDM",
-      "rank": 3,
-      "score": 70.34261043822022,
-      "record": "6–1–1",
-      "movement": null,
-      "story": "Edmonton Oilers take No. 3 with a 6–1–1 record and 13 standings points. They’re scoring 4.63 goals per game and allowing 3.00. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "70.3"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "6–1–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "13"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "37 / 24"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "4.63"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Record grade",
-          "value": "81.3"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "55.9"
-        },
-        {
-          "label": "Offense grade",
-          "value": "91.9"
-        },
-        {
-          "label": "Defense grade",
-          "value": "54.4"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "80.0"
-        }
-      ],
-      "recent": [
-        "W",
-        "L",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "id": "30",
-      "name": "Minnesota Wild",
-      "abbreviation": "MIN",
-      "rank": 4,
-      "score": 67.84470225011913,
-      "record": "6–2–1",
-      "movement": null,
-      "story": "Minnesota Wild take No. 4 with a 6–2–1 record and 13 standings points. They’re scoring 3.11 goals per game and allowing 2.33. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "67.8"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "6–2–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "13"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "28 / 21"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.11"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "2.33"
-        },
-        {
-          "label": "Record grade",
-          "value": "72.2"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "67.5"
-        },
-        {
-          "label": "Offense grade",
-          "value": "50.0"
-        },
-        {
-          "label": "Defense grade",
-          "value": "77.6"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "80.0"
-        }
-      ],
-      "recent": [
-        "W",
-        "W",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "id": "12",
-      "name": "Carolina Hurricanes",
-      "abbreviation": "CAR",
       "rank": 5,
-      "score": 67.64571864663219,
-      "record": "7–2–1",
-      "movement": null,
-      "story": "Carolina Hurricanes take No. 5 with a 7–2–1 record and 15 standings points. They’re scoring 3.60 goals per game and allowing 2.40. That positive scoring balance helps their case.",
+      "score": 65.01556250106546,
+      "record": "8–2–2",
+      "movement": -2,
+      "story": "Edmonton Oilers take No. 5 with a 8–2–2 record and 18 standings points. They’re scoring 4.33 goals per game and allowing 3.58. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "67.6"
+          "value": "65.0"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "7–2–1"
+          "value": "8–2–2"
         },
         {
           "label": "Standings points",
-          "value": "15"
+          "value": "18"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "36 / 24"
+          "value": "52 / 43"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.60"
+          "value": "4.33"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.40"
+          "value": "3.58"
         },
         {
           "label": "Record grade",
@@ -304,42 +304,105 @@
         },
         {
           "label": "Win quality grade",
-          "value": "53.4"
+          "value": "62.2"
         },
         {
           "label": "Offense grade",
-          "value": "68.6"
+          "value": "86.7"
         },
         {
           "label": "Defense grade",
-          "value": "75.7"
+          "value": "33.8"
         },
         {
           "label": "Recent form grade",
-          "value": "80.0"
+          "value": "70.0"
         }
       ],
       "recent": [
+        "OTL",
         "L",
-        "W",
         "W",
         "W",
         "W"
       ]
     },
     {
-      "id": "3",
-      "name": "New York Rangers",
-      "abbreviation": "NYR",
+      "id": "68",
+      "name": "Utah Mammoth",
+      "abbreviation": "UTA",
       "rank": 6,
-      "score": 65.63846378682443,
-      "record": "7–3–1",
-      "movement": null,
-      "story": "New York Rangers take No. 6 with a 7–3–1 record and 15 standings points. They’re scoring 3.00 goals per game and allowing 2.18. That positive scoring balance helps their case.",
+      "score": 61.71046465372683,
+      "record": "8–4–0",
+      "movement": 2,
+      "story": "Utah Mammoth take No. 6 with a 8–4–0 record and 16 standings points. They’re scoring 3.83 goals per game and allowing 3.33. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "65.6"
+          "value": "61.7"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "8–4–0"
+        },
+        {
+          "label": "Standings points",
+          "value": "16"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "46 / 40"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.83"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.33"
+        },
+        {
+          "label": "Record grade",
+          "value": "66.7"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "61.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "74.5"
+        },
+        {
+          "label": "Defense grade",
+          "value": "43.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "id": "14",
+      "name": "Tampa Bay Lightning",
+      "abbreviation": "TBL",
+      "rank": 7,
+      "score": 61.54712404330854,
+      "record": "7–3–1",
+      "movement": 0,
+      "story": "Tampa Bay Lightning take No. 7 with a 7–3–1 record and 15 standings points. They’re scoring 3.45 goals per game and allowing 3.09. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "61.5"
         },
         {
           "label": "Record (W–L–OTL)",
@@ -351,15 +414,15 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "33 / 24"
+          "value": "38 / 34"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.00"
+          "value": "3.45"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.18"
+          "value": "3.09"
         },
         {
           "label": "Record grade",
@@ -367,15 +430,15 @@
         },
         {
           "label": "Win quality grade",
-          "value": "65.6"
+          "value": "60.4"
         },
         {
           "label": "Offense grade",
-          "value": "45.6"
+          "value": "61.5"
         },
         {
           "label": "Defense grade",
-          "value": "81.6"
+          "value": "52.9"
         },
         {
           "label": "Recent form grade",
@@ -383,125 +446,188 @@
         }
       ],
       "recent": [
-        "W",
         "OTL",
         "L",
         "W",
-        "W"
-      ]
-    },
-    {
-      "id": "14",
-      "name": "Tampa Bay Lightning",
-      "abbreviation": "TBL",
-      "rank": 7,
-      "score": 64.45999853169099,
-      "record": "6–2–0",
-      "movement": null,
-      "story": "Tampa Bay Lightning take No. 7 with a 6–2–0 record and 12 standings points. They’re scoring 3.13 goals per game and allowing 2.63. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "64.5"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "6–2–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "12"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "25 / 21"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.13"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "2.63"
-        },
-        {
-          "label": "Record grade",
-          "value": "75.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "59.6"
-        },
-        {
-          "label": "Offense grade",
-          "value": "50.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "68.5"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "80.0"
-        }
-      ],
-      "recent": [
-        "W",
-        "W",
-        "L",
         "W",
         "W"
       ]
     },
     {
-      "id": "68",
-      "name": "Utah Mammoth",
-      "abbreviation": "UTA",
+      "id": "9",
+      "name": "Ottawa Senators",
+      "abbreviation": "OTT",
       "rank": 8,
-      "score": 64.16374525821098,
-      "record": "7–3–0",
-      "movement": null,
-      "story": "Utah Mammoth take No. 8 with a 7–3–0 record and 14 standings points. They’re scoring 3.80 goals per game and allowing 3.10. That positive scoring balance helps their case.",
+      "score": 61.416940625460896,
+      "record": "8–4–0",
+      "movement": 5,
+      "story": "Ottawa Senators take No. 8 with a 8–4–0 record and 16 standings points. They’re scoring 3.17 goals per game and allowing 2.83. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "64.2"
+          "value": "61.4"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "7–3–0"
+          "value": "8–4–0"
         },
         {
           "label": "Standings points",
-          "value": "14"
+          "value": "16"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "38 / 31"
+          "value": "38 / 34"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.80"
+          "value": "3.17"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.10"
+          "value": "2.83"
         },
         {
           "label": "Record grade",
-          "value": "70.0"
+          "value": "66.7"
         },
         {
           "label": "Win quality grade",
-          "value": "58.5"
+          "value": "63.8"
         },
         {
           "label": "Offense grade",
-          "value": "75.1"
+          "value": "50.1"
         },
         {
           "label": "Defense grade",
-          "value": "50.4"
+          "value": "62.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "L",
+        "W",
+        "L",
+        "W"
+      ]
+    },
+    {
+      "id": "54",
+      "name": "Vegas Golden Knights",
+      "abbreviation": "VGK",
+      "rank": 9,
+      "score": 60.376767520279,
+      "record": "8–4–1",
+      "movement": -7,
+      "story": "Vegas Golden Knights take No. 9 with a 8–4–1 record and 17 standings points. They’re scoring 3.62 goals per game and allowing 2.92. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "60.4"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "8–4–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "17"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "47 / 38"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.62"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "2.92"
+        },
+        {
+          "label": "Record grade",
+          "value": "65.4"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "53.9"
+        },
+        {
+          "label": "Offense grade",
+          "value": "67.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "59.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "50.0"
+        }
+      ],
+      "recent": [
+        "OTL",
+        "L",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Toronto Maple Leafs",
+      "abbreviation": "TOR",
+      "rank": 10,
+      "score": 60.36452928163458,
+      "record": "7–5–2",
+      "movement": 8,
+      "story": "Toronto Maple Leafs take No. 10 with a 7–5–2 record and 16 standings points. They’re scoring 3.71 goals per game and allowing 3.29. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "60.4"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "7–5–2"
+        },
+        {
+          "label": "Standings points",
+          "value": "16"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "52 / 46"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.71"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.29"
+        },
+        {
+          "label": "Record grade",
+          "value": "57.1"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "63.0"
+        },
+        {
+          "label": "Offense grade",
+          "value": "70.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "45.1"
         },
         {
           "label": "Recent form grade",
@@ -509,8 +635,8 @@
         }
       ],
       "recent": [
-        "W",
         "L",
+        "W",
         "W",
         "W",
         "W"
@@ -520,145 +646,19 @@
       "id": "15",
       "name": "Washington Capitals",
       "abbreviation": "WSH",
-      "rank": 9,
-      "score": 61.826124703104796,
-      "record": "5–3–0",
-      "movement": null,
-      "story": "Washington Capitals take No. 9 with a 5–3–0 record and 10 standings points. They’re scoring 3.50 goals per game and allowing 3.00. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "61.8"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "5–3–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "10"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "28 / 24"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.50"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Record grade",
-          "value": "62.5"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "64.3"
-        },
-        {
-          "label": "Offense grade",
-          "value": "65.1"
-        },
-        {
-          "label": "Defense grade",
-          "value": "54.4"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "60.0"
-        }
-      ],
-      "recent": [
-        "W",
-        "W",
-        "L",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "id": "21",
-      "name": "Colorado Avalanche",
-      "abbreviation": "COL",
-      "rank": 10,
-      "score": 60.03544174246204,
-      "record": "5–3–1",
-      "movement": null,
-      "story": "Colorado Avalanche take No. 10 with a 5–3–1 record and 11 standings points. They’re scoring 4.22 goals per game and allowing 3.00. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "60.0"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "5–3–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "11"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "38 / 27"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "4.22"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Record grade",
-          "value": "61.1"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "47.5"
-        },
-        {
-          "label": "Offense grade",
-          "value": "85.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "54.4"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "50.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "W",
-        "OTL",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "id": "13",
-      "name": "Florida Panthers",
-      "abbreviation": "FLA",
       "rank": 11,
-      "score": 60.014620015364045,
-      "record": "5–2–2",
-      "movement": null,
-      "story": "Florida Panthers take No. 11 with a 5–2–2 record and 12 standings points. They’re scoring 3.33 goals per game and allowing 2.78. That positive scoring balance helps their case.",
+      "score": 59.26011666774163,
+      "record": "6–4–0",
+      "movement": -2,
+      "story": "Washington Capitals take No. 11 with a 6–4–0 record and 12 standings points. They’re scoring 3.40 goals per game and allowing 3.20. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "60.0"
+          "value": "59.3"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "5–2–2"
+          "value": "6–4–0"
         },
         {
           "label": "Standings points",
@@ -666,31 +666,31 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "30 / 25"
+          "value": "34 / 32"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.33"
+          "value": "3.40"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.78"
+          "value": "3.20"
         },
         {
           "label": "Record grade",
-          "value": "66.7"
+          "value": "60.0"
         },
         {
           "label": "Win quality grade",
-          "value": "53.3"
+          "value": "65.6"
         },
         {
           "label": "Offense grade",
-          "value": "58.8"
+          "value": "59.4"
         },
         {
           "label": "Defense grade",
-          "value": "63.0"
+          "value": "48.5"
         },
         {
           "label": "Recent form grade",
@@ -699,84 +699,84 @@
       ],
       "recent": [
         "W",
-        "W",
-        "W",
         "L",
+        "W",
+        "W",
         "L"
       ]
     },
     {
-      "id": "25",
-      "name": "Dallas Stars",
-      "abbreviation": "DAL",
+      "id": "21",
+      "name": "Colorado Avalanche",
+      "abbreviation": "COL",
       "rank": 12,
-      "score": 59.07558244030195,
-      "record": "4–3–1",
-      "movement": null,
-      "story": "Dallas Stars take No. 12 with a 4–3–1 record and 9 standings points. They’re scoring 2.50 goals per game and allowing 1.63. That positive scoring balance helps their case.",
+      "score": 58.974620195209184,
+      "record": "6–5–1",
+      "movement": -2,
+      "story": "Colorado Avalanche take No. 12 with a 6–5–1 record and 13 standings points. They’re scoring 4.08 goals per game and allowing 3.33. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "59.1"
+          "value": "59.0"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "4–3–1"
+          "value": "6–5–1"
         },
         {
           "label": "Standings points",
-          "value": "9"
+          "value": "13"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "20 / 13"
+          "value": "49 / 40"
         },
         {
           "label": "Goals scored per game",
-          "value": "2.50"
+          "value": "4.08"
         },
         {
           "label": "Goals allowed per game",
-          "value": "1.63"
+          "value": "3.33"
         },
         {
           "label": "Record grade",
-          "value": "56.3"
+          "value": "54.2"
         },
         {
           "label": "Win quality grade",
-          "value": "59.1"
+          "value": "61.7"
         },
         {
           "label": "Offense grade",
-          "value": "27.3"
+          "value": "81.3"
         },
         {
           "label": "Defense grade",
-          "value": "91.5"
+          "value": "43.2"
         },
         {
           "label": "Recent form grade",
-          "value": "70.0"
+          "value": "40.0"
         }
       ],
       "recent": [
-        "W",
+        "L",
         "W",
         "L",
-        "OTL",
+        "L",
         "W"
       ]
     },
     {
-      "id": "9",
-      "name": "Ottawa Senators",
-      "abbreviation": "OTT",
+      "id": "1",
+      "name": "New Jersey Devils",
+      "abbreviation": "NJD",
       "rank": 13,
-      "score": 58.62272044021191,
-      "record": "6–3–0",
-      "movement": null,
-      "story": "Ottawa Senators take No. 13 with a 6–3–0 record and 12 standings points. They’re scoring 2.67 goals per game and allowing 2.56. That positive scoring balance helps their case.",
+      "score": 58.6358938882547,
+      "record": "7–4–0",
+      "movement": 10,
+      "story": "New Jersey Devils take No. 13 with a 7–4–0 record and 14 standings points. They’re scoring 3.27 goals per game and allowing 2.91. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
@@ -784,111 +784,48 @@
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "6–3–0"
+          "value": "7–4–0"
         },
         {
           "label": "Standings points",
-          "value": "12"
+          "value": "14"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "24 / 23"
+          "value": "36 / 32"
         },
         {
           "label": "Goals scored per game",
-          "value": "2.67"
+          "value": "3.27"
         },
         {
           "label": "Goals allowed per game",
-          "value": "2.56"
+          "value": "2.91"
         },
         {
           "label": "Record grade",
-          "value": "66.7"
+          "value": "63.6"
         },
         {
           "label": "Win quality grade",
-          "value": "60.7"
+          "value": "52.8"
         },
         {
           "label": "Offense grade",
-          "value": "32.9"
+          "value": "54.4"
         },
         {
           "label": "Defense grade",
-          "value": "70.9"
-        },
-        {
-          "label": "Recent form grade",
           "value": "60.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "W",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "id": "2",
-      "name": "New York Islanders",
-      "abbreviation": "NYI",
-      "rank": 14,
-      "score": 57.87316763158717,
-      "record": "4–3–1",
-      "movement": null,
-      "story": "New York Islanders take No. 14 with a 4–3–1 record and 9 standings points. They’re scoring 3.00 goals per game and allowing 2.25. That positive scoring balance helps their case.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "57.9"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "4–3–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "9"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "24 / 18"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "2.25"
-        },
-        {
-          "label": "Record grade",
-          "value": "56.3"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "50.7"
-        },
-        {
-          "label": "Offense grade",
-          "value": "45.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "79.9"
         },
         {
           "label": "Recent form grade",
-          "value": "70.0"
+          "value": "80.0"
         }
       ],
       "recent": [
         "W",
-        "OTL",
+        "W",
         "W",
         "L",
         "W"
@@ -898,98 +835,35 @@
       "id": "55",
       "name": "Seattle Kraken",
       "abbreviation": "SEA",
-      "rank": 15,
-      "score": 56.76664869255181,
-      "record": "5–3–1",
-      "movement": null,
-      "story": "Seattle Kraken take No. 15 with a 5–3–1 record and 11 standings points. They’re scoring 3.89 goals per game and allowing 3.44. That positive scoring balance helps their case.",
+      "rank": 14,
+      "score": 57.869492276451005,
+      "record": "7–4–1",
+      "movement": 1,
+      "story": "Seattle Kraken take No. 14 with a 7–4–1 record and 15 standings points. They’re scoring 3.75 goals per game and allowing 3.50. That positive scoring balance helps their case.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "56.8"
+          "value": "57.9"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "5–3–1"
+          "value": "7–4–1"
         },
         {
           "label": "Standings points",
-          "value": "11"
+          "value": "15"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "35 / 31"
+          "value": "45 / 42"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.89"
+          "value": "3.75"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.44"
-        },
-        {
-          "label": "Record grade",
-          "value": "61.1"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "50.2"
-        },
-        {
-          "label": "Offense grade",
-          "value": "77.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "37.0"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "70.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "OTL",
-        "W",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "id": "52",
-      "name": "Winnipeg Jets",
-      "abbreviation": "WPG",
-      "rank": 16,
-      "score": 55.47656808596218,
-      "record": "4–2–2",
-      "movement": null,
-      "story": "Winnipeg Jets take No. 16 with a 4–2–2 record and 10 standings points. They’re scoring 2.88 goals per game and allowing 3.00. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "55.5"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "4–2–2"
-        },
-        {
-          "label": "Standings points",
-          "value": "10"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "23 / 24"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "2.88"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.00"
+          "value": "3.50"
         },
         {
           "label": "Record grade",
@@ -997,15 +871,15 @@
         },
         {
           "label": "Win quality grade",
-          "value": "61.1"
+          "value": "60.0"
         },
         {
           "label": "Offense grade",
-          "value": "40.7"
+          "value": "71.9"
         },
         {
           "label": "Defense grade",
-          "value": "54.4"
+          "value": "36.8"
         },
         {
           "label": "Recent form grade",
@@ -1014,41 +888,104 @@
       ],
       "recent": [
         "L",
-        "OTL",
+        "W",
         "W",
         "L",
-        "W"
+        "OTL"
       ]
     },
     {
-      "id": "18",
-      "name": "Nashville Predators",
-      "abbreviation": "NSH",
-      "rank": 17,
-      "score": 54.21361569524447,
-      "record": "3–2–3",
-      "movement": null,
-      "story": "Nashville Predators take No. 17 with a 3–2–3 record and 9 standings points. They’re scoring 2.88 goals per game and allowing 3.00. Closing that scoring gap is the clearest place to improve.",
+      "id": "8",
+      "name": "Montréal Canadiens",
+      "abbreviation": "MTL",
+      "rank": 15,
+      "score": 56.10431030689742,
+      "record": "6–3–2",
+      "movement": 4,
+      "story": "Montréal Canadiens take No. 15 with a 6–3–2 record and 14 standings points. They’re scoring 3.27 goals per game and allowing 3.27. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "54.2"
+          "value": "56.1"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "3–2–3"
+          "value": "6–3–2"
         },
         {
           "label": "Standings points",
-          "value": "9"
+          "value": "14"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "23 / 24"
+          "value": "36 / 36"
         },
         {
           "label": "Goals scored per game",
-          "value": "2.88"
+          "value": "3.27"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.27"
+        },
+        {
+          "label": "Record grade",
+          "value": "63.6"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "55.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "54.4"
+        },
+        {
+          "label": "Defense grade",
+          "value": "45.6"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "70.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "W",
+        "OTL",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "New York Rangers",
+      "abbreviation": "NYR",
+      "rank": 16,
+      "score": 54.843493095779834,
+      "record": "7–6–1",
+      "movement": -10,
+      "story": "New York Rangers take No. 16 with a 7–6–1 record and 15 standings points. They’re scoring 3.14 goals per game and allowing 3.00. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "54.8"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "7–6–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "15"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "44 / 42"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.14"
         },
         {
           "label": "Goals allowed per game",
@@ -1056,19 +993,208 @@
         },
         {
           "label": "Record grade",
-          "value": "56.3"
+          "value": "53.6"
         },
         {
           "label": "Win quality grade",
-          "value": "60.4"
+          "value": "62.7"
         },
         {
           "label": "Offense grade",
-          "value": "40.7"
+          "value": "49.2"
         },
         {
           "label": "Defense grade",
+          "value": "56.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "30.0"
+        }
+      ],
+      "recent": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "OTL"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "New York Islanders",
+      "abbreviation": "NYI",
+      "rank": 17,
+      "score": 54.40136675550883,
+      "record": "5–4–2",
+      "movement": -3,
+      "story": "New York Islanders take No. 17 with a 5–4–2 record and 12 standings points. They’re scoring 2.91 goals per game and allowing 2.64. That positive scoring balance helps their case.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
           "value": "54.4"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "5–4–2"
+        },
+        {
+          "label": "Standings points",
+          "value": "12"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "32 / 29"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.91"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "2.64"
+        },
+        {
+          "label": "Record grade",
+          "value": "54.5"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "52.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "40.0"
+        },
+        {
+          "label": "Defense grade",
+          "value": "69.9"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.0"
+        }
+      ],
+      "recent": [
+        "L",
+        "OTL",
+        "W",
+        "W",
+        "OTL"
+      ]
+    },
+    {
+      "id": "19",
+      "name": "St. Louis Blues",
+      "abbreviation": "STL",
+      "rank": 18,
+      "score": 54.39156179657777,
+      "record": "5–5–1",
+      "movement": 3,
+      "story": "St. Louis Blues take No. 18 with a 5–5–1 record and 11 standings points. They’re scoring 3.18 goals per game and allowing 3.18. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "54.4"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "5–5–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "11"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "35 / 35"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.18"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.18"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "66.3"
+        },
+        {
+          "label": "Offense grade",
+          "value": "50.7"
+        },
+        {
+          "label": "Defense grade",
+          "value": "49.3"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "40.0"
+        }
+      ],
+      "recent": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "id": "18",
+      "name": "Nashville Predators",
+      "abbreviation": "NSH",
+      "rank": 19,
+      "score": 53.675390360745276,
+      "record": "4–3–4",
+      "movement": -2,
+      "story": "Nashville Predators take No. 19 with a 4–3–4 record and 12 standings points. They’re scoring 2.82 goals per game and allowing 3.18. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "53.7"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "4–3–4"
+        },
+        {
+          "label": "Standings points",
+          "value": "12"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "31 / 35"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.82"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.18"
+        },
+        {
+          "label": "Record grade",
+          "value": "54.5"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "66.3"
+        },
+        {
+          "label": "Offense grade",
+          "value": "36.5"
+        },
+        {
+          "label": "Defense grade",
+          "value": "49.3"
         },
         {
           "label": "Recent form grade",
@@ -1079,27 +1205,342 @@
         "W",
         "OTL",
         "L",
+        "W",
+        "OTL"
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Florida Panthers",
+      "abbreviation": "FLA",
+      "rank": 20,
+      "score": 52.443111407990045,
+      "record": "6–4–2",
+      "movement": -9,
+      "story": "Florida Panthers take No. 20 with a 6–4–2 record and 14 standings points. They’re scoring 2.83 goals per game and allowing 3.00. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.4"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "6–4–2"
+        },
+        {
+          "label": "Standings points",
+          "value": "14"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "34 / 36"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.83"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.00"
+        },
+        {
+          "label": "Record grade",
+          "value": "58.3"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "53.8"
+        },
+        {
+          "label": "Offense grade",
+          "value": "37.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "56.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "L",
+        "L",
+        "W",
+        "W"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Pittsburgh Penguins",
+      "abbreviation": "PIT",
+      "rank": 21,
+      "score": 52.258585556701355,
+      "record": "5–6–1",
+      "movement": 5,
+      "story": "Pittsburgh Penguins take No. 21 with a 5–6–1 record and 11 standings points. They’re scoring 3.33 goals per game and allowing 3.33. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "52.3"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "5–6–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "11"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "40 / 40"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.33"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.33"
+        },
+        {
+          "label": "Record grade",
+          "value": "45.8"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "62.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "56.8"
+        },
+        {
+          "label": "Defense grade",
+          "value": "43.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "40.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "W",
+        "L",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Detroit Red Wings",
+      "abbreviation": "DET",
+      "rank": 22,
+      "score": 51.81250396765115,
+      "record": "5–4–3",
+      "movement": 2,
+      "story": "Detroit Red Wings take No. 22 with a 5–4–3 record and 13 standings points. They’re scoring 2.75 goals per game and allowing 3.08. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "51.8"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "5–4–3"
+        },
+        {
+          "label": "Standings points",
+          "value": "13"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "33 / 37"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.75"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.08"
+        },
+        {
+          "label": "Record grade",
+          "value": "54.2"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "57.7"
+        },
+        {
+          "label": "Offense grade",
+          "value": "34.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "53.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "70.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "L",
+        "W",
         "OTL",
         "W"
       ]
     },
     {
-      "id": "10",
-      "name": "Toronto Maple Leafs",
-      "abbreviation": "TOR",
-      "rank": 18,
-      "score": 53.05198639519144,
-      "record": "4–4–2",
-      "movement": null,
-      "story": "Toronto Maple Leafs take No. 18 with a 4–4–2 record and 10 standings points. They’re scoring 3.20 goals per game and allowing 3.30. Closing that scoring gap is the clearest place to improve.",
+      "id": "28",
+      "name": "San Jose Sharks",
+      "abbreviation": "SJS",
+      "rank": 23,
+      "score": 50.64941498317876,
+      "record": "6–5–1",
+      "movement": 4,
+      "story": "San Jose Sharks take No. 23 with a 6–5–1 record and 13 standings points. They’re scoring 3.08 goals per game and allowing 3.58. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "53.1"
+          "value": "50.6"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "4–4–2"
+          "value": "6–5–1"
+        },
+        {
+          "label": "Standings points",
+          "value": "13"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "37 / 43"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "3.08"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.58"
+        },
+        {
+          "label": "Record grade",
+          "value": "54.2"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "61.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "46.8"
+        },
+        {
+          "label": "Defense grade",
+          "value": "33.8"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "50.0"
+        }
+      ],
+      "recent": [
+        "L",
+        "W",
+        "W",
+        "L",
+        "OTL"
+      ]
+    },
+    {
+      "id": "52",
+      "name": "Winnipeg Jets",
+      "abbreviation": "WPG",
+      "rank": 24,
+      "score": 49.6966953874595,
+      "record": "4–4–3",
+      "movement": -8,
+      "story": "Winnipeg Jets take No. 24 with a 4–4–3 record and 11 standings points. They’re scoring 2.45 goals per game and allowing 2.82. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "49.7"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "4–4–3"
+        },
+        {
+          "label": "Standings points",
+          "value": "11"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "27 / 31"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.45"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "2.82"
+        },
+        {
+          "label": "Record grade",
+          "value": "50.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "62.1"
+        },
+        {
+          "label": "Offense grade",
+          "value": "24.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "63.5"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "20.0"
+        }
+      ],
+      "recent": [
+        "L",
+        "OTL",
+        "L",
+        "L",
+        "OTL"
+      ]
+    },
+    {
+      "id": "20",
+      "name": "Calgary Flames",
+      "abbreviation": "CGY",
+      "rank": 25,
+      "score": 46.629193837271146,
+      "record": "5–6–0",
+      "movement": 6,
+      "story": "Calgary Flames take No. 25 with a 5–6–0 record and 10 standings points. They’re scoring 2.55 goals per game and allowing 3.73. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "46.6"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "5–6–0"
         },
         {
           "label": "Standings points",
@@ -1107,103 +1548,40 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "32 / 33"
+          "value": "28 / 41"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.20"
+          "value": "2.55"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.30"
+          "value": "3.73"
         },
         {
           "label": "Record grade",
-          "value": "50.0"
+          "value": "45.5"
         },
         {
           "label": "Win quality grade",
-          "value": "62.8"
+          "value": "66.9"
         },
         {
           "label": "Offense grade",
-          "value": "53.6"
+          "value": "27.1"
         },
         {
           "label": "Defense grade",
-          "value": "42.5"
+          "value": "28.9"
         },
         {
           "label": "Recent form grade",
-          "value": "50.0"
+          "value": "80.0"
         }
       ],
       "recent": [
         "W",
-        "L",
-        "OTL",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "id": "8",
-      "name": "Montréal Canadiens",
-      "abbreviation": "MTL",
-      "rank": 19,
-      "score": 52.0940364575965,
-      "record": "4–3–1",
-      "movement": null,
-      "story": "Montréal Canadiens take No. 19 with a 4–3–1 record and 9 standings points. They’re scoring 3.38 goals per game and allowing 3.75. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "52.1"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "4–3–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "9"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "27 / 30"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.38"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.75"
-        },
-        {
-          "label": "Record grade",
-          "value": "56.3"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "58.9"
-        },
-        {
-          "label": "Offense grade",
-          "value": "60.4"
-        },
-        {
-          "label": "Defense grade",
-          "value": "26.4"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "60.0"
-        }
-      ],
-      "recent": [
         "W",
-        "L",
         "W",
         "W",
         "L"
@@ -1213,145 +1591,19 @@
       "id": "24",
       "name": "Anaheim Ducks",
       "abbreviation": "ANA",
-      "rank": 20,
-      "score": 51.99171622587559,
-      "record": "4–4–0",
-      "movement": null,
-      "story": "Anaheim Ducks take No. 20 with a 4–4–0 record and 8 standings points. They’re scoring 3.00 goals per game and allowing 3.25. Closing that scoring gap is the clearest place to improve.",
+      "rank": 26,
+      "score": 46.29650696029729,
+      "record": "5–6–0",
+      "movement": -6,
+      "story": "Anaheim Ducks take No. 26 with a 5–6–0 record and 10 standings points. They’re scoring 2.91 goals per game and allowing 3.36. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "52.0"
+          "value": "46.3"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "4–4–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "8"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "24 / 26"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.25"
-        },
-        {
-          "label": "Record grade",
-          "value": "50.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "64.9"
-        },
-        {
-          "label": "Offense grade",
-          "value": "45.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "44.5"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "40.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "L",
-        "L",
-        "W",
-        "W"
-      ]
-    },
-    {
-      "id": "19",
-      "name": "St. Louis Blues",
-      "abbreviation": "STL",
-      "rank": 21,
-      "score": 51.68305810620977,
-      "record": "3–4–1",
-      "movement": null,
-      "story": "St. Louis Blues take No. 21 with a 3–4–1 record and 7 standings points. They’re scoring 3.38 goals per game and allowing 3.50. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "51.7"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "3–4–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "7"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "27 / 28"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.38"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.50"
-        },
-        {
-          "label": "Record grade",
-          "value": "43.8"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "63.9"
-        },
-        {
-          "label": "Offense grade",
-          "value": "60.4"
-        },
-        {
-          "label": "Defense grade",
-          "value": "34.9"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "50.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "L",
-        "W",
-        "W",
-        "OTL"
-      ]
-    },
-    {
-      "id": "7",
-      "name": "Buffalo Sabres",
-      "abbreviation": "BUF",
-      "rank": 22,
-      "score": 49.642482678586674,
-      "record": "4–3–2",
-      "movement": null,
-      "story": "Buffalo Sabres take No. 22 with a 4–3–2 record and 10 standings points. They’re scoring 3.00 goals per game and allowing 3.78. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "49.6"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "4–3–2"
+          "value": "5–6–0"
         },
         {
           "label": "Standings points",
@@ -1359,283 +1611,31 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "27 / 34"
+          "value": "32 / 37"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.00"
+          "value": "2.91"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.78"
+          "value": "3.36"
         },
         {
           "label": "Record grade",
-          "value": "55.6"
+          "value": "45.5"
         },
         {
           "label": "Win quality grade",
-          "value": "61.7"
+          "value": "58.4"
         },
         {
           "label": "Offense grade",
-          "value": "45.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "25.6"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "60.0"
-        }
-      ],
-      "recent": [
-        "OTL",
-        "W",
-        "OTL",
-        "W",
-        "L"
-      ]
-    },
-    {
-      "id": "1",
-      "name": "New Jersey Devils",
-      "abbreviation": "NJD",
-      "rank": 23,
-      "score": 49.51465572114597,
-      "record": "4–4–0",
-      "movement": null,
-      "story": "New Jersey Devils take No. 23 with a 4–4–0 record and 8 standings points. They’re scoring 3.13 goals per game and allowing 3.38. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "49.5"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "4–4–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "8"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "25 / 27"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.13"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.38"
-        },
-        {
-          "label": "Record grade",
-          "value": "50.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "53.3"
-        },
-        {
-          "label": "Offense grade",
-          "value": "50.6"
-        },
-        {
-          "label": "Defense grade",
-          "value": "39.6"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "60.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "W",
-        "W",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "id": "17",
-      "name": "Detroit Red Wings",
-      "abbreviation": "DET",
-      "rank": 24,
-      "score": 48.98111681095986,
-      "record": "3–3–2",
-      "movement": null,
-      "story": "Detroit Red Wings take No. 24 with a 3–3–2 record and 8 standings points. They’re scoring 2.50 goals per game and allowing 3.00. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "49.0"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "3–3–2"
-        },
-        {
-          "label": "Standings points",
-          "value": "8"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "20 / 24"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "2.50"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.00"
-        },
-        {
-          "label": "Record grade",
-          "value": "50.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "57.1"
-        },
-        {
-          "label": "Offense grade",
-          "value": "27.3"
-        },
-        {
-          "label": "Defense grade",
-          "value": "54.4"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "60.0"
-        }
-      ],
-      "recent": [
-        "W",
-        "W",
-        "OTL",
-        "OTL",
-        "L"
-      ]
-    },
-    {
-      "id": "29",
-      "name": "Columbus Blue Jackets",
-      "abbreviation": "CBJ",
-      "rank": 25,
-      "score": 45.268954582330274,
-      "record": "3–4–0",
-      "movement": null,
-      "story": "Columbus Blue Jackets take No. 25 with a 3–4–0 record and 6 standings points. They’re scoring 2.57 goals per game and allowing 3.29. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "45.3"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "3–4–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "6"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "18 / 23"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "2.57"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.29"
-        },
-        {
-          "label": "Record grade",
-          "value": "42.9"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "60.0"
-        },
-        {
-          "label": "Offense grade",
-          "value": "29.7"
-        },
-        {
-          "label": "Defense grade",
-          "value": "43.0"
-        },
-        {
-          "label": "Recent form grade",
           "value": "40.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "W",
-        "L",
-        "L",
-        "W"
-      ]
-    },
-    {
-      "id": "5",
-      "name": "Pittsburgh Penguins",
-      "abbreviation": "PIT",
-      "rank": 26,
-      "score": 43.110415835951514,
-      "record": "3–6–1",
-      "movement": null,
-      "story": "Pittsburgh Penguins take No. 26 with a 3–6–1 record and 7 standings points. They’re scoring 3.30 goals per game and allowing 3.80. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "43.1"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "3–6–1"
-        },
-        {
-          "label": "Standings points",
-          "value": "7"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "33 / 38"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "3.30"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "3.80"
-        },
-        {
-          "label": "Record grade",
-          "value": "35.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "56.2"
-        },
-        {
-          "label": "Offense grade",
-          "value": "57.5"
         },
         {
           "label": "Defense grade",
-          "value": "24.9"
+          "value": "42.0"
         },
         {
           "label": "Recent form grade",
@@ -1643,46 +1643,46 @@
         }
       ],
       "recent": [
+        "W",
         "L",
         "L",
         "L",
-        "L",
-        "W"
+        "L"
       ]
     },
     {
-      "id": "28",
-      "name": "San Jose Sharks",
-      "abbreviation": "SJS",
+      "id": "7",
+      "name": "Buffalo Sabres",
+      "abbreviation": "BUF",
       "rank": 27,
-      "score": 42.40577879725305,
-      "record": "4–4–1",
-      "movement": null,
-      "story": "San Jose Sharks take No. 27 with a 4–4–1 record and 9 standings points. They’re scoring 2.56 goals per game and allowing 3.56. Closing that scoring gap is the clearest place to improve.",
+      "score": 45.98274777940699,
+      "record": "4–4–3",
+      "movement": -5,
+      "story": "Buffalo Sabres take No. 27 with a 4–4–3 record and 11 standings points. They’re scoring 2.82 goals per game and allowing 3.73. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "42.4"
+          "value": "46.0"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "4–4–1"
+          "value": "4–4–3"
         },
         {
           "label": "Standings points",
-          "value": "9"
+          "value": "11"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "23 / 32"
+          "value": "31 / 41"
         },
         {
           "label": "Goals scored per game",
-          "value": "2.56"
+          "value": "2.82"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.56"
+          "value": "3.73"
         },
         {
           "label": "Record grade",
@@ -1690,26 +1690,152 @@
         },
         {
           "label": "Win quality grade",
-          "value": "53.3"
+          "value": "59.7"
         },
         {
           "label": "Offense grade",
-          "value": "29.1"
+          "value": "36.5"
         },
         {
           "label": "Defense grade",
-          "value": "32.9"
+          "value": "28.9"
         },
         {
           "label": "Recent form grade",
-          "value": "30.0"
+          "value": "50.0"
         }
       ],
       "recent": [
+        "OTL",
         "L",
         "OTL",
         "W",
+        "OTL"
+      ]
+    },
+    {
+      "id": "26",
+      "name": "Los Angeles Kings",
+      "abbreviation": "LAK",
+      "rank": 28,
+      "score": 45.90484155514437,
+      "record": "3–5–2",
+      "movement": 4,
+      "story": "Los Angeles Kings take No. 28 with a 3–5–2 record and 8 standings points. They’re scoring 2.70 goals per game and allowing 3.50. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "45.9"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "3–5–2"
+        },
+        {
+          "label": "Standings points",
+          "value": "8"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "27 / 35"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.70"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.50"
+        },
+        {
+          "label": "Record grade",
+          "value": "40.0"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "63.6"
+        },
+        {
+          "label": "Offense grade",
+          "value": "32.3"
+        },
+        {
+          "label": "Defense grade",
+          "value": "36.8"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "60.0"
+        }
+      ],
+      "recent": [
+        "W",
         "L",
+        "W",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "id": "29",
+      "name": "Columbus Blue Jackets",
+      "abbreviation": "CBJ",
+      "rank": 29,
+      "score": 44.68714031417525,
+      "record": "4–5–0",
+      "movement": -4,
+      "story": "Columbus Blue Jackets take No. 29 with a 4–5–0 record and 8 standings points. They’re scoring 2.44 goals per game and allowing 3.33. Closing that scoring gap is the clearest place to improve.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "44.7"
+        },
+        {
+          "label": "Record (W–L–OTL)",
+          "value": "4–5–0"
+        },
+        {
+          "label": "Standings points",
+          "value": "8"
+        },
+        {
+          "label": "Goals scored / allowed",
+          "value": "22 / 30"
+        },
+        {
+          "label": "Goals scored per game",
+          "value": "2.44"
+        },
+        {
+          "label": "Goals allowed per game",
+          "value": "3.33"
+        },
+        {
+          "label": "Record grade",
+          "value": "44.4"
+        },
+        {
+          "label": "Win quality grade",
+          "value": "60.4"
+        },
+        {
+          "label": "Offense grade",
+          "value": "24.1"
+        },
+        {
+          "label": "Defense grade",
+          "value": "43.2"
+        },
+        {
+          "label": "Recent form grade",
+          "value": "40.0"
+        }
+      ],
+      "recent": [
+        "W",
+        "L",
+        "L",
+        "W",
         "L"
       ]
     },
@@ -1717,62 +1843,62 @@
       "id": "4",
       "name": "Philadelphia Flyers",
       "abbreviation": "PHI",
-      "rank": 28,
-      "score": 41.388526332019524,
-      "record": "2–6–3",
-      "movement": null,
-      "story": "Philadelphia Flyers take No. 28 with a 2–6–3 record and 7 standings points. They’re scoring 1.55 goals per game and allowing 3.27. Closing that scoring gap is the clearest place to improve.",
+      "rank": 30,
+      "score": 42.455215173222754,
+      "record": "3–7–3",
+      "movement": -2,
+      "story": "Philadelphia Flyers take No. 30 with a 3–7–3 record and 9 standings points. They’re scoring 1.85 goals per game and allowing 3.23. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "41.4"
+          "value": "42.5"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "2–6–3"
+          "value": "3–7–3"
         },
         {
           "label": "Standings points",
-          "value": "7"
+          "value": "9"
         },
         {
           "label": "Goals scored / allowed",
-          "value": "17 / 36"
+          "value": "24 / 42"
         },
         {
           "label": "Goals scored per game",
-          "value": "1.55"
+          "value": "1.85"
         },
         {
           "label": "Goals allowed per game",
-          "value": "3.27"
+          "value": "3.23"
         },
         {
           "label": "Record grade",
-          "value": "31.8"
+          "value": "34.6"
         },
         {
           "label": "Win quality grade",
-          "value": "69.0"
+          "value": "63.9"
         },
         {
           "label": "Offense grade",
-          "value": "7.6"
+          "value": "10.8"
         },
         {
           "label": "Defense grade",
-          "value": "43.6"
+          "value": "47.3"
         },
         {
           "label": "Recent form grade",
-          "value": "50.0"
+          "value": "60.0"
         }
       ],
       "recent": [
-        "W",
-        "W",
         "L",
-        "OTL",
+        "W",
+        "W",
+        "W",
         "L"
       ]
     },
@@ -1780,19 +1906,19 @@
       "id": "23",
       "name": "Vancouver Canucks",
       "abbreviation": "VAN",
-      "rank": 29,
-      "score": 36.04249414056271,
-      "record": "2–7–1",
-      "movement": null,
-      "story": "Vancouver Canucks take No. 29 with a 2–7–1 record and 5 standings points. They’re scoring 3.00 goals per game and allowing 4.50. Closing that scoring gap is the clearest place to improve.",
+      "rank": 31,
+      "score": 34.53485813230279,
+      "record": "2–10–1",
+      "movement": -2,
+      "story": "Vancouver Canucks take No. 31 with a 2–10–1 record and 5 standings points. They’re scoring 2.85 goals per game and allowing 4.62. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "36.0"
+          "value": "34.5"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "2–7–1"
+          "value": "2–10–1"
         },
         {
           "label": "Standings points",
@@ -1800,31 +1926,31 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "30 / 45"
+          "value": "37 / 60"
         },
         {
           "label": "Goals scored per game",
-          "value": "3.00"
+          "value": "2.85"
         },
         {
           "label": "Goals allowed per game",
-          "value": "4.50"
+          "value": "4.62"
         },
         {
           "label": "Record grade",
-          "value": "25.0"
+          "value": "19.2"
         },
         {
           "label": "Win quality grade",
-          "value": "60.7"
+          "value": "66.4"
         },
         {
           "label": "Offense grade",
-          "value": "45.6"
+          "value": "37.6"
         },
         {
           "label": "Defense grade",
-          "value": "9.8"
+          "value": "8.9"
         },
         {
           "label": "Recent form grade",
@@ -1833,29 +1959,29 @@
       ],
       "recent": [
         "L",
-        "OTL",
         "L",
         "L",
-        "L"
+        "L",
+        "OTL"
       ]
     },
     {
       "id": "16",
       "name": "Chicago Blackhawks",
       "abbreviation": "CHI",
-      "rank": 30,
-      "score": 35.50046008431719,
-      "record": "3–6–0",
-      "movement": null,
-      "story": "Chicago Blackhawks take No. 30 with a 3–6–0 record and 6 standings points. They’re scoring 2.33 goals per game and allowing 4.00. Closing that scoring gap is the clearest place to improve.",
+      "rank": 32,
+      "score": 34.08877276626534,
+      "record": "3–8–0",
+      "movement": -2,
+      "story": "Chicago Blackhawks take No. 32 with a 3–8–0 record and 6 standings points. They’re scoring 2.18 goals per game and allowing 3.91. Closing that scoring gap is the clearest place to improve.",
       "stats": [
         {
           "label": "Jay’s Index",
-          "value": "35.5"
+          "value": "34.1"
         },
         {
           "label": "Record (W–L–OTL)",
-          "value": "3–6–0"
+          "value": "3–8–0"
         },
         {
           "label": "Standings points",
@@ -1863,31 +1989,31 @@
         },
         {
           "label": "Goals scored / allowed",
-          "value": "21 / 36"
+          "value": "24 / 43"
         },
         {
           "label": "Goals scored per game",
-          "value": "2.33"
+          "value": "2.18"
         },
         {
           "label": "Goals allowed per game",
-          "value": "4.00"
+          "value": "3.91"
         },
         {
           "label": "Record grade",
-          "value": "33.3"
+          "value": "27.3"
         },
         {
           "label": "Win quality grade",
-          "value": "56.0"
+          "value": "57.2"
         },
         {
           "label": "Offense grade",
-          "value": "22.4"
+          "value": "17.2"
         },
         {
           "label": "Defense grade",
-          "value": "19.4"
+          "value": "23.3"
         },
         {
           "label": "Recent form grade",
@@ -1896,136 +2022,10 @@
       ],
       "recent": [
         "L",
-        "W",
-        "W",
         "L",
-        "L"
-      ]
-    },
-    {
-      "id": "20",
-      "name": "Calgary Flames",
-      "abbreviation": "CGY",
-      "rank": 31,
-      "score": 33.68149304207114,
-      "record": "2–6–0",
-      "movement": null,
-      "story": "Calgary Flames take No. 31 with a 2–6–0 record and 4 standings points. They’re scoring 2.13 goals per game and allowing 4.63. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "33.7"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "2–6–0"
-        },
-        {
-          "label": "Standings points",
-          "value": "4"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "17 / 37"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "2.13"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "4.63"
-        },
-        {
-          "label": "Record grade",
-          "value": "25.0"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "67.9"
-        },
-        {
-          "label": "Offense grade",
-          "value": "17.1"
-        },
-        {
-          "label": "Defense grade",
-          "value": "8.1"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "40.0"
-        }
-      ],
-      "recent": [
-        "W",
         "L",
         "W",
-        "L",
-        "L"
-      ]
-    },
-    {
-      "id": "26",
-      "name": "Los Angeles Kings",
-      "abbreviation": "LAK",
-      "rank": 32,
-      "score": 11.176561988298339,
-      "record": "0–4–2",
-      "movement": null,
-      "story": "Los Angeles Kings take No. 32 with a 0–4–2 record and 2 standings points. They’re scoring 2.00 goals per game and allowing 4.17. Closing that scoring gap is the clearest place to improve.",
-      "stats": [
-        {
-          "label": "Jay’s Index",
-          "value": "11.2"
-        },
-        {
-          "label": "Record (W–L–OTL)",
-          "value": "0–4–2"
-        },
-        {
-          "label": "Standings points",
-          "value": "2"
-        },
-        {
-          "label": "Goals scored / allowed",
-          "value": "12 / 25"
-        },
-        {
-          "label": "Goals scored per game",
-          "value": "2.00"
-        },
-        {
-          "label": "Goals allowed per game",
-          "value": "4.17"
-        },
-        {
-          "label": "Record grade",
-          "value": "16.7"
-        },
-        {
-          "label": "Win quality grade",
-          "value": "0.0"
-        },
-        {
-          "label": "Offense grade",
-          "value": "14.5"
-        },
-        {
-          "label": "Defense grade",
-          "value": "15.6"
-        },
-        {
-          "label": "Recent form grade",
-          "value": "20.0"
-        }
-      ],
-      "recent": [
-        "L",
-        "L",
-        "OTL",
-        "L",
-        "OTL"
+        "W"
       ]
     }
   ]
