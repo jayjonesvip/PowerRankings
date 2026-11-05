@@ -195,3 +195,11 @@ main[data-sport="nfl"] .league-tabs{grid-template-columns:repeat(3,minmax(0,1fr)
 .goalie-runners-up{margin-top:24px;padding-top:20px;border-top:1px solid var(--league-border,#d5deea)}.goalie-runners-up h4{margin:0;font-size:16px}.goalie-runners-up ol{padding-left:22px;margin:16px 0 0}.goalie-runners-up li{padding:10px 0}.goalie-runners-up li span,.goalie-runners-up li small{display:block;margin-top:4px}.goalie-runners-up li span{font-size:13px;color:#005a9c}.goalie-runners-up li small{font-size:12px;line-height:1.6;color:#526477}
 
 @media(max-width:700px){main[data-sport="nhl"] .league-tabs{display:grid;overflow-x:visible}main[data-sport="nhl"] .league-tabs button{min-width:0;padding:8px 4px;font-size:10px;gap:5px}}
+
+.nba-standings { margin: 2rem 0; }
+.nba-standings > section { margin: 1.5rem 0; padding: 1rem; background: white; border: 1px solid #d9dfe7; border-radius: 12px; }
+.nba-table-scroll { overflow-x: auto; }
+.nba-standings table { width: 100%; border-collapse: collapse; font-size: .85rem; white-space: nowrap; }
+.nba-standings th, .nba-standings td { padding: .8rem .6rem; text-align: right; border-bottom: 1px solid #e5e9ef; }
+.nba-standings th[scope="row"] { text-align: left; }
+.nba-standings thead { color: #52647a; }

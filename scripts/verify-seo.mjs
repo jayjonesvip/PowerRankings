@@ -2,7 +2,7 @@ import { readFile, access } from "node:fs/promises";
 import { siteUrl } from "../lib/site-url.ts";
 const decode=value=>value.replace(/&amp;/g,"&").replace(/&quot;/g,'"').replace(/&#x27;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">");
 const attrs=tag=>Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m=>[m[1],decode(m[2])]));
-const paths=["","nfl/","nhl/","mlb/",...["nfl","nhl","mlb","nba"].map(league=>`${league}/power-rankings/`)];
+const paths=["","nfl/","nhl/","mlb/","nba/",...["nfl","nhl","mlb","nba"].map(league=>`${league}/power-rankings/`)];
 const titles=new Set(),descriptions=new Set();
 for(const path of paths) {
  const html=await readFile(`out/${path}index.html`,"utf8");

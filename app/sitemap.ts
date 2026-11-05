@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     readSnapshot(`nfl/${nfl.season}/manifest.json`),
     readSnapshot("nhl/current.json"),
     readSnapshot("mlb/current.json"),
+    readSnapshot("nba/current.json"),
   ]);
   const lastModified = snapshots.map(snapshot => {
     const date = new Date(snapshot.updatedAt);
@@ -21,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   });
   const entries: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified: new Date(Math.max(...lastModified.map(date => date.getTime()))), changeFrequency: "hourly" },
-    ...(["nfl", "nhl", "mlb"] as const).map((league, index) => ({
+    ...(["nfl", "nhl", "mlb", "nba"] as const).map((league, index) => ({
       url: `${siteUrl}${league}/`, lastModified: lastModified[index], changeFrequency: "hourly" as const,
     })),
   ];

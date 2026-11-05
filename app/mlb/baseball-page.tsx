@@ -56,7 +56,7 @@ export default function BaseballPage({ initialData }: { initialData: BaseballSna
   const count = (value: number) => String(value);
   return <main data-sport="mlb">
     <header className="site-header"><a className="brand" href={`${base}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${base}/league-snapshot-logo.png`} alt="League Snapshot logo" width="52" height="52" /><span><b>League Snapshot</b><small>MLB LEAGUE SNAPSHOT</small></span></a>
-      <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${base}/nfl/`}>NFL</a><a href={`${base}/nhl/`}>NHL</a><a href={`${base}/mlb/`} aria-current="page">MLB</a></nav>
+      <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${base}/nfl/`}>NFL</a><a href={`${base}/nhl/`}>NHL</a><a href={`${base}/mlb/`} aria-current="page">MLB</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nba/`}>NBA</a></nav>
       <div className="header-status">Hourly snapshot · {new Date(data.updatedAt).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })} ET</div></HeaderNavigation></header>
     <section className="scoreboard-hero"><div><p className="eyebrow">{data.season} · Regular season{data.seasonComplete ? " complete" : ""}</p><h1>MLB Snapshot<br /><em>Regular-season snapshot</em></h1>
       <LeagueSectionLinks onViewChange={setView} sections={MLB_SECTIONS} /></div>

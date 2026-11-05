@@ -48,6 +48,7 @@ jobs:
       - run: pnpm data:refresh:mvp
       - run: pnpm data:refresh:nhl
       - run: pnpm data:refresh:mlb
+      - run: pnpm data:refresh:nba
       - name: Publish due weekly rankings from stored regular-season data
         run: node scripts/publish-weekly-rankings.mjs
       - name: Persist weekly editions independently of the hourly data cache

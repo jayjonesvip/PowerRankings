@@ -28,3 +28,8 @@ export async function buildBaseballSnapshot() {
   const { validateBaseballSnapshot } = await import("./mlb-model");
   return validateBaseballSnapshot(JSON.parse(await readFile(join(process.cwd(), "public/data/mlb/current.json"), "utf8")));
 }
+
+export async function buildBasketballSnapshot() {
+  const { validateBasketballSnapshot } = await import("./nba-model");
+  return validateBasketballSnapshot(JSON.parse(await readFile(join(process.cwd(), "public/data/nba/current.json"), "utf8")));
+}

@@ -9,3 +9,5 @@ next-env.d.ts
 *.tsbuildinfo
 
 public/data/mlb/
+
+public/data/nba/

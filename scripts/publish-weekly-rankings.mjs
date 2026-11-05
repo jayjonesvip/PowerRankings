@@ -1,3 +1,4 @@
+import { validateBasketballSnapshot, rankBasketballTeams } from "../lib/nba-model.ts";
 import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import { buildSnapshots, fetchSeasonGames } from "../lib/rankings.ts";
 import { assessMatchup } from "../lib/matchup.ts";
@@ -15,10 +16,12 @@ const nflSnapshot=buildSnapshots(games).at(-1);
 const manifest=await read(`public/data/nfl/${nfl.season}/manifest.json`);
 const nhl=await read("public/data/nhl/current.json");
 const mlb=validateBaseballSnapshot(await read("public/data/mlb/current.json"));
+const nba=validateBasketballSnapshot(await read("public/data/nba/current.json"));
 const fmt=(v,n=1)=>Number(v).toFixed(n);
 const signed=v=>`${v>=0?"+":""}${fmt(v)}`;
 const baseballTeams=rankBaseballTeams(mlb.teams);
 const sources={
+ nba:{season:nba.season,seasonComplete:false,ready:nba.rankingsReady,asOf:nba.updatedAt,completedGames:nba.completedGames,teams:rankBasketballTeams(nba.teams),methodology:"Jay’s NBA Index: win percentage 60%, scoring margin per game 40%. Margin uses a bounded curve centered on zero (10-point scale). This standings-only model does not adjust for pace, opponent strength or recent form. Every team needs five regular-season games."},
  nfl:{season:nfl.season,seasonComplete:nfl.seasonComplete,ready:nflSnapshot?.teams.length===32,asOf:manifest.updatedAt,completedGames:nflSnapshot?.completedGames??0,week:nflSnapshot?.week,teams:nflSnapshot?.teams??[],methodology:"Jay’s NFL Index: record 25%, win quality 30%, offense 20%, defense 20%, recent form 5%. Win quality combines opponent performance (80%) and scoring margin (20%). This is a statistical ordering, not an official standing or a prediction."},
  nhl:{season:nhl.season,seasonComplete:Boolean(nhl.seasonComplete),ready:nhl.rankingsReady,asOf:nhl.updatedAt,completedGames:nhl.completedGames,teams:nhl.rankings,methodology:"Jay’s NHL Index: standings points percentage 25%, win quality 30%, offense 20%, defense 20%, last five games 5%. Win quality combines opponent points percentage (80%) and goal margin (20%). Every team needs five regular-season games before rankings are published."},
  mlb:{season:mlb.season,seasonComplete:mlb.seasonComplete,ready:mlb.teams.every(t=>t.gamesPlayed>=5),asOf:mlb.updatedAt,completedGames:mlb.completedGames,teams:baseballTeams,methodology:"Jay’s MLB Index: win percentage 40%, run differential per game 30%, team batting average 15%, ERA 15%. Win percentage is scored from 0–100; other signals use bounded curves against neutral run differential or the league’s team-average rate. This model does not adjust for opponent strength or park effects. Every team needs five regular-season games."}
@@ -58,6 +61,10 @@ for(const [league,source] of Object.entries(sources)) {
   } else if(league==="nhl") {
    story=`${t.name} take No. ${t.rank} with a ${record} record and ${t.points} standings points. They’re scoring ${fmt(t.goalsForAverage,2)} goals per game and allowing ${fmt(t.goalsAgainstAverage,2)}. ${t.goalsForAverage>t.goalsAgainstAverage?"That positive scoring balance helps their case.":"Closing that scoring gap is the clearest place to improve."}`;
    stats=[{label:"Jay’s Index",value:fmt(t.score)},{label:"Record (W–L–OTL)",value:record},{label:"Standings points",value:String(t.points)},{label:"Goals scored / allowed",value:`${t.goalsFor} / ${t.goalsAgainst}`},{label:"Goals scored per game",value:fmt(t.goalsForAverage,2)},{label:"Goals allowed per game",value:fmt(t.goalsAgainstAverage,2)},...Object.entries(t.components).map(([k,v])=>({label:{record:"Record grade",quality:"Win quality grade",offense:"Offense grade",defense:"Defense grade",momentum:"Recent form grade"}[k],value:fmt(v)}))];recent=t.recent;
+  } else if(league==="nba") {
+   const margin=(t.pointsFor-t.pointsAgainst)/gp;
+   story=`${t.name} take No. ${t.rank} with a ${record} record. They score ${fmt(t.pointsFor/gp)} points per game and allow ${fmt(t.pointsAgainst/gp)}, for a ${signed(margin)} scoring margin per game.`;
+   stats=[{label:"Jay’s Index",value:fmt(t.score)},{label:"Record",value:record},{label:"Win percentage",value:fmt(t.winPercentage,3)},{label:"Points per game",value:fmt(t.pointsFor/gp)},{label:"Points allowed per game",value:fmt(t.pointsAgainst/gp)},{label:"Scoring margin per game",value:signed(margin)}];
   } else {
    const diff=t.runsFor-t.runsAgainst;
    story=`${t.name} check in at No. ${t.rank} with a ${record} record. The run differential is ${diff>=0?"+":""}${diff}, with a ${fmt(t.battingAverage,3).replace(/^0/,"")} team batting average and ${fmt(t.era,2)} ERA. ${diff>0?"They’ve backed up the record by scoring more than they allow.":"The scoring balance leaves room for improvement."}`;

@@ -131,7 +131,7 @@ console.log("Stored regular-season player leader sections verified");
 const sitemap = await readFile("out/sitemap.xml", "utf8");
 const robots = await readFile("out/robots.txt", "utf8");
 const sitemapRoot = siteUrl;
-const sitemapPaths = ["", "nfl/", "nhl/", "mlb/"];
+const sitemapPaths = ["", "nfl/", "nhl/", "mlb/", "nba/"];
 for(const league of ["nfl","nhl","mlb","nba"]) {
   let post; try { post=JSON.parse(await readFile(`content/power-rankings/${league}.json`,"utf8")); } catch(error) { if(league!=="nba" || error.code!=="ENOENT") throw error; }
   if(post?.ready) sitemapPaths.push(`${league}/power-rankings/`);
@@ -140,3 +140,9 @@ const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => m
 if (!sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') || sitemapUrls.length !== sitemapPaths.length || new Set(sitemapUrls).size !== sitemapUrls.length || sitemapPaths.some(path => !sitemapUrls.includes(`${sitemapRoot}${path}`)) || !robots.includes(`Sitemap: ${sitemapRoot}sitemap.xml`)) throw new Error("Invalid exported sitemap or robots sitemap reference");
 console.log("Sitemap includes every indexable page and robots references it");
 await import("./verify-seo.mjs");
+
+const { validateBasketballSnapshot } = await import("../lib/nba-model.ts");
+const nba=validateBasketballSnapshot(JSON.parse(await readFile("out/data/nba/current.json","utf8")));
+const nbaHtml=await htmlText("out/nba/index.html");
+if(nba.teams.some(t=>!nbaHtml.includes(t.name)) || !nbaHtml.includes('id="standings-panel"') || !nbaHtml.includes("Current season by the numbers") || hubHtml.includes("Snapshot coming soon")) throw new Error("NBA standings/dashboard must be prerendered");
+console.log("NBA standings, snapshot and home card verified");

@@ -3,6 +3,7 @@ import { HeaderNavigation } from "@/components/header-navigation";
 
 import { snapshotUpdatedAt, publishedNflSeason } from "@/lib/local-data";
 import { validateBaseballSnapshot, type BaseballSnapshot } from "@/lib/mlb-model";
+import { validateBasketballSnapshot, type BasketballSnapshot } from "@/lib/nba-model";
 import type { HockeySnapshot } from "@/lib/nhl-model";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -16,12 +17,21 @@ function GamesDonut({played,total,label}:{played:number|null;total:number;label:
 }
 
 
-export default function SportsHub({ initial, initialHockey, initialBaseball }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot; initialBaseball: BaseballSnapshot }) {
+export default function SportsHub({ initial, initialHockey, initialBaseball, initialBasketball }: { initial: Awaited<ReturnType<typeof import("@/lib/build-snapshot").buildNflSnapshot>>; initialHockey: HockeySnapshot; initialBaseball: BaseballSnapshot; initialBasketball: BasketballSnapshot }) {
   const [nflComplete,setNflComplete] = useState(initial.seasonComplete);
   const [snapshot, setSnapshot] = useState<SeasonSnapshot | null>(initial.snapshots.at(-1) ?? null);
   const [updatedAt, setUpdatedAt] = useState<Date | null>(() => new Date(initial.updatedAt));
   const [, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [basketball, setBasketball] = useState(initialBasketball);
+  useEffect(() => {
+    const load = async () => { try { const r=await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/data/nba/current.json`,{cache:"no-store"}); if(r.ok) setBasketball(validateBasketballSnapshot(await r.json())); } catch { /* Keep the last successful snapshot. */ } };
+    load(); const timer=window.setInterval(load,5*60*1000); return ()=>window.clearInterval(timer);
+  }, []);
+  const nbaPlayed=basketball.teams.filter(t=>t.gamesPlayed>0);
+  const nbaOffense=[...nbaPlayed].sort((a,b)=>b.pointsFor/b.gamesPlayed-a.pointsFor/a.gamesPlayed)[0];
+  const nbaDefense=[...nbaPlayed].sort((a,b)=>a.pointsAgainst/a.gamesPlayed-b.pointsAgainst/b.gamesPlayed)[0];
+  const nbaRecord=[...nbaPlayed].sort((a,b)=>b.winPercentage-a.winPercentage)[0];
   const [baseball, setBaseball] = useState(initialBaseball);
   useEffect(() => {
     const loadBaseball = async () => {
@@ -86,11 +96,11 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
     <main className="hub-page">
       <header className="site-header">
         <a className="brand" href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/`} aria-label="League Snapshot home"><img className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/league-snapshot-logo.png`} alt="League Snapshot sports analytics logo" width="52" height="52" /><span><b>League Snapshot</b><small>STANDINGS · STANDOUTS · STATS</small></span></a>
-        <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a></nav>
+        <HeaderNavigation><nav className="league-nav" aria-label="Leagues"><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nfl/`}>NFL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nhl/`}>NHL</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/mlb/`}>MLB</a><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nba/`}>NBA</a></nav>
         <div className="header-status"><span className="live-dot" /> Hourly snapshot<span className="divider" />{updatedAt ? `Updated ${updatedAt.toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" })} ET` : "Loading"}</div></HeaderNavigation></header>
 
       <section className="hub-hero">
-        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>League Snapshot.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA preview</a>. See what’s happening around each league—standouts, team performance, and regular-season results from the latest snapshots.</p></div>
+        <div><p className="eyebrow">Standings, standouts, and the numbers behind every league</p><h1>League Snapshot.<br /><em>Every league. In focus.</em></h1><p className="hub-intro">Explore the <a href="#nfl-board">NFL snapshot</a>, <a href="#nhl-board">NHL snapshot</a>, <a href="#mlb-board">MLB regular season</a>, and <a href="#nba-board">NBA snapshot</a>. See what’s happening around each league—standouts, team performance, and regular-season results from the latest snapshots.</p></div>
         <div className="hub-live-mark"><span>CURRENT SNAPSHOT</span><b>4</b><small>LEAGUES TRACKED</small></div>
       </section>
 
@@ -125,12 +135,12 @@ export default function SportsHub({ initial, initialHockey, initialBaseball }: {
         </div>
       </section>
       <section className="league-pulse" id="nba-board">
-        <div className="pulse-heading"><div><p className="eyebrow">Around the NBA</p><h2>NBA Snapshot</h2></div><span className="hub-pending">Snapshot coming soon</span></div>
+        <div className="pulse-heading"><div><p className="eyebrow">Around the NBA</p><h2>NBA Snapshot</h2></div><a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/nba/`}>Full snapshot <ArrowRight /></a></div>
         <div className="pulse-grid">
-          <GamesDonut played={null} total={1230} label="NBA regular season" />
-          <article><span><Trophy />Minimum sample</span><strong>5</strong><b>Games per team</b><small>rankings activation threshold</small></article>
-          <article><span><Shield />Team performance</span><strong>—</strong><b>Waiting for season data</b><small>offense and defense</small></article>
-          <article><span><TrendingUp />League standouts</span><strong>—</strong><b>Waiting for season data</b><small>player leaders</small></article>
+          <article><span><Activity />Best scoring</span><strong>{nbaOffense ? (nbaOffense.pointsFor/nbaOffense.gamesPlayed).toFixed(1) : "—"}</strong><b>{nbaOffense?.name ?? "No games yet"}</b><small>points per game</small></article>
+          <article><span><Shield />Best defense</span><strong>{nbaDefense ? (nbaDefense.pointsAgainst/nbaDefense.gamesPlayed).toFixed(1) : "—"}</strong><b>{nbaDefense?.name ?? "No games yet"}</b><small>points allowed per game</small></article>
+          <article><span><Trophy />Best record</span><strong>{nbaRecord ? `${nbaRecord.wins}–${nbaRecord.losses}` : "—"}</strong><b>{nbaRecord?.name ?? "No games yet"}</b><small>by win percentage</small></article>
+          <GamesDonut played={basketball.completedGames} total={1230} label={`${basketball.seasonLabel} NBA regular season`} />
         </div>
       </section>
 

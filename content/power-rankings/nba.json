@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": 1,
+  "league": "nba",
+  "season": 2027,
+  "seasonComplete": false,
+  "ready": true,
+  "slot": "2026-11-03",
+  "publishedAt": "2026-11-05T14:34:47.061Z",
+  "asOf": "2026-11-05T14:33:27.760Z",
+  "completedGames": 121,
+  "headline": "At No. 1: Portland Trail Blazers",
+  "introduction": "The No. 1 spot belongs to Portland Trail Blazers on this week’s board. Here’s how all 30 teams stack up, based on 121 completed regular-season games. Read the quick take for each team, then open the numbers if you want to dig deeper.",
+  "methodology": "Jay’s NBA Index: win percentage 60%, scoring margin per game 40%. Margin uses a bounded curve centered on zero (10-point scale). This standings-only model does not adjust for pace, opponent strength or recent form. Every team needs five regular-season games.",
+  "teams": [
+    {
+      "id": "22",
+      "name": "Portland Trail Blazers",
+      "abbreviation": "POR",
+      "rank": 1,
+      "score": 87.54001439434987,
+      "record": "6–1",
+      "movement": null,
+      "story": "Portland Trail Blazers take No. 1 with a 6–1 record. They score 121.9 points per game and allow 110.7, for a +11.1 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "87.5"
+        },
+        {
+          "label": "Record",
+          "value": "6–1"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.857"
+        },
+        {
+          "label": "Points per game",
+          "value": "121.9"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "110.7"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+11.1"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "name": "Philadelphia 76ers",
+      "abbreviation": "PHI",
+      "rank": 2,
+      "score": 83.75430193513775,
+      "record": "8–1",
+      "movement": null,
+      "story": "Philadelphia 76ers take No. 2 with a 8–1 record. They score 111.0 points per game and allow 105.2, for a +5.8 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "83.8"
+        },
+        {
+          "label": "Record",
+          "value": "8–1"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.889"
+        },
+        {
+          "label": "Points per game",
+          "value": "111.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "105.2"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+5.8"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "name": "Houston Rockets",
+      "abbreviation": "HOU",
+      "rank": 3,
+      "score": 82.17150362634573,
+      "record": "7–2",
+      "movement": null,
+      "story": "Houston Rockets take No. 3 with a 7–2 record. They score 117.9 points per game and allow 107.6, for a +10.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "82.2"
+        },
+        {
+          "label": "Record",
+          "value": "7–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.778"
+        },
+        {
+          "label": "Points per game",
+          "value": "117.9"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "107.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+10.3"
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "name": "Memphis Grizzlies",
+      "abbreviation": "MEM",
+      "rank": 4,
+      "score": 80.82675107523994,
+      "record": "6–2",
+      "movement": null,
+      "story": "Memphis Grizzlies take No. 4 with a 6–2 record. They score 120.5 points per game and allow 109.8, for a +10.8 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "80.8"
+        },
+        {
+          "label": "Record",
+          "value": "6–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.750"
+        },
+        {
+          "label": "Points per game",
+          "value": "120.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "109.8"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+10.8"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "name": "Los Angeles Lakers",
+      "abbreviation": "LAL",
+      "rank": 5,
+      "score": 79.82225067374011,
+      "record": "7–2",
+      "movement": null,
+      "story": "Los Angeles Lakers take No. 5 with a 7–2 record. They score 121.8 points per game and allow 113.9, for a +7.9 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "79.8"
+        },
+        {
+          "label": "Record",
+          "value": "7–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.778"
+        },
+        {
+          "label": "Points per game",
+          "value": "121.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "113.9"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+7.9"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "name": "Detroit Pistons",
+      "abbreviation": "DET",
+      "rank": 6,
+      "score": 79.68143039208682,
+      "record": "6–2",
+      "movement": null,
+      "story": "Detroit Pistons take No. 6 with a 6–2 record. They score 111.1 points per game and allow 101.8, for a +9.4 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "79.7"
+        },
+        {
+          "label": "Record",
+          "value": "6–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.750"
+        },
+        {
+          "label": "Points per game",
+          "value": "111.1"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "101.8"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+9.4"
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "name": "San Antonio Spurs",
+      "abbreviation": "SA",
+      "rank": 7,
+      "score": 78.55564201693659,
+      "record": "6–2",
+      "movement": null,
+      "story": "San Antonio Spurs take No. 7 with a 6–2 record. They score 116.9 points per game and allow 108.6, for a +8.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "78.6"
+        },
+        {
+          "label": "Record",
+          "value": "6–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.750"
+        },
+        {
+          "label": "Points per game",
+          "value": "116.9"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "108.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+8.3"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "name": "Minnesota Timberwolves",
+      "abbreviation": "MIN",
+      "rank": 8,
+      "score": 76.16681183261275,
+      "record": "6–3",
+      "movement": null,
+      "story": "Minnesota Timberwolves take No. 8 with a 6–3 record. They score 118.8 points per game and allow 107.6, for a +11.2 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "76.2"
+        },
+        {
+          "label": "Record",
+          "value": "6–3"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.667"
+        },
+        {
+          "label": "Points per game",
+          "value": "118.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "107.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+11.2"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Boston Celtics",
+      "abbreviation": "BOS",
+      "rank": 9,
+      "score": 75.7409913399607,
+      "record": "6–2",
+      "movement": null,
+      "story": "Boston Celtics take No. 9 with a 6–2 record. They score 114.3 points per game and allow 108.3, for a +6.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "75.7"
+        },
+        {
+          "label": "Record",
+          "value": "6–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.750"
+        },
+        {
+          "label": "Points per game",
+          "value": "114.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "108.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+6.0"
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "name": "Oklahoma City Thunder",
+      "abbreviation": "OKC",
+      "rank": 10,
+      "score": 67.48706003543192,
+      "record": "6–2",
+      "movement": null,
+      "story": "Oklahoma City Thunder take No. 10 with a 6–2 record. They score 110.0 points per game and allow 108.8, for a +1.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "67.5"
+        },
+        {
+          "label": "Record",
+          "value": "6–2"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.750"
+        },
+        {
+          "label": "Points per game",
+          "value": "110.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "108.8"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+1.3"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Golden State Warriors",
+      "abbreviation": "GS",
+      "rank": 11,
+      "score": 63.09664386950937,
+      "record": "5–3",
+      "movement": null,
+      "story": "Golden State Warriors take No. 11 with a 5–3 record. They score 117.5 points per game and allow 114.6, for a +2.9 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "63.1"
+        },
+        {
+          "label": "Record",
+          "value": "5–3"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.625"
+        },
+        {
+          "label": "Points per game",
+          "value": "117.5"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "114.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+2.9"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "name": "New York Knicks",
+      "abbreviation": "NY",
+      "rank": 12,
+      "score": 59.04459925043116,
+      "record": "4–4",
+      "movement": null,
+      "story": "New York Knicks take No. 12 with a 4–4 record. They score 110.0 points per game and allow 105.1, for a +4.9 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "59.0"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "110.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "105.1"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+4.9"
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "Atlanta Hawks",
+      "abbreviation": "ATL",
+      "rank": 13,
+      "score": 58.75027837033443,
+      "record": "5–4",
+      "movement": null,
+      "story": "Atlanta Hawks take No. 13 with a 5–4 record. They score 115.8 points per game and allow 113.0, for a +2.8 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "58.8"
+        },
+        {
+          "label": "Record",
+          "value": "5–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.556"
+        },
+        {
+          "label": "Points per game",
+          "value": "115.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "113.0"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+2.8"
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "name": "Toronto Raptors",
+      "abbreviation": "TOR",
+      "rank": 14,
+      "score": 58.23140111348045,
+      "record": "4–4",
+      "movement": null,
+      "story": "Toronto Raptors take No. 14 with a 4–4 record. They score 117.9 points per game and allow 113.5, for a +4.4 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "58.2"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "117.9"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "113.5"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+4.4"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "name": "Denver Nuggets",
+      "abbreviation": "DEN",
+      "rank": 15,
+      "score": 55.71186283335886,
+      "record": "4–3",
+      "movement": null,
+      "story": "Denver Nuggets take No. 15 with a 4–3 record. They score 115.4 points per game and allow 114.7, for a +0.7 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "55.7"
+        },
+        {
+          "label": "Record",
+          "value": "4–3"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.571"
+        },
+        {
+          "label": "Points per game",
+          "value": "115.4"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "114.7"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+0.7"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "New Orleans Pelicans",
+      "abbreviation": "NO",
+      "rank": 16,
+      "score": 54.662660180852775,
+      "record": "4–4",
+      "movement": null,
+      "story": "New Orleans Pelicans take No. 16 with a 4–4 record. They score 121.6 points per game and allow 119.3, for a +2.4 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "54.7"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "121.6"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "119.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+2.4"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "name": "Cleveland Cavaliers",
+      "abbreviation": "CLE",
+      "rank": 17,
+      "score": 54.18716338856038,
+      "record": "4–4",
+      "movement": null,
+      "story": "Cleveland Cavaliers take No. 17 with a 4–4 record. They score 119.3 points per game and allow 117.1, for a +2.1 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "54.2"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "119.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "117.1"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "+2.1"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "name": "Dallas Mavericks",
+      "abbreviation": "DAL",
+      "rank": 18,
+      "score": 49.75001302001959,
+      "record": "4–4",
+      "movement": null,
+      "story": "Dallas Mavericks take No. 18 with a 4–4 record. They score 112.1 points per game and allow 112.3, for a -0.1 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "49.8"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "112.1"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "112.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-0.1"
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "name": "Washington Wizards",
+      "abbreviation": "WSH",
+      "rank": 19,
+      "score": 49.75001302001959,
+      "record": "4–4",
+      "movement": null,
+      "story": "Washington Wizards take No. 19 with a 4–4 record. They score 108.9 points per game and allow 109.0, for a -0.1 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "49.8"
+        },
+        {
+          "label": "Record",
+          "value": "4–4"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.500"
+        },
+        {
+          "label": "Points per game",
+          "value": "108.9"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "109.0"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-0.1"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Indiana Pacers",
+      "abbreviation": "IND",
+      "rank": 20,
+      "score": 34.17374815096818,
+      "record": "3–6",
+      "movement": null,
+      "story": "Indiana Pacers take No. 20 with a 3–6 record. They score 111.2 points per game and allow 114.2, for a -3.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "34.2"
+        },
+        {
+          "label": "Record",
+          "value": "3–6"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.333"
+        },
+        {
+          "label": "Points per game",
+          "value": "111.2"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "114.2"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-3.0"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "name": "Miami Heat",
+      "abbreviation": "MIA",
+      "rank": 21,
+      "score": 33.45540074956883,
+      "record": "3–5",
+      "movement": null,
+      "story": "Miami Heat take No. 21 with a 3–5 record. They score 118.0 points per game and allow 122.9, for a -4.9 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "33.5"
+        },
+        {
+          "label": "Record",
+          "value": "3–5"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.375"
+        },
+        {
+          "label": "Points per game",
+          "value": "118.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "122.9"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-4.9"
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "name": "Charlotte Hornets",
+      "abbreviation": "CHA",
+      "rank": 22,
+      "score": 23.910904394031974,
+      "record": "3–6",
+      "movement": null,
+      "story": "Charlotte Hornets take No. 22 with a 3–6 record. They score 98.1 points per game and allow 109.2, for a -11.1 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "23.9"
+        },
+        {
+          "label": "Record",
+          "value": "3–6"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.333"
+        },
+        {
+          "label": "Points per game",
+          "value": "98.1"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "109.2"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-11.1"
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Brooklyn Nets",
+      "abbreviation": "BKN",
+      "rank": 23,
+      "score": 23.908005553012355,
+      "record": "2–6",
+      "movement": null,
+      "story": "Brooklyn Nets take No. 23 with a 2–6 record. They score 106.6 points per game and allow 112.9, for a -6.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "23.9"
+        },
+        {
+          "label": "Record",
+          "value": "2–6"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.250"
+        },
+        {
+          "label": "Points per game",
+          "value": "106.6"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "112.9"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-6.3"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "name": "Orlando Magic",
+      "abbreviation": "ORL",
+      "rank": 24,
+      "score": 22.816900596019508,
+      "record": "2–5",
+      "movement": null,
+      "story": "Orlando Magic take No. 24 with a 2–5 record. They score 105.7 points per game and allow 114.7, for a -9.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "22.8"
+        },
+        {
+          "label": "Record",
+          "value": "2–5"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.286"
+        },
+        {
+          "label": "Points per game",
+          "value": "105.7"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "114.7"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-9.0"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "name": "LA Clippers",
+      "abbreviation": "LAC",
+      "rank": 25,
+      "score": 16.066600678297654,
+      "record": "1–7",
+      "movement": null,
+      "story": "LA Clippers take No. 25 with a 1–7 record. They score 109.1 points per game and allow 115.6, for a -6.5 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "16.1"
+        },
+        {
+          "label": "Record",
+          "value": "1–7"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.125"
+        },
+        {
+          "label": "Points per game",
+          "value": "109.1"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "115.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-6.5"
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "name": "Phoenix Suns",
+      "abbreviation": "PHX",
+      "rank": 26,
+      "score": 13.990019764787403,
+      "record": "1–5",
+      "movement": null,
+      "story": "Phoenix Suns take No. 26 with a 1–5 record. They score 113.3 points per game and allow 124.3, for a -11.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "14.0"
+        },
+        {
+          "label": "Record",
+          "value": "1–5"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.167"
+        },
+        {
+          "label": "Points per game",
+          "value": "113.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "124.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-11.0"
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "name": "Utah Jazz",
+      "abbreviation": "UTAH",
+      "rank": 27,
+      "score": 11.31397859596438,
+      "record": "1–7",
+      "movement": null,
+      "story": "Utah Jazz take No. 27 with a 1–7 record. They score 107.8 points per game and allow 119.0, for a -11.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "11.3"
+        },
+        {
+          "label": "Record",
+          "value": "1–7"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.125"
+        },
+        {
+          "label": "Points per game",
+          "value": "107.8"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "119.0"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-11.3"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "name": "Milwaukee Bucks",
+      "abbreviation": "MIL",
+      "rank": 28,
+      "score": 10.677541967359133,
+      "record": "1–7",
+      "movement": null,
+      "story": "Milwaukee Bucks take No. 28 with a 1–7 record. They score 110.0 points per game and allow 122.3, for a -12.3 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "10.7"
+        },
+        {
+          "label": "Record",
+          "value": "1–7"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.125"
+        },
+        {
+          "label": "Points per game",
+          "value": "110.0"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "122.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-12.3"
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "name": "Sacramento Kings",
+      "abbreviation": "SAC",
+      "rank": 29,
+      "score": 9.79296703595475,
+      "record": "1–7",
+      "movement": null,
+      "story": "Sacramento Kings take No. 29 with a 1–7 record. They score 109.3 points per game and allow 123.3, for a -14.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "9.8"
+        },
+        {
+          "label": "Record",
+          "value": "1–7"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.125"
+        },
+        {
+          "label": "Points per game",
+          "value": "109.3"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "123.3"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-14.0"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Chicago Bulls",
+      "abbreviation": "CHI",
+      "rank": 30,
+      "score": 8.563879743074635,
+      "record": "1–7",
+      "movement": null,
+      "story": "Chicago Bulls take No. 30 with a 1–7 record. They score 111.6 points per game and allow 129.6, for a -18.0 scoring margin per game.",
+      "stats": [
+        {
+          "label": "Jay’s Index",
+          "value": "8.6"
+        },
+        {
+          "label": "Record",
+          "value": "1–7"
+        },
+        {
+          "label": "Win percentage",
+          "value": "0.125"
+        },
+        {
+          "label": "Points per game",
+          "value": "111.6"
+        },
+        {
+          "label": "Points allowed per game",
+          "value": "129.6"
+        },
+        {
+          "label": "Scoring margin per game",
+          "value": "-18.0"
+        }
+      ]
+    }
+  ]
+}
