@@ -155,3 +155,7 @@ The snapshot's MVP model uses points 40%, assists 20%, rebounds 20%, steals 10%,
 ### NBA scoring-type donut
 
 The NBA snapshot shows total league points contributed by free throws, three-pointers and two-point field goals. Each slice measures points, not shots made; the legend includes both points/percentages and made-shot counts. Shooting totals come from completed-game box scores and must reconcile as `FTM + 3 × 3PM + 2 × (FGM − 3PM) = final score` for each team and game. Cached games without shooting totals are fetched once to backfill the new fields. The complete regular-season breakdown (including overtime) refreshes hourly with the snapshot.
+
+### NBA playoff picture
+
+The bottom of the NBA Standings tab shows the postseason field if the season ended at the current snapshot. It follows ESPN's published conference order, including tied-record ordering, rather than Jay's power rankings. In each conference it shows direct positions 1–6; play-in games with 7 hosting 8 and 9 hosting 10; the final play-in matchup hosted by the 7/8 loser; and the fixed first-round bracket (1/8, 4/5, 2/7, 3/6). Playoff seeds 7 and 8 remain placeholders until play-in results exist, without assuming the current seventh/eighth teams qualify. It also lists positions 11–15 outside the play-in. The section uses the same hourly snapshot and does not predict winners or claim teams have clinched. Sources: [NBA play-in format](https://www.nba.com/news/nba-play-in-tournament) and [NBA playoffs](https://www.nba.com/playoffs).

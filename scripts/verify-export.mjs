@@ -160,3 +160,11 @@ const { basketballScoringBreakdown } = await import("../lib/nba-scoring.ts");
 const scoring=basketballScoringBreakdown(nba.playerStats.scoring,nba.teams.reduce((n,t)=>n+t.pointsFor,0));
 if(!nbaHtml.includes('id="scoring-breakdown"') || !nbaHtml.includes(`${scoring.total} total points: ${scoring.freeThrows} from free throws, ${scoring.threePointers} from three-pointers, ${scoring.twoPointers} from two-point field goals`)) throw new Error("NBA scoring donut missing or mismatched in dashboard HTML");
 console.log("NBA scoring-type points donut matches league scoring totals");
+
+const { basketballPlayoffPicture } = await import("../lib/nba-playoffs.ts");
+if(!nbaHtml.includes('id="playoff-picture"') || nbaHtml.indexOf('id="playoff-picture"')<nbaHtml.indexOf('id="division-standings"') || nbaHtml.indexOf('id="playoff-picture"')>nbaHtml.indexOf('id="stats-panel"')) throw new Error("NBA playoff picture must follow standings inside the standings tab");
+for(const side of basketballPlayoffPicture(nba.teams)) {
+  for(const team of [...side.direct,...side.playIn]) if(!nbaHtml.includes(team.name)) throw new Error("NBA postseason team missing from export");
+}
+for(const text of ["Winner of 7 vs. 8","Winner of final play-in game","Final play-in game","Outside the play-in"]) if(!nbaHtml.includes(text)) throw new Error("NBA playoff/play-in format missing from export");
+console.log("NBA playoff picture and undecided play-in seeds verified below standings");
