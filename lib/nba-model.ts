@@ -1,3 +1,4 @@
+import { validateNbaPlayerStats, type NbaPlayerStats } from "./nba-player-stats.ts";
 export type BasketballTeam = {
   id:string; name:string; abbreviation:string; conference:string; conferenceRank:number;
   wins:number; losses:number; gamesPlayed:number; winPercentage:number; gamesBehind:number;
@@ -5,7 +6,7 @@ export type BasketballTeam = {
 };
 export type BasketballSnapshot = {
   schemaVersion:1; season:number; seasonLabel:string; seasonType:2; updatedAt:string;
-  completedGames:number; rankingsReady:boolean; teams:BasketballTeam[];
+  completedGames:number; rankingsReady:boolean; teams:BasketballTeam[]; playerStats?:NbaPlayerStats;
 };
 const conferences = ["Eastern Conference", "Western Conference"];
 export function validateBasketballSnapshot(data:BasketballSnapshot):BasketballSnapshot {
@@ -30,6 +31,7 @@ export function validateBasketballSnapshot(data:BasketballSnapshot):BasketballSn
   const sum=(key:"wins"|"losses"|"pointsFor"|"pointsAgainst")=>data.teams.reduce((n,t)=>n+t[key],0);
   if (sum("wins")!==sum("losses") || sum("pointsFor")!==sum("pointsAgainst") ||
       data.completedGames!==sum("wins") || data.rankingsReady!==data.teams.every(t=>t.gamesPlayed>=5)) fail();
+  if(data.playerStats) validateNbaPlayerStats(data.playerStats,data.teams,data.season,data.completedGames);
   return data;
 }
 

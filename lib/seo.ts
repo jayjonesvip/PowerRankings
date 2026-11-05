@@ -4,7 +4,7 @@ export const descriptions = {
   home: "NFL, NHL, MLB and NBA regular-season standings, player leaders, MVP picks and team stats updated hourly, plus Jay’s weekly power rankings.",
   nfl: "NFL division standings, playoff picture, player leaders, offensive and defensive MVP picks, and team performance. Regular-season snapshots updated hourly.",
   nhl: "NHL division standings, playoff picture, goals, assists and points leaders, team scoring, goalie leaders and MVP picks. Regular-season snapshots updated hourly.",
-  nba: "NBA regular-season conference standings, team records, scoring and defense updated hourly, plus Jay’s weekly power rankings.",
+  nba: "NBA conference standings, scoring, assist, rebound, steal and block leaders, plus an all-around MVP race weighted by team success. Updated hourly.",
   mlb: "MLB regular-season standings, playoff seeding, team hitting and pitching, home-run and batting-average leaders, and hitter and pitcher MVP picks.",
 };
 export function pageMetadata(path: string, title: string, description: string, portrait = false): Metadata {

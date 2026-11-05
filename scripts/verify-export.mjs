@@ -146,3 +146,12 @@ const nba=validateBasketballSnapshot(JSON.parse(await readFile("out/data/nba/cur
 const nbaHtml=await htmlText("out/nba/index.html");
 if(nba.teams.some(t=>!nbaHtml.includes(t.name)) || !nbaHtml.includes('id="standings-panel"') || !nbaHtml.includes("Current season by the numbers") || hubHtml.includes("Snapshot coming soon")) throw new Error("NBA standings/dashboard must be prerendered");
 console.log("NBA standings, snapshot and home card verified");
+
+const { nbaPlayerLeaders, nbaMvpCandidates } = await import("../lib/nba-player-stats.ts");
+const { rankBasketballTeams } = await import("../lib/nba-model.ts");
+if(!nba.playerStats || !nbaHtml.includes('id="stats-panel"') || !nbaHtml.includes('id="stats-tab"') || !nbaHtml.includes('id="league-mvps"')) throw new Error("NBA player stats or MVP markup missing");
+const escapeHtml = value=>value.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#x27;");
+for(const rows of Object.values(nbaPlayerLeaders(nba.playerStats,nba.teams))) for(const player of rows) if(!nbaHtml.includes(escapeHtml(player.name))) throw new Error("NBA player leader must be prerendered");
+const candidates=nbaMvpCandidates(nba.playerStats,rankBasketballTeams(nba.teams));
+if(candidates.length>=2 && !nbaHtml.includes(escapeHtml(candidates[0].name))) throw new Error("NBA MVP must be prerendered");
+console.log("NBA per-game player leaders and team-weighted all-around MVP verified");
