@@ -54,7 +54,8 @@ const games=await mapLimit([...events.values()],async ({event})=>{
   const path=`${directory}/${event.id}.json`;
   let game;
   try {game=JSON.parse(await readFile(path,"utf8"));}catch(error){if(error.code!=="ENOENT")throw error;}
-  if(!game) {
+  // Refresh older cached box scores once to add their shooting-type totals.
+  if(!game || game.teams?.some(team=>!team.scoring)) {
     game=parseNbaGame(await request(`${api}/summary?event=${event.id}`),event.id,season);
     await writeFile(`${path}.tmp`,JSON.stringify(game)+"\n");await rename(`${path}.tmp`,path);
   }

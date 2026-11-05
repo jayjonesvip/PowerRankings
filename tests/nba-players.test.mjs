@@ -6,7 +6,7 @@ const team=(id,extra={})=>({id,name:`Team ${id}`,abbreviation:id,conference:"Eas
 const stint=(teamId,extra={})=>({teamId,gamesPlayed:10,points:250,assists:50,rebounds:70,steals:10,blocks:10,pointsInWins:120,...extra});
 const player=(id,teamId,extra={})=>({id,name:`Player ${id}`,stints:[stint(teamId,extra)]});
 const data=players=>({season:2027,seasonType:2,completedGames:10,players});
-const sample=()=>({header:{id:"game",season:{year:2027,type:2},competitions:[{status:{type:{completed:true}},competitors:[{id:"1",score:"100"},{id:"2",score:"90"}]}]},boxscore:{players:[100,90].map((score,i)=>({team:{id:String(i+1)},statistics:[{names:["PTS","AST","REB","STL","BLK"],athletes:[{athlete:{id:String(i+1),displayName:`Player ${i+1}`},stats:[String(score),"5","8","2","1"],didNotPlay:false},{athlete:{id:`dnp${i}`},stats:[],didNotPlay:true}]}]}))}});
+const sample=()=>({header:{id:"game",season:{year:2027,type:2},competitions:[{status:{type:{completed:true}},competitors:[{id:"1",score:"100"},{id:"2",score:"90"}]}]},boxscore:{players:[100,90].map((score,i)=>({team:{id:String(i+1)},statistics:[{names:["PTS","AST","REB","STL","BLK","FG","3PT","FT"],totals:[String(score),"5","8","2","1",`${(score-20)/2}-80`,"10-30","10-12"],athletes:[{athlete:{id:String(i+1),displayName:`Player ${i+1}`},stats:[String(score),"5","8","2","1"],didNotPlay:false},{athlete:{id:`dnp${i}`},stats:[],didNotPlay:true}]}]}))}});
 test("NBA box-score parsing reads named columns and excludes DNP players",()=>{
   const game=parseNbaGame(sample(),"game",2027);assert.equal(game.teams[0].players.length,1);assert.equal(game.teams[1].players[0].points,90);assert.equal(game.teams[0].players[0].assists,5);
 });
@@ -17,7 +17,7 @@ test("NBA player parsing rejects playoffs, incomplete scoring, duplicate players
 });
 test("NBA aggregation combines traded player stints and reconciles every team's wins and scoring",()=>{
   const first=parseNbaGame(sample(),"game",2027);
-  const second=structuredClone(first);second.id="game2";second.teams[0].score=80;second.teams[0].players[0]={...second.teams[0].players[0],id:"3",name:"Player 3",points:80};second.teams[1].score=100;second.teams[1].players[0]={...second.teams[1].players[0],id:"1",name:"Player 1",points:100};
+  const second=structuredClone(first);second.id="game2";second.teams[0].score=80;second.teams[0].scoring={freeThrowsMade:10,threePointersMade:0,twoPointersMade:35};second.teams[0].players[0]={...second.teams[0].players[0],id:"3",name:"Player 3",points:80};second.teams[1].score=100;second.teams[1].scoring={freeThrowsMade:10,threePointersMade:10,twoPointersMade:30};second.teams[1].players[0]={...second.teams[1].players[0],id:"1",name:"Player 1",points:100};
   const teams=[team("1",{gamesPlayed:2,wins:1,losses:1,pointsFor:180,pointsAgainst:190}),team("2",{gamesPlayed:2,wins:1,losses:1,pointsFor:190,pointsAgainst:180})];
   const result=aggregateNbaPlayers([first,second],teams,2027);
   assert.equal(result.players.find(p=>p.id==="1").stints.length,2);

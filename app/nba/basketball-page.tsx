@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { RefreshCw } from "lucide-react";
 import { PlayerLeaders } from "@/components/player-leaders";
+import { NbaScoringDonut } from "@/components/nba-scoring-donut";
 import { NbaMvp } from "@/components/nba-mvp";
 import { nbaPlayerLeaders } from "@/lib/nba-player-stats";
 import { HeaderNavigation } from "@/components/header-navigation";
@@ -38,7 +39,7 @@ export default function BasketballPage({initialData}:{initialData:BasketballSnap
       <article><span>Best defense</span><strong>{defense.value}</strong><b>{defense.names}</b><small>fewest points allowed per game</small></article>
       <article><span>Best record</span><strong>{played.length?bestRecord.toFixed(3):"—"}</strong><b>{played.filter(t=>t.winPercentage===bestRecord).map(t=>t.name).join(" / ")||"No games yet"}</b><small>win percentage</small></article>
       <article><span>Season progress</span><strong>{data.completedGames.toLocaleString("en-US")}</strong><b>Completed games</b><small>Regular season only</small></article>
-    </div></section><p className="controls">{data.rankingsReady?"The five-game sample is ready for Jay’s weekly rankings.":"Weekly rankings activate after every team has five completed games."} Scoring rates are points per game, without pace or opponent adjustment.</p><NbaMvp data={data.playerStats} teams={data.teams}/></section>
+    </div></section><p className="controls">{data.rankingsReady?"The five-game sample is ready for Jay’s weekly rankings.":"Weekly rankings activate after every team has five completed games."} Scoring rates are points per game, without pace or opponent adjustment.</p><NbaScoringDonut scoring={data.playerStats?.scoring}/><NbaMvp data={data.playerStats} teams={data.teams}/></section>
     <section id="standings-panel" role="tabpanel" aria-labelledby="standings-tab" hidden={view!=="standings"}><section id="division-standings" className="nba-standings"><h2>Conference standings</h2><p>Conference order and games back follow ESPN. Rankings are a separate weekly column.</p>{["Eastern Conference","Western Conference"].map(conference=><section key={conference}><h3>{conference}</h3><div className="nba-table-scroll"><table><caption className="sr-only">{conference} regular-season standings</caption><thead><tr>{["Position","Team","GP","W","L","PCT","GB","PPG","Opp PPG","Diff / game","L10","Streak"].map(h=><th key={h} scope="col">{h}</th>)}</tr></thead><tbody>{data.teams.filter(t=>t.conference===conference).sort((a,b)=>a.conferenceRank-b.conferenceRank).map(t=><tr key={t.id}><td>{t.conferenceRank}</td><th scope="row">{t.name}</th><td>{t.gamesPlayed}</td><td>{t.wins}</td><td>{t.losses}</td><td>{t.winPercentage.toFixed(3)}</td><td>{t.gamesBehind||"—"}</td><td>{t.gamesPlayed?(t.pointsFor/t.gamesPlayed).toFixed(1):"—"}</td><td>{t.gamesPlayed?(t.pointsAgainst/t.gamesPlayed).toFixed(1):"—"}</td><td>{t.gamesPlayed?((t.pointsFor-t.pointsAgainst)/t.gamesPlayed).toFixed(1):"—"}</td><td>{t.lastTen}</td><td>{t.streak}</td></tr>)}</tbody></table></div></section>)}</section></section>
     <section id="stats-panel" role="tabpanel" aria-labelledby="stats-tab" hidden={view!=="stats"}>
       <PlayerLeaders id="player-leaders" title="NBA player leaders" categories={[

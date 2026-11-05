@@ -155,3 +155,8 @@ for(const rows of Object.values(nbaPlayerLeaders(nba.playerStats,nba.teams))) fo
 const candidates=nbaMvpCandidates(nba.playerStats,rankBasketballTeams(nba.teams));
 if(candidates.length>=2 && !nbaHtml.includes(escapeHtml(candidates[0].name))) throw new Error("NBA MVP must be prerendered");
 console.log("NBA per-game player leaders and team-weighted all-around MVP verified");
+
+const { basketballScoringBreakdown } = await import("../lib/nba-scoring.ts");
+const scoring=basketballScoringBreakdown(nba.playerStats.scoring,nba.teams.reduce((n,t)=>n+t.pointsFor,0));
+if(!nbaHtml.includes('id="scoring-breakdown"') || !nbaHtml.includes(`${scoring.total} total points: ${scoring.freeThrows} from free throws, ${scoring.threePointers} from three-pointers, ${scoring.twoPointers} from two-point field goals`)) throw new Error("NBA scoring donut missing or mismatched in dashboard HTML");
+console.log("NBA scoring-type points donut matches league scoring totals");
